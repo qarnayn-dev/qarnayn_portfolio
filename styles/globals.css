@@ -8,7 +8,27 @@
     :root{
         --neutral-black : 23,23,23;
         --neutral-white : 242,242,242;
-        @apply light-color-pallete gray-light-pallete duration-300 bg-themed-gray-base text-themed-gray-inverse
+        @apply light-color-pallete gray-light-pallete duration-300 bg-themed-gray-base text-themed-gray-inverse font-poppins style-body font-light
+    }
+
+    /* Heading scaled */
+    .style-heading{
+        @apply text-xl mobile-lg:text-2xl xl:text-3xl font-medium
+    }
+
+    /* Sub-heading scaled */
+    .style-subheading{
+        @apply text-base mobile-lg:text-xl xl:text-2xl
+    }
+
+    /* Sub-heading scaled */
+    .style-body{
+        @apply text-sm mobile-lg:text-base xl:text-xl
+    }
+
+    /* Sub-heading scaled */
+    .style-secondary{
+        @apply text-gray-500 font-extralight
     }
 
     .dark{
@@ -53,8 +73,8 @@
             --gray-t8: 98, 98, 104;
             /*#626262*/
             --gray-t9: 111, 111, 118;
-            /*#6f6f6f*/
-            --gray-inverse: 235,235,239;
+            --gray-inverse: 210,210,218;
+            /* --gray-inverse: 235,235,248; */
         }
 
     .light-color-pallete{

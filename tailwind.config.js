@@ -24,6 +24,9 @@ module.exports = {
       ...defaultTheme.screens,
     },
     extend: {
+      fontFamily: {
+        poppins: ["Poppins", "sans-serif"],
+      },
       colors: {
         themed: {
           "gray-base": rgbaColor("--gray-base"),
