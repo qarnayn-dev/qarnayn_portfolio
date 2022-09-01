@@ -9,7 +9,7 @@ function SideNavBar() {
 const [isExpanded, setIsExpanded] = useState(false)
 
   // TODO: set the bg color based on theme color
-  const widgetSet: string = isExpanded ? 'w-40 bg-opacity-100 bg-themed-gray-base shadow-md dark:shadow-themed-gray-t4' : 'w-10'
+  const widgetSet: string = isExpanded ? 'w-40 bg-opacity-70 bg-themed-gray-base shadow-md dark:shadow-themed-gray-t3 backdrop-blur-md' : 'w-10'
   const iconSize = 22
 
   function handleTap() {

@@ -31,6 +31,11 @@
         @apply text-gray-500 font-extralight
     }
 
+    /* glasmorphism */
+    .apply-glass{
+        @apply shadow-md dark:shadow-themed-gray-t3 backdrop-blur-md bg-opacity-40
+    }
+
     .dark{
         @apply dark-color-pallete gray-dark-pallete
     }
@@ -58,7 +63,7 @@
 
         .gray-dark-pallete {
             --gray-base: 22, 22, 25;
-            --gray-t2: 25, 25, 29;
+            --gray-t2: 28, 28, 36;
             /*#191919*/
             --gray-t3: 37, 37, 41;
             /*#252525*/
