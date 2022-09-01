@@ -26,8 +26,24 @@ const Home: NextPage = () => {
       </Head>
       <TopFrame>
         <Intro />
-        <ValueContainer/>
-        <ValueContainer/>
+        <CardWithGraphicContainer
+          title={"Some title should be fine"}
+          content={"Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi enim tempore nihil cupiditate voluptas, molestiae libero, facilis deleniti quos inventore odio delectus consectetur, et recusandae. Animi culpa dolor facere molestiae."}
+          graphic={<CostIllu />}
+          graphicOnDark={<CostIlluDark/>}
+        />
+        <CardWithGraphicContainer
+          title={"Some title should be fine"}
+          content={"Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi enim tempore nihil cupiditate voluptas, molestiae libero, facilis deleniti quos inventore odio delectus consectetur, et recusandae. Animi culpa dolor facere molestiae."}
+          graphic={<ServerIllu/>}
+          graphicOnDark={<ServerIlluDark/>}
+        />
+        <CardWithGraphicContainer
+          title={"Some title should be fine"}
+          content={"Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi enim tempore nihil cupiditate voluptas, molestiae libero, facilis deleniti quos inventore odio delectus consectetur, et recusandae. Animi culpa dolor facere molestiae."}
+          graphic={<SolutionIllu/>}
+          graphicOnDark={<SolutionIlluDark/>}
+        />
       </TopFrame >
       {/* <ThemeTester /> */}
       {/* <div className='w-screen h-screen flex flex-col justify-center text-center dark:text-green-700 bg-primary duration-1000'> hello world</div> */}
@@ -64,20 +80,25 @@ const MyValues = () => {
   )
 }
 
-const ValueContainer = () => {
+interface iCardWithGraphic{
+  title: String;
+  content: string;
+  graphic: any;
+  graphicOnDark: any;
+}
+
+/// Provide graphic and some descriptions
+const CardWithGraphicContainer = ({title,content,graphic,graphicOnDark}:iCardWithGraphic )=> {
   const { theme } = useContext(ThemeContext)
   const isDark:boolean = theme === 'dark'
   return (
     <div className='my-6 px-4 md:px-6 py-8 rounded-xl apply-glass h-60 w-full md:max-w-[80%] bg-primary-base bg-opacity-10 flex gap-4 md:gap-6 shadow-sm'>
       <div className='mr-2 min-w-[25%] max-w-[40%] flex'>
-        {/* {isDark ? <CostIlluDark/>: <CostIllu/>} */}
-        {/* {isDark ? <SolutionIlluDark/>: <SolutionIllu/>} */}
-        {isDark ? <ServerIlluDark/>: <ServerIllu/>}
+        {isDark ? graphicOnDark: graphic}
       </div>
       <div className='w-full style-body'>
-        <div className='mb-2 style-subheading'>Event driven approach </div>
-        <div className='style-secondary'>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nihil explicabo aut ea aliquam repudiandae reprehenderit facere fugit praesentium hic ex. Ex quas corrupti voluptatem ad ea. Illum enim minima temporibus.
-        </div>
+        <div className='mb-2 style-subheading'>{title}</div>
+        <div className='style-secondary'>{content}</div>
       </div>
     </div>
   )
