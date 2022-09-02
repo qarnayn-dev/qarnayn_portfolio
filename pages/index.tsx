@@ -1,11 +1,7 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import SideNavBar from '../components/SideNavBar';
-import DarkThemeToggle, { ThemeContext } from '../components/DarkThemeToggle';
-import ThemeTester from '../components/ThemeTester';
-import HorizontalNav from '../components/HorizontalNav';
+import  { ThemeContext } from '../components/DarkThemeToggle';
 import { useContext, useEffect, useState } from 'react';
-import { Transition } from '@headlessui/react';
 import TopFrame from '../components/TopFrame';
 import DevIllustration from '../assets/sw_dev.svg';
 import DevIllustrationDark from '../assets/sw_dev_dark.svg';
@@ -15,6 +11,7 @@ import SolutionIllu from '../assets/solution_mindset.svg';
 import SolutionIlluDark from '../assets/solution_mindset_dark.svg';
 import ServerIllu from '../assets/server_cluster.svg';
 import ServerIlluDark from '../assets/server_cluster_dark.svg';
+import { CardWithGraphicContainer } from '../components/CardWithGraphic';
 
 
 const Home: NextPage = () => {
@@ -80,29 +77,8 @@ const MyValues = () => {
   )
 }
 
-interface iCardWithGraphic{
-  title: String;
-  content: string;
-  graphic: any;
-  graphicOnDark: any;
-}
 
-/// Provide graphic and some descriptions
-const CardWithGraphicContainer = ({title,content,graphic,graphicOnDark}:iCardWithGraphic )=> {
-  const { theme } = useContext(ThemeContext)
-  const isDark:boolean = theme === 'dark'
-  return (
-    <div className='my-6 px-4 md:px-6 py-8 rounded-xl apply-glass h-60 w-full md:max-w-[80%] bg-primary-base bg-opacity-10 flex gap-4 md:gap-6 shadow-sm'>
-      <div className='mr-2 min-w-[25%] max-w-[40%] flex'>
-        {isDark ? graphicOnDark: graphic}
-      </div>
-      <div className='w-full style-body'>
-        <div className='mb-2 style-subheading'>{title}</div>
-        <div className='style-secondary'>{content}</div>
-      </div>
-    </div>
-  )
-}
+
 
 const Background = () => {
   return (
