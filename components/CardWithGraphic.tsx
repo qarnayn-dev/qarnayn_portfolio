@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { useSpringRef, useSpring, useChain, animated } from "react-spring";
+import { useSpringRef, useSpring, useChain, animated, easings } from "react-spring";
 import { ThemeContext } from "./DarkThemeToggle";
 
 interface iCardWithGraphic{
@@ -25,7 +25,7 @@ export const CardWithGraphicContainer = ({title,content,graphic,graphicOnDark}:i
   const titleSpring2Ref = useSpringRef();
   const titleSpring2 = useSpring({
     ref: titleSpring2Ref,
-    config: { duration: 600 },
+    config: { duration: 600, easing: easings.easeOutBounce},
     from: { transform: 'rotateX(180deg)'},
     to: {transform: 'rotateX(0deg)'}
   });
