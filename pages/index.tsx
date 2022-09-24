@@ -12,7 +12,7 @@ import SolutionIlluDark from '../assets/solution_mindset_dark.svg';
 import ServerIllu from '../assets/server_cluster.svg';
 import ServerIlluDark from '../assets/server_cluster_dark.svg';
 import { CardWithGraphicContainer } from '../components/CardWithGraphic';
-import {animated , config, useSpring, useTransition} from 'react-spring';
+import {animated , config, useChain, useSpring, useSpringRef, useTransition} from 'react-spring';
 import { AnimatedText } from '../components/AnimatedText';
 
 const Home: NextPage = () => {
@@ -60,40 +60,15 @@ const Intro = () => {
       <div className='min-w-[40%] float-right mx-6 md:mr-10 '>
         {(theme==='light')? <DevIllustration/>: <DevIllustrationDark/>}
       </div>
-      <div className='float-left w-full'>
-        <h1 className='style-heading'>
-          Hello World! I'm
-          <span className='text-primary-base'> Qarnayn</span>
-        </h1>
-        <h1 className='style-subheading style-secondary'>A software developer with mind of an engineer and eyes of an artist</h1>
-        <div className='mt-4 style-body'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi enim tempore nihil cupiditate voluptas, molestiae libero, facilis deleniti quos inventore odio delectus consectetur, et recusandae. Animi culpa dolor facere molestiae.</div>
-      </div>
-      <div className='text-start w-full'>
+      <div className='float-left w-full style-heading'>
         <AnimatedText
-          textInput={"Hello world, I'm Qarnayn Khairuddin!"}
-          specialTexts={['Qarnayn']}
+          textInput={"Hello world, I'm Qarnayn."}
+          specialTexts={['Qarnayn.']}
           specialStyleClass={`text-primary-t2 font-medium`}
         />
+        <h1 className='style-subheading style-secondary'>A software developer with mind of an engineer and eyes of an artist</h1>
+        <div className='mt-4 style-body'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi enim tempore nihil cupiditate voluptas, molestiae libero, facilis deleniti quos inventore odio delectus consectetur, et recusandae. Animi culpa dolor facere molestiae.</div>
       </div>
     </div>
   )
 }
-
-
-
-const MyValues = () => {
-  return (
-    <>
-
-    </>
-  )
-}
-
-
-
-
-const Background = () => {
-  return (
-    <></>
-  )
- }

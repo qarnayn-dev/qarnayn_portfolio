@@ -9,7 +9,7 @@ interface iAnimatedTextProps{
 }
 
 /// Animate text based on [textInput]
-export const AnimatedText = ({textInput,specialTexts,specialStyleClass}:iAnimatedTextProps) => {
+export const AnimatedText = ({textInput, specialTexts,specialStyleClass}:iAnimatedTextProps) => {
   let wordListAll: string[];
   switch (typeof textInput) {
     case "string":
@@ -74,7 +74,7 @@ const WordAppear = ({myKey,text,focusColor,defaultColor,textStyleClass}:iWordFoc
   useEffect(() => {setTimeout(() => {setOnFocus(false)},500)}, [])
 
   const springStyle = useSpring({
-    config: {duration:600},
+    config: {duration:400},
     from: {
       scale: onFocus ? 1 : 1.5,
       marginLeft: onFocus ? '0' : (text.length < 8 ? '1.5rem' : '2.25rem'),
