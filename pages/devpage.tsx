@@ -9,6 +9,10 @@ const Devpage = () => {
     <TopFrame/>
     <FollowAlong>
         <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
     </FollowAlong>
     {/* <WeirdMaterial/>
     <WeirdMaterial/>
@@ -19,15 +23,16 @@ const Devpage = () => {
 
 export default Devpage
 
-const FollowAlong = (props: Object) => {
-    console.log(props);
-
-    const dummyItems: any[] = [1,2,3];
-    const transitions = useTransition(dummyItems, {
-        trail: 300,
-        config: {duration:700, easing: easings.easeOutBack},
-        keys: dummyItems.map((_, index) => index),
-        from: {opacity : 0 , y: 100},
+const FollowAlong = (props: any) => {
+    const propChildren: any[] = props.children;
+    const numOfChild: number = propChildren.length;
+    const curatedDuration:number = (numOfChild<6)? 230 * numOfChild : 1000;
+    const curatedTrail: number = 300 -((numOfChild > 6) ? (numOfChild - 6) * 10 : 0);
+    const transitions = useTransition(propChildren, {
+        trail: curatedTrail,
+        config: {duration:curatedDuration, easing: easings.easeOutBack},
+        keys: propChildren.map((_, index) => index),
+        from: {opacity : 0 , y: 200},
         enter: {opacity : 1, y: 0},
         to: { opacity: 0 },
         delay: 200,
