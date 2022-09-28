@@ -1,7 +1,7 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import  { ThemeContext } from '../components/DarkThemeToggle';
-import { useContext, useEffect, useState } from 'react';
+import { useContext} from 'react';
 import TopFrame from '../components/TopFrame';
 import DevIllustration from '../assets/sw_dev.svg';
 import DevIllustrationDark from '../assets/sw_dev_dark.svg';
@@ -12,7 +12,6 @@ import SolutionIlluDark from '../assets/solution_mindset_dark.svg';
 import ServerIllu from '../assets/server_cluster.svg';
 import ServerIlluDark from '../assets/server_cluster_dark.svg';
 import { CardWithGraphicContainer } from '../components/CardWithGraphic';
-import {animated , config, useChain, useSpring, useSpringRef, useTransition} from 'react-spring';
 import { AnimatedText } from '../components/AnimatedText';
 
 const Home: NextPage = () => {
