@@ -3,6 +3,7 @@ import type { AppProps } from 'next/app'
 import 'tailwindcss/tailwind.css'
 import {useEffect, useState } from 'react'
 import { ThemeContext, THEME_LKEY} from '../components/DarkThemeToggle';
+import { ParallaxProvider } from 'react-scroll-parallax';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [theme, setTheme] = useState('light')
@@ -33,8 +34,8 @@ function MyApp({ Component, pageProps }: AppProps) {
   },[theme])
 
   return (
-    <ThemeContext.Provider value={{theme,setTheme}}>
-      <Component {...pageProps} />
+    <ThemeContext.Provider value={{ theme, setTheme }}>
+      <ParallaxProvider><Component {...pageProps} /></ParallaxProvider>
     </ThemeContext.Provider>
   )
 }
