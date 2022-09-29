@@ -65,7 +65,7 @@ const Intro = () => {
           specialTexts={['Qarnayn.']}
           specialStyleClass={`text-primary-t2 font-medium`}
         />
-        <h1 className='style-subheading style-secondary'>A software developer with mind of an engineer and eyes of an artist</h1>
+        <h1 className='style-subheading style-secondary'>An engineer who codes with a taste of art</h1>
         <div className='mt-4 style-body'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi enim tempore nihil cupiditate voluptas, molestiae libero, facilis deleniti quos inventore odio delectus consectetur, et recusandae. Animi culpa dolor facere molestiae.</div>
       </div>
     </div>
