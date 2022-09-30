@@ -1,5 +1,4 @@
-import { useContext, useEffect, useState } from "react";
-import { IoSpeedometerOutline } from "react-icons/io5";
+import { useContext,  useState } from "react";
 import { Parallax } from "react-scroll-parallax";
 import { useSpringRef, useSpring, useChain, animated, easings } from "react-spring";
 import { ThemeContext } from "./DarkThemeToggle";
@@ -17,11 +16,9 @@ export const CardWithGraphicContainer = ({ title, content, graphic, graphicOnDar
   const { theme } = useContext(ThemeContext)
   const isDark: boolean = theme === 'dark'
 
-  const photoSpringRef = useSpringRef();
   const photoSpring = useSpring({
-    ref: photoSpringRef,
-    config: { duration: 600 },
-    to: {x:0, scale: 1}
+    config: { duration: 300, easing: easings.easeOutCirc},
+    to: isOpen? {y:0, scale: 1, opacity:1} : {y:100, scale: 0.2,opacity:0.2}
   })
 
   // heading ref
@@ -57,7 +54,7 @@ export const CardWithGraphicContainer = ({ title, content, graphic, graphicOnDar
         <animated.div style={photoSpring} className='mr-2 min-w-[25%] max-w-[40%] flex'>
           {isDark ? graphicOnDark: graphic}
         </animated.div>
-        <div className='w-full style-body'>
+        <div className='style-body'>
           <animated.div style={titleSrping1} className='mb-2 style-subheading'>
             <animated.h2 style={titleSpring2}>{title}</animated.h2>
           </animated.div>
