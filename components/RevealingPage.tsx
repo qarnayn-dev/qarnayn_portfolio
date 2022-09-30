@@ -19,7 +19,7 @@ export const RevealingPage = ({ children, className, opacityScrolling }: iReveal
   return (
     <Parallax
         opacity={opacityScrolling ?[0,2]:undefined}
-      className={`relative ${className??'w-screen h-screen'} ${zPosition}`}>
+      className={`relative w-screen ${className} ${zPosition}`}>
       <>
       {children}
       </>
@@ -29,7 +29,7 @@ export const RevealingPage = ({ children, className, opacityScrolling }: iReveal
                   if (!isInview && p > 0.1 && p<hardCap) setIsInView(true);
                   else if (isInview && p > hardCap) setIsInView(false);
               }}
-        className='w-screen absolute bottom-0 h-20 bg-gradient-to-t from-transparent shadow-end-page'></Parallax>
+        className={`w-full absolute bottom-0 right-0 h-20 bg-gradient-to-t from-transparent  ${isInview?'shadow-end-page':'shadow-none'}`}></Parallax>
     </Parallax>
   )
 }

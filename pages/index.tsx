@@ -13,8 +13,11 @@ import ServerIllu from '../assets/server_cluster.svg';
 import ServerIlluDark from '../assets/server_cluster_dark.svg';
 import { CardWithGraphicContainer } from '../components/CardWithGraphic';
 import { AnimatedText } from '../components/AnimatedText';
+import { RevealingPage } from '../components/RevealingPage';
+import { Parallax } from 'react-scroll-parallax';
 
 const Home: NextPage = () => {
+  const pageConfig: string = "px-4 md:px-5 lg:px-6 py-8";
   return (
       <div className='flex flex-col'>
       <Head>
@@ -22,25 +25,28 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <TopFrame>
-        <Intro />
-        <CardWithGraphicContainer
-          title={"Some title should be fine"}
-          content={"Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi enim tempore nihil cupiditate voluptas, molestiae libero, facilis deleniti quos inventore odio delectus consectetur, et recusandae. Animi culpa dolor facere molestiae."}
-          graphic={<CostIllu />}
-          graphicOnDark={<CostIlluDark/>}
-        />
-        <CardWithGraphicContainer
-          title={"Some title should be fine"}
-          content={"Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi enim tempore nihil cupiditate voluptas, molestiae libero, facilis deleniti quos inventore odio delectus consectetur, et recusandae. Animi culpa dolor facere molestiae."}
-          graphic={<ServerIllu/>}
-          graphicOnDark={<ServerIlluDark/>}
-        />
-        <CardWithGraphicContainer
-          title={"Some title should be fine"}
-          content={"Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi enim tempore nihil cupiditate voluptas, molestiae libero, facilis deleniti quos inventore odio delectus consectetur, et recusandae. Animi culpa dolor facere molestiae."}
-          graphic={<SolutionIllu/>}
-          graphicOnDark={<SolutionIlluDark/>}
-        />
+        <RevealingPage className={`${pageConfig}`}>
+          <Intro />
+          <CardWithGraphicContainer
+            title={"Some title should be fine"}
+            content={"Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi enim tempore nihil cupiditate voluptas, molestiae libero, facilis deleniti quos inventore odio delectus consectetur, et recusandae. Animi culpa dolor facere molestiae."}
+            graphic={<CostIllu />}
+            graphicOnDark={<CostIlluDark/>}
+          />
+          <CardWithGraphicContainer
+            title={"Some title should be fine"}
+            content={"Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi enim tempore nihil cupiditate voluptas, molestiae libero, facilis deleniti quos inventore odio delectus consectetur, et recusandae. Animi culpa dolor facere molestiae."}
+            graphic={<ServerIllu/>}
+            graphicOnDark={<ServerIlluDark/>}
+          />
+          <CardWithGraphicContainer
+            title={"Some title should be fine"}
+            content={"Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi enim tempore nihil cupiditate voluptas, molestiae libero, facilis deleniti quos inventore odio delectus consectetur, et recusandae. Animi culpa dolor facere molestiae."}
+            graphic={<SolutionIllu/>}
+            graphicOnDark={<SolutionIlluDark/>}
+          />
+        </RevealingPage>
+      <Parallax opacity={[0,2]} className="w-screen h-screen"></Parallax>
       </TopFrame >
       {/* <ThemeTester /> */}
       {/* <div className='w-screen h-screen flex flex-col justify-center text-center dark:text-green-700 bg-primary duration-1000'> hello world</div> */}
