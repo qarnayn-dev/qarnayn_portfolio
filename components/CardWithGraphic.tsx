@@ -50,7 +50,7 @@ export const CardWithGraphicContainer = ({ title, content, graphic, graphicOnDar
         opacity={[0, 5]}
         onProgressChange={(progress) => { if (progress > 0.15) setIsOpen(true) }}
         onExit={()=>setIsOpen(false)}
-        className='my-6 px-4 md:px-6 py-8 rounded-xl apply-glass h-60 w-full md:max-w-[80%] bg-primary-base bg-opacity-10 flex gap-4 md:gap-6 shadow-sm justify-center'>
+        className='my-6 px-4 md:px-6 py-8 rounded-xl apply-glass h-60 w-full md:max-w-[80%] bg-themed-gray-base bg-opacity-40 flex gap-4 md:gap-6 shadow-sm justify-center'>
         <animated.div style={photoSpring} className='mr-2 min-w-[25%] max-w-[40%] flex'>
           {isDark ? graphicOnDark: graphic}
         </animated.div>

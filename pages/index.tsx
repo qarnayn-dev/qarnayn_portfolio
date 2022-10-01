@@ -25,7 +25,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <TopFrame>
-        <RevealingPage className={`${pageConfig}`}>
+        <RevealingPage className={`${pageConfig} bg-gradient-to-br from-primary-t5`}>
           <Intro />
           <CardWithGraphicContainer
             title={"Some title should be fine"}
