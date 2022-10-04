@@ -11,8 +11,15 @@ interface iAnimatedColoredText{
     colorDuration?: number,
 }
 
-export const AnimatedColoredText = ({children, isOpen, textConfig, colorConfig,opacityDuration,colorDuration}:iAnimatedColoredText) => {
-    const defaultTextConfig: string = 'font-extrabold text-6xl text-center';
+/**
+ * This Component will animate the text, from  `isOpen == true`.
+ * Any adjustment to the text property e.g. text-alignment, text-size, font and etc, please specify the `textConfig` which can take 'className' property.
+ * `default: 'font-extrabold text-3xl  mobile-lg:text-4xl md:text-5xl text-center'`
+ * Any color specification, please specify the `colorConfig`.
+ * `default: 'bg-gradient-to-bl from-primary-base to-on-primary'`
+*/
+export const AnimatedColoredText = ({children, isOpen, textConfig, colorConfig, opacityDuration, colorDuration}:iAnimatedColoredText) => {
+    const defaultTextConfig: string = 'font-extrabold text-3xl  mobile-lg:text-4xl md:text-5xl text-center';
     const defaultColorConfig: string = 'bg-gradient-to-bl from-primary-base to-on-primary';
 
 
