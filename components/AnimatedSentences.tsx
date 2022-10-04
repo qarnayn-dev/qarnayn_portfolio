@@ -1,5 +1,5 @@
-import { useState, useEffect, CSSProperties } from "react";
-import { easings,useTransition,  animated, useSpring } from "react-spring";
+import { useState, useEffect, CSSProperties, useRef } from "react";
+import { easings,useTransition,  animated, useSpring, useSpringRef, useChain } from "react-spring";
 
 interface iAnimatedSentences{
   children: string,
@@ -22,9 +22,16 @@ export const AnimatedSentences = ({ children,className, focusConfig, afterTextCo
   const [current, setCurrent] = useState(fractions[0]);
 
   const config: string = "flex flex-col items-center justify-center relative";
-  const defaultFocusConfig: string = `${textAlignment??'text-start'} text-lg mobile-lg:text-xl md:text-2xl font-semibold gray-dark-pallete dark:gray-light-pallete text-themed-gray-t6`;
-  const defaultTextAfterConfig: string = `${textAlignment??'text-start'} text-base mobile-lg:text-lg md:text-xl`;
-    const itemConfig: CSSProperties = { position: 'absolute', width: '100%'};
+  const defaultFocusConfig: string = `${textAlignment??'text-start'} text-lg mobile-lg:text-xl md:text-2xl font-medium gray-dark-pallete dark:gray-light-pallete text-themed-gray-t6`;
+  const defaultTextAfterConfig: string = `${textAlignment??'text-start'} style-body`;
+  const itemConfig: CSSProperties = { position: 'absolute', width: '100%'};
+
+  const titleSpringRef = useSpringRef();
+  const titleSpring = useSpring({
+    ref: titleSpringRef,
+    to: { opacity: isFinished? 1 : 0},
+    config: { duration: 1400, easing: easings.easeInCirc},
+  });
 
   const transition = useTransition(current,{
     from: { opacity: 0},
@@ -32,13 +39,14 @@ export const AnimatedSentences = ({ children,className, focusConfig, afterTextCo
     leave: { opacity: 0},
     delay: 200,
     config: { duration: 500 },
-    trail : 800,
+    trail : 600,
   });
 
+  const afterEffectSpringRef = useSpringRef();
   const afterEffectSpring = useSpring({
+    ref: afterEffectSpringRef,
     to: { opacity: isFinished? 1 : 0, x:isFinished? 0 : 100},
-    delay: 600,
-    config: { duration: 1200, easing: easings.easeOutBack},
+    config: { duration: 800, easing: easings.easeOutCirc},
   });
 
 
@@ -61,15 +69,20 @@ export const AnimatedSentences = ({ children,className, focusConfig, afterTextCo
     }
   }, [current]);
 
+  useChain([titleSpringRef,afterEffectSpringRef],[0.2,0.4]);
+
   return (
-    <div className={`${className??'w-screen h-[10%]'} ${config} ${isFinished? afterTextConfig?? defaultTextAfterConfig : focusConfig ?? defaultFocusConfig} `}>
+    <div className={`${className ?? 'w-screen h-[10%]'} ${config} ${afterTextConfig ?? defaultTextAfterConfig} `}>
+      <animated.div style={titleSpring} className="style-heading font-medium mb-4 w-full">Hewoooo Worlddddd</animated.div>
       {
         (isFinished) ?
           <animated.div style={afterEffectSpring}>{children}</animated.div> :
           transition(({ opacity}, item, _, index) => (
             <animated.div
                 key={`acacs#${index}`}
-                style={{opacity: opacity,...itemConfig}}>
+                style={{opacity: opacity,...itemConfig}}
+                className={`${focusConfig ?? defaultFocusConfig}`}
+                >
                 {item}
             </animated.div>
           ))
