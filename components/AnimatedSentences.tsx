@@ -6,7 +6,9 @@ interface iAnimatedSentences{
   className?: string,
   focusConfig?: string,
   afterTextConfig?: string,
-  textAlignment?: string
+  textAlignment?: string,
+  title?: string,
+  isAnimate?: boolean,
 }
 
 /**
@@ -16,15 +18,15 @@ interface iAnimatedSentences{
  * When the text is in focus, `focusConfig` or the default: `'text-start text-lg mobile-lg:text-xl md:text-2xl font-semibold gray-dark-pallete dark:gray-light-pallete text-themed-gray-t6'` will be applied.
  * When the text is finieshed, `afterTextConfig` or the default: `'text-start text-base mobile-lg:text-lg md:text-xl'` will be applied.
  */
-export const AnimatedSentences = ({ children,className, focusConfig, afterTextConfig,textAlignment }: iAnimatedSentences) => {
-  const [isFinished, setIsFinished] = useState(false);
+export const AnimatedSentences = ({ children,className, focusConfig, afterTextConfig,textAlignment, title,isAnimate}: iAnimatedSentences) => {
   const fractions: string[] = children.match(/([^\.!\?]+[\.!\?]+)|([^\.!\?]+$)/g)?.filter((value) => (value !== ' ' && value !== undefined) ? value : null).map((value) => value.trim()) ?? [];
+  if (title) fractions.unshift(title);
+  const [isFinished, setIsFinished] = useState(isAnimate? false : true);
   const [current, setCurrent] = useState(fractions[0]);
 
   const config: string = "flex flex-col items-center justify-center relative";
   const defaultFocusConfig: string = `${textAlignment??'text-start'} text-lg mobile-lg:text-xl md:text-2xl font-medium gray-dark-pallete dark:gray-light-pallete text-themed-gray-t6`;
   const defaultTextAfterConfig: string = `${textAlignment??'text-start'} style-body`;
-  const itemConfig: CSSProperties = { position: 'absolute', width: '100%'};
 
   const titleSpringRef = useSpringRef();
   const titleSpring = useSpring({
@@ -73,15 +75,15 @@ export const AnimatedSentences = ({ children,className, focusConfig, afterTextCo
 
   return (
     <div className={`${className ?? 'w-screen h-[10%]'} ${config} ${afterTextConfig ?? defaultTextAfterConfig} `}>
-      <animated.div style={titleSpring} className="style-heading font-medium mb-4 w-full">Hewoooo Worlddddd</animated.div>
+      <animated.div style={titleSpring} className="style-heading font-medium mb-4 w-full">{title}</animated.div>
       {
         (isFinished) ?
           <animated.div style={afterEffectSpring}>{children}</animated.div> :
           transition(({ opacity}, item, _, index) => (
             <animated.div
                 key={`acacs#${index}`}
-                style={{opacity: opacity,...itemConfig}}
-                className={`${focusConfig ?? defaultFocusConfig}`}
+                style={{opacity: opacity}}
+                className={`${focusConfig ?? defaultFocusConfig} absolute w-full`}
                 >
                 {item}
             </animated.div>
