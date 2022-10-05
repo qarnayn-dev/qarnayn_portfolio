@@ -9,6 +9,8 @@ interface iAnimatedSentences{
   textAlignment?: string,
   title?: string,
   isAnimate?: boolean,
+  // tailwind margin/ padding for the focused
+  twFocusBoundaries?: string,
 }
 
 /**
@@ -18,10 +20,12 @@ interface iAnimatedSentences{
  * When the text is in focus, `focusConfig` or the default: `'text-start text-lg mobile-lg:text-xl md:text-2xl font-semibold gray-dark-pallete dark:gray-light-pallete text-themed-gray-t6'` will be applied.
  * When the text is finieshed, `afterTextConfig` or the default: `'text-start text-base mobile-lg:text-lg md:text-xl'` will be applied.
  */
-export const AnimatedSentences = ({ children,className, focusConfig, afterTextConfig,textAlignment, title,isAnimate}: iAnimatedSentences) => {
+export const AnimatedSentences = ({ children,className, focusConfig, afterTextConfig,textAlignment, title,isAnimate:showAnimation = false, twFocusBoundaries}: iAnimatedSentences) => {
   const fractions: string[] = children.match(/([^\.!\?]+[\.!\?]+)|([^\.!\?]+$)/g)?.filter((value) => (value !== ' ' && value !== undefined) ? value : null).map((value) => value.trim()) ?? [];
   if (title) fractions.unshift(title);
-  const [isFinished, setIsFinished] = useState(isAnimate? false : true);
+
+  // const [showAnimation, setShowAnimation] = useState(isAnimate);
+  const [isFinished, setIsFinished] = useState(false);
   const [current, setCurrent] = useState(fractions[0]);
 
   const config: string = "flex flex-col items-center justify-center relative";
@@ -35,7 +39,9 @@ export const AnimatedSentences = ({ children,className, focusConfig, afterTextCo
     config: { duration: 1400, easing: easings.easeInCirc},
   });
 
-  const transition = useTransition(current,{
+  const transRef = useSpringRef();
+  const transition = useTransition(showAnimation? current:'', {
+    ref: transRef,
     from: { opacity: 0},
     enter: { opacity: 1},
     leave: { opacity: 0},
@@ -53,25 +59,28 @@ export const AnimatedSentences = ({ children,className, focusConfig, afterTextCo
 
 
   useEffect(() => {
-    // determine criteria to run
-    const currentIndex: number = fractions.indexOf(current);
-    const timeFactor: number = 70;
-    // set interval for every dynamically
-    const timesUp: number = (current.length < 42)? 3000 : (current.length) * timeFactor;
-    if (!isFinished && currentIndex != -1 && currentIndex < fractions.length - 1) {
-      const timeOut = setTimeout(() => setCurrent(fractions[currentIndex + 1]), timesUp);
-      return () => clearTimeout(timeOut);
+    if (showAnimation) {
+        // determine criteria to run
+      const currentIndex: number = fractions.indexOf(current);
+      const timeFactor: number = 70;
+      // set interval for every dynamically
+      const timesUp: number = (current.length < 42)? 3000 : (current.length) * timeFactor;
+      if (!isFinished && currentIndex != -1 && currentIndex < fractions.length - 1) {
+        const timeOut = setTimeout(() => setCurrent(fractions[currentIndex + 1]), timesUp);
+        return () => clearTimeout(timeOut);
+      }
+      else if (!isFinished && currentIndex === fractions.length - 1) {
+        const timeOut = setTimeout(() => {
+          setCurrent('');
+          setIsFinished(true);
+        }, timesUp);
+        return () => clearTimeout(timeOut);
+      }
     }
-    else if (!isFinished && currentIndex === fractions.length - 1) {
-      const timeOut = setTimeout(() => {
-        setCurrent('');
-        setIsFinished(true);
-      }, timesUp);
-      return () => clearTimeout(timeOut);
-    }
-  }, [current]);
+    console.log("showAnimation :",showAnimation);
+  }, [showAnimation,current]);
 
-  useChain([titleSpringRef,afterEffectSpringRef],[0.2,0.4]);
+  useChain([transRef,titleSpringRef,afterEffectSpringRef],[0,0.2,0.4]);
 
   return (
     <div className={`${className ?? 'w-screen h-[10%]'} ${config} ${afterTextConfig ?? defaultTextAfterConfig} `}>
@@ -83,7 +92,7 @@ export const AnimatedSentences = ({ children,className, focusConfig, afterTextCo
             <animated.div
                 key={`acacs#${index}`}
                 style={{opacity: opacity}}
-                className={`${focusConfig ?? defaultFocusConfig} absolute w-full`}
+                className={`${focusConfig ?? defaultFocusConfig} ${twFocusBoundaries} absolute w-full`}
                 >
                 {item}
             </animated.div>
