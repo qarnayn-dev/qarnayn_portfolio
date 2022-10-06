@@ -93,7 +93,7 @@ export const AnimatedSentences = ({ children,className, twOnAnimateStyle,  twOnR
 
   return (
     <>
-      <div className={`${className ?? defaultSize} ${boundaries} ${config} ${onRestStyle} relative items-center bg-green-200`}>
+      <div className={`${className ?? defaultSize} ${boundaries} ${config} ${onRestStyle} relative items-center`}>
         <animated.div style={titleSpring} className="style-heading font-medium mb-4 w-full">{title}</animated.div>
         <animated.div style={afterEffectSpring}>{children}</animated.div>
         {onFocusAnimation()}
