@@ -1,5 +1,4 @@
-import { useScroll } from 'framer-motion';
-import React, { useEffect, useRef, useState } from 'react'
+import React, { RefObject} from 'react'
 import { animated, useSpring } from 'react-spring';
 
 interface iAnimatedColoredText{
@@ -9,6 +8,7 @@ interface iAnimatedColoredText{
     colorConfig?: string,
     opacityDuration?: number,
     colorDuration?: number,
+    objRef?: RefObject<HTMLDivElement> | null | undefined,
 }
 
 /**
@@ -18,7 +18,7 @@ interface iAnimatedColoredText{
  * Any color specification, please specify the `colorConfig`.
  * `default: 'bg-gradient-to-bl from-primary-base to-on-primary'`
 */
-export const AnimatedColoredText = ({children, isOpen, textConfig, colorConfig, opacityDuration, colorDuration}:iAnimatedColoredText) => {
+export const AnimatedColoredText = ({children, isOpen, textConfig, colorConfig, opacityDuration, colorDuration, objRef}:iAnimatedColoredText) => {
     const defaultTextConfig: string = 'font-extrabold text-3xl  mobile-lg:text-4xl md:text-5xl text-center';
     const defaultColorConfig: string = 'bg-gradient-to-bl from-primary-base to-on-primary';
 
@@ -35,7 +35,7 @@ export const AnimatedColoredText = ({children, isOpen, textConfig, colorConfig, 
   });
 
   return (
-    <animated.div style={heroSpring} className={`px-6  ${textConfig ?? defaultTextConfig}`}>
+    <animated.div ref={objRef} style={heroSpring} className={`px-6 ${textConfig ?? defaultTextConfig}`}>
         <animated.div style={colorChangeSpring} className={`${colorConfig ??defaultColorConfig} bg-clip-text text-transparent`}>
             <>{children}</>
         </animated.div>
