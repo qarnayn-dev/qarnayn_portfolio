@@ -1,18 +1,8 @@
-import { useState, useEffect } from "react";
-
 interface iDummyBlock{
   size: string,
-  colorChoose: number
+  colorChoose: number,
  }
-export const DummyBlock = ({ size, colorChoose }: iDummyBlock) => {
-  const [fromColorConfig, setFromColorConfig] = useState('');
-  const [toColorConfig, setToColorConfig] = useState('');
-
-  useEffect(() => {
-    setFromColorConfig(`from-${pairedColor[colorChoose][0]}`);
-    setToColorConfig(`to-${pairedColor[colorChoose][1]}`);
-  },[])
-
+export const DummyBlock = ({ size, colorChoose}: iDummyBlock) => {
   const sizeConfig: {[key:string]:string} = {
      sm: 'w-8 h-8 rounded-sm',
      md: 'w-16 h-16 rounded-md',
