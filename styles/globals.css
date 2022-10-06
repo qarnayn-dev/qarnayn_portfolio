@@ -132,6 +132,36 @@
         --semantic-success-t2 : 7,116,83; /*#077453*/
     }
 
+    .sticky-40 {
+        @apply w-screen h-[40vh] md:w-[40vw] md:h-screen
+    }
 
+    .antisticky-40 {
+        @apply w-screen h-[60vh] md:w-[60vw] md:h-screen
+    }
+
+    .sticky-45 {
+        @apply w-screen h-[45vh] md:w-[45vw] md:h-screen
+    }
+
+    .antisticky-45 {
+        @apply w-screen h-[55vh] md:w-[55vw] md:h-screen
+    }
+
+    .sticky-50 {
+        @apply w-screen h-[50vh] md:w-[50vw] md:h-screen
+    }
+
+    .antisticky-50 {
+        @apply w-screen h-[50vh] md:w-[50vw] md:h-screen
+    }
+
+    .sticky-60 {
+        @apply w-screen h-[60vh] md:w-[60vw] md:h-screen
+    }
+
+    .antisticky-60 {
+        @apply w-screen h-[40vh] md:w-[40vw] md:h-screen
+    }
 
 }
