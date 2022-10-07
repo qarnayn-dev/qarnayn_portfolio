@@ -55,6 +55,8 @@ export const useScrollSnap = (targetRef: RefObject<HTMLElement>, distance?: numb
           reassignTimeout();
           return () => clearTimeout(timeOut);
         }
+        // important to add, case of e.g. user passed through the target -> cancel the previous
+        else { if (timeOut) clearTimeout(timeOut); }
       });
     return ()=> {scrolYUnsub}
     }
