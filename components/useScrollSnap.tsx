@@ -1,5 +1,6 @@
 import { useScroll } from "framer-motion";
 import { RefObject, useState, useEffect } from "react";
+import useWindowDimensions from "./useWindowDimensions";
 
 /**
  * custom hook: use to snap the scroll position into a precise scrollY position based on the `targetRef` offset top.
@@ -26,6 +27,8 @@ interface UseScrollSnapOptions{
     responseMs?: number,
     // snap position; accept `['top','bottom']`. default: 'top'
     position?: string,
+    // the scalling for the distance between the target and the viewport, default is 1.
+    scale?: number,
 }
 
 
@@ -35,7 +38,9 @@ export const useScrollSnap = (targetRef: RefObject<HTMLElement>,options?:UseScro
     // const [boundingOffset, setBoundingOffset] = useState<number|null>(null);
     // const [targetScrollYPosition, setTargetScrollYPosition] = useState<number|null>(null);
     const { scrollY } = useScroll();
+    const { width } = useWindowDimensions();
     const snapAt: string = options?.position ?? 'top';
+    const xFactor: number = 0.692;
 
     let target: HTMLElement | undefined | null;
     // let targetScrollYPosition: number | undefined | null;
@@ -50,7 +55,7 @@ export const useScrollSnap = (targetRef: RefObject<HTMLElement>,options?:UseScro
     function getTargetScrollY(): number | null {
         const boundingOffset: number | null = getDifference();
         const addOffset: number = 0;
-        console.log("from update: ",`${scrollY.get()} + ${boundingOffset} + ${addOffset}`)
+        // console.log("from update: ", `${scrollY.get()} + ${boundingOffset} + ${addOffset}`);
         const targetScrollYPosition = boundingOffset ? (scrollY.get() + boundingOffset + addOffset) : null;
 
         return targetScrollYPosition;
@@ -62,7 +67,8 @@ export const useScrollSnap = (targetRef: RefObject<HTMLElement>,options?:UseScro
     }
 
     function handleOnScroll(): void {
-        const threshold: number = 50;
+        // Note: the threshhold by default uses linear geometry scaling
+        const threshold: number = options?.distance?? (options?.scale ?? 1)* (width + xFactor);
         const diff: number | null = getDifference();
         // Logic should be implement here
         if (diff && Math.abs(diff) < threshold) reassignTimeout();
@@ -71,7 +77,7 @@ export const useScrollSnap = (targetRef: RefObject<HTMLElement>,options?:UseScro
 
     function scrollToYTarget(): void {
         const targetScrollYPosition: number | null = getTargetScrollY();
-        console.log("scroll to -> ",targetScrollYPosition);
+        // console.log("scroll to -> ",targetScrollYPosition);
         if (targetScrollYPosition) window.scrollTo({ top: targetScrollYPosition, behavior: "smooth" });
     }
 
