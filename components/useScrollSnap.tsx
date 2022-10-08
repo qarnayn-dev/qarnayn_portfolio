@@ -16,49 +16,79 @@ import { RefObject, useState, useEffect } from "react";
     return (<div ref={objRef as LegacyRef<HTMLDivElement> | undefined}></div>);
  * ```
  */
-export const useScrollSnap = (targetRef: RefObject<HTMLElement>, distance?: number, responseMs?: number): void => {
-  const [targetOffsetTop, setTargetOffsetTop] = useState<number|null>(null);
-  const { scrollY } = useScroll();
-  // should be reassigned everytime the difference is close
-  let timeOut: NodeJS.Timeout | undefined;
+// TODO: change from offsetTop -> getBoundingClientRect()
+// TODO: snap option, bottom snap
+// TODO:
+// TODO:
 
-  function reassignTimeout() {
-    timeOut = setTimeout(() => {scrollToElement();}, (responseMs?? 200));
-  }
+interface UseScrollSnapOptions{
+    distance?: number,
+    responseMs?: number,
+    // snap position; accept `['top','bottom']`. default: 'top'
+    position?: string,
+}
 
-  function scrollToElement() {
-    if (targetOffsetTop) window.scrollTo({behavior:'smooth',top: targetOffsetTop})
-  }
 
-  function getScrollDiff(): number {
-    const diff: number = Math.abs(targetOffsetTop ? (targetOffsetTop - scrollY.get()) : 0);
-    return diff;
-  }
+export const useScrollSnap = (targetRef: RefObject<HTMLElement>,options?:UseScrollSnapOptions|undefined): void => {
 
-  useEffect(() => {
-    // Note: must assign inside of the use effect, otherwise the `target` had been assigned
-    // to the previous value withou updated
-    const target: HTMLElement | undefined | null = targetRef.current;
+    // const [targetOffsetTop, setTargetOffsetTop] = useState<number|null>(null);
+    // const [boundingOffset, setBoundingOffset] = useState<number|null>(null);
+    // const [targetScrollYPosition, setTargetScrollYPosition] = useState<number|null>(null);
+    const { scrollY } = useScroll();
+    const snapAt: string = options?.position ?? 'top';
 
-    if (target) setTargetOffsetTop(target.offsetTop);
+    let target: HTMLElement | undefined | null;
+    // let targetScrollYPosition: number | undefined | null;
+    // should be reassigned everytime the difference is close
+    let timeOut: NodeJS.Timeout | undefined;
 
-  },[]);
-
-  useEffect(() => {
-    if (targetOffsetTop) {
-        // listen to scroll changes
-      const scrolYUnsub = scrollY.onChange(() => {
-        // Only to be triggeredd when target and the top viewport are close
-        if (getScrollDiff() < (distance ?? 15)) {
-            // this will clear the prior `timeOut` assigned
-          if (timeOut) clearTimeout(timeOut);
-          reassignTimeout();
-          return () => clearTimeout(timeOut);
-        }
-        // important to add, case of e.g. user passed through the target -> cancel the previous
-        else { if (timeOut) clearTimeout(timeOut); }
-      });
-    return ()=> {scrolYUnsub}
+    function getDifference(): number | null {
+        // TODO: update the bottom config
+        return target ? (target.getBoundingClientRect().top) : null;
     }
-  }, [targetOffsetTop]);
+
+    function getTargetScrollY(): number | null {
+        const boundingOffset: number | null = getDifference();
+        const addOffset: number = 0;
+        console.log("from update: ",`${scrollY.get()} + ${boundingOffset} + ${addOffset}`)
+        const targetScrollYPosition = boundingOffset ? (scrollY.get() + boundingOffset + addOffset) : null;
+
+        return targetScrollYPosition;
+    }
+
+    function reassignTimeout(): void {
+        if (timeOut) clearTimeout(timeOut);
+        timeOut = setTimeout(() => { scrollToYTarget(); }, options?.responseMs?? 200)
+    }
+
+    function handleOnScroll(): void {
+        const threshold: number = 50;
+        const diff: number | null = getDifference();
+        // Logic should be implement here
+        if (diff && Math.abs(diff) < threshold) reassignTimeout();
+        else clearTimeout(timeOut);
+    }
+
+    function scrollToYTarget(): void {
+        const targetScrollYPosition: number | null = getTargetScrollY();
+        console.log("scroll to -> ",targetScrollYPosition);
+        if (targetScrollYPosition) window.scrollTo({ top: targetScrollYPosition, behavior: "smooth" });
+    }
+
+    useEffect(() => {
+        target = targetRef.current;
+        if (target) {
+
+            const unsubScrollY = scrollY.onChange((y) => {
+                // const scrollYPosition = getTargetScrollY();
+                // console.log("Y: ", y);
+                // console.log("   ");
+                // console.log("offsetTop : ", target?.offsetTop);
+                // console.log("scrollY : ",scrollY.get());
+                // console.log("getDifference() : ", getDifference());
+                handleOnScroll();
+            });
+            return ()=> {unsubScrollY}
+        }
+    }, []);
 }
