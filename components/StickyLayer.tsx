@@ -3,11 +3,11 @@ import { LegacyRef, ReactNode, RefObject } from "react"
 interface iStickyLayer{
     children?: ReactNode,
     objRef?: RefObject<HTMLElement>,
-  className?: string,
-  // [40,45,50,60]
-  viewPercent?: number,
-  // [tr,tl,br,bl]
-  alignment?: string,
+    className?: string,
+    // [40,45,50,60]
+    viewPercent?: number,
+    // [tr,tl,br,bl]
+    alignment?: string,
 }
 
 /**
