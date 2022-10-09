@@ -6,7 +6,7 @@ import { ThemeContext, THEME_LKEY} from '../components/DarkThemeToggle';
 import { ParallaxProvider } from 'react-scroll-parallax';
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const [theme, setTheme] = useState('light')
+  const [theme, setTheme] = useState('light');
 
   // set the theme on first start
   useEffect(() => {

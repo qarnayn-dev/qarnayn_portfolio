@@ -14,7 +14,8 @@ useEffect(() => {
     }
 
     function getWindowDimensions() {
-        const { innerWidth: width, innerHeight: height } = window;
+      const { innerWidth: width, innerHeight: height } = window;
+      console.log("windows dimensions: ", `${width},${height}`);
         return {width, height};
     }
 
