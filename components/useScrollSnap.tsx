@@ -17,11 +17,6 @@ import useWindowDimensions from "./useWindowDimensions";
     return (<div ref={objRef as LegacyRef<HTMLDivElement> | undefined}></div>);
  * ```
  */
-// TODO: change from offsetTop -> getBoundingClientRect()
-// TODO: snap option, bottom snap
-// TODO:
-// TODO:
-
 interface UseScrollSnapOptions{
     distance?: number,
     responseMs?: number,
@@ -33,25 +28,21 @@ interface UseScrollSnapOptions{
 
 
 export const useScrollSnap = (targetRef: RefObject<HTMLElement>,options?:UseScrollSnapOptions|undefined): void => {
-
-    // const [targetOffsetTop, setTargetOffsetTop] = useState<number|null>(null);
-    // const [boundingOffset, setBoundingOffset] = useState<number|null>(null);
-    // const [targetScrollYPosition, setTargetScrollYPosition] = useState<number|null>(null);
     const { scrollY } = useScroll();
     const { width, height } = useWindowDimensions();
     const m: number = 0.0167; // gradient
     const C: number = 7.9; // y-intercept
 
-    console.log("from inner hook: ",width);
-
     let target: HTMLElement | undefined | null;
     let unsubScrollY: (() => void) | null ;
-    // let targetScrollYPosition: number | undefined | null;
     // should be reassigned everytime the difference is close
     let timeOut: NodeJS.Timeout | undefined;
 
+
+    // The difference between the top viewport and the target's `options.position`.
+    // Default: target's top  - viewport top
+    // `'bottom'`: target's bottom - viewport height - viewport's top
     function getDifference(): number | null {
-        // TODO: update the bottom config
         let diffInPixels: number | null;
 
         switch (options?.position) {
@@ -83,10 +74,6 @@ export const useScrollSnap = (targetRef: RefObject<HTMLElement>,options?:UseScro
         // Note: the threshhold by default uses linear geometry scaling
         const threshold: number = options?.distance?? (options?.scale ?? 1) * (width * m + C);
         const diff: number | null = getDifference();
-        console.log("width: ", width);
-        console.log("height: ", height);
-        console.log("threshold: ",threshold);
-        // Logic should be implement here
         if (diff && Math.abs(diff) < threshold) reassignTimeout();
         else clearTimeout(timeOut);
     }
@@ -107,15 +94,7 @@ export const useScrollSnap = (targetRef: RefObject<HTMLElement>,options?:UseScro
         console.log("in useEffect [width,height]: ", `${width},${height}`);
 
         if (target && !unsubScrollY && width !== 0 && height !== 0) {
-            unsubScrollY = scrollY.onChange((y) => {
-                // const scrollYPosition = getTargetScrollY();
-                // console.log("   ");
-                // console.log("Y: ", y);
-                // console.log("offsetTop : ", target?.offsetTop);
-                // console.log("scrollY : ",scrollY.get());
-                // console.log("getDifference() : ", getDifference());
-                handleOnScroll();
-            });
+            unsubScrollY = scrollY.onChange((y) => {handleOnScroll();});
             return ()=> {unsubScrollY}
         }
     }, [width,height]);
