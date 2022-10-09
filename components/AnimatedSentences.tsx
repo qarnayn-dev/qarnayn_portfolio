@@ -55,7 +55,8 @@ export const AnimatedSentences = ({ children,className, twOnAnimateStyle,  twOnR
   const afterEffectSpringRef = useSpringRef();
   const afterEffectSpring = useSpring({
     ref: afterEffectSpringRef,
-    to: { opacity: afterEffect? 1 : 0, x:afterEffect? 0 : 100},
+    from: { x:afterEffect? 100: 0},
+    to: { opacity: afterEffect? 1 : 0, x:0},
     config: { duration: 800, easing: easings.easeOutCirc},
   });
 
