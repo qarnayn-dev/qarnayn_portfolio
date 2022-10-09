@@ -1,6 +1,15 @@
 import { useScroll } from "framer-motion";
-import { RefObject, useState, useEffect } from "react";
+import { RefObject, useEffect } from "react";
 import useWindowDimensions from "./useWindowDimensions";
+
+interface UseScrollSnapOptions{
+    distance?: number,
+    responseMs?: number,
+    // snap position; accept `['top','bottom']`. default: 'top'
+    position?: string,
+    // the scalling for the distance between the target and the viewport, default is 1.
+    scale?: number,
+}
 
 /**
  * custom hook: use to snap the scroll position into a precise scrollY position based on the `targetRef` offset top.
@@ -17,23 +26,15 @@ import useWindowDimensions from "./useWindowDimensions";
     return (<div ref={objRef as LegacyRef<HTMLDivElement> | undefined}></div>);
  * ```
  */
-interface UseScrollSnapOptions{
-    distance?: number,
-    responseMs?: number,
-    // snap position; accept `['top','bottom']`. default: 'top'
-    position?: string,
-    // the scalling for the distance between the target and the viewport, default is 1.
-    scale?: number,
-}
-
 
 export const useScrollSnap = (targetRef: RefObject<HTMLElement>,options?:UseScrollSnapOptions|undefined): void => {
     const { scrollY } = useScroll();
     const { width, height } = useWindowDimensions();
     const m: number = 0.0167; // gradient
-    const C: number = 7.9; // y-intercept
+    const C: number = 12.9; // y-intercept
 
     let target: HTMLElement | undefined | null;
+    let threshold: number;
     let unsubScrollY: (() => void) | null ;
     // should be reassigned everytime the difference is close
     let timeOut: NodeJS.Timeout | undefined;
@@ -70,9 +71,13 @@ export const useScrollSnap = (targetRef: RefObject<HTMLElement>,options?:UseScro
         timeOut = setTimeout(() => { scrollToYTarget(); }, options?.responseMs?? 200)
     }
 
-    function handleOnScroll(): void {
+    function calculateThreshold() {
         // Note: the threshhold by default uses linear geometry scaling
-        const threshold: number = options?.distance?? (options?.scale ?? 1) * (width * m + C);
+        threshold = options?.distance ?? (options?.scale ?? 1) * (width * m + C);
+        // console.log("new threshold: ",threshold);
+    }
+
+    function handleOnScroll(): void {
         const diff: number | null = getDifference();
         if (diff && Math.abs(diff) < threshold) reassignTimeout();
         else clearTimeout(timeOut);
@@ -80,23 +85,18 @@ export const useScrollSnap = (targetRef: RefObject<HTMLElement>,options?:UseScro
 
     function scrollToYTarget(): void {
         const targetScrollYPosition: number | null = getTargetScrollY();
-        console.log("scroll to -> ",targetScrollYPosition);
         if (targetScrollYPosition) window.scrollTo({ top: targetScrollYPosition, behavior: "smooth" });
     }
 
     useEffect(() => {
-        target = targetRef.current;
-        console.log("in useEffect: ", `${width},${height}`);
-    }, []);
-
-    useEffect(() => {
-        target = targetRef.current;
-        console.log("in useEffect [width,height]: ", `${width},${height}`);
+        if(!target) target = targetRef.current;
 
         if (target && !unsubScrollY && width !== 0 && height !== 0) {
+            calculateThreshold();
             unsubScrollY = scrollY.onChange((y) => {handleOnScroll();});
             return ()=> {unsubScrollY}
         }
+
     }, [width,height]);
 
 }
