@@ -16,8 +16,8 @@ export const MatrixEffect = (options?: iMatrixEffectOptions) => {
     const canvasRef = useRef<HTMLCanvasElement | null >(null);
     const [canvasContext, setCanvasContext] = useState<CanvasRenderingContext2D | null | undefined>(null);
     const tileSize: number = options?.tileSize ?? 22; // px
-    const frequency: number = Math.floor(1000 / (options?.fps ?? 15));
-    const totalOpacPerFrame: number = options?.opacityPerDraw?? 0.08;
+    const frequency: number = Math.floor(1000 / (options?.fps ?? 17));
+    const totalOpacPerFrame: number = options?.opacityPerDraw ?? 0.08;
     const displayConfigs: string = showScreen? "flex" : "hidden";
     let interval: NodeJS.Timer | undefined;
 
