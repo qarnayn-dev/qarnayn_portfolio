@@ -112,10 +112,11 @@ const MatrixEffect = () => {
     console.log("maxColumnLength, maxStackLength: ", `${maxColumnLength},${maxStackLength}`);
   }, [canvasContext, maxColumnLength, maxStackLength]);
 
+  // Whenever the columns changed -> render new
   useEffect(() => {
     if (canvasContext && columns.length > 1 && maxStackLength) {
-      const ticker = tick();
-      return () => {ticker;}
+      const newTicker = ticker();
+      return () => clearTimeout(newTicker);
     }
   }, [columns]);
 
@@ -129,12 +130,12 @@ const MatrixEffect = () => {
     }
   }
 
-  function tick() {
-    // draw
-    drawFrame();
-    // set timeout -> start new tick
-    const timeOut = setTimeout(tick, 80);
-    return () => clearTimeout(timeOut);
+  function ticker():NodeJS.Timeout {
+    const timeOut = setTimeout(() => {
+      drawFrame();
+      ticker();
+    }, 80);
+    return timeOut;
   }
 
   function drawFrame() {
