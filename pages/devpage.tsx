@@ -55,44 +55,35 @@ const MatrixEffect = () => {
   const tileSize: number = 22; // px
   const [maxColumnLength, setMaxColumnLength] =  useState<number |null>(null);
   const [maxStackLength, setMaxStackLength] = useState<number | null>(null);
-  let columns: SingleColumn[] = [];
   const totalOpacPerFrame: number = 0.08;
-  let [xAdjust, setXAdjust] = useState<number>(0);
+  const [xAdjust, setXAdjust] = useState<number>(0);
+  let columns: SingleColumn[] = [];
+  let interval: NodeJS.Timer | undefined;
 
   const displayConfigs: string = showScreen? "flex" : "hidden";
 
+  // Initial setup, for assigning the canvas
   useEffect(() => {
-    console.log("init canvas ref")
-    if (canvasRef) {
-      console.log("inside of logic init canvas ref")
-      setCanvasContext(canvasRef.current?.getContext("2d"));
-      // console.log(canvasContext);
-      // canvasContext?.scale;
-      // const ticking =  tick();
-      // return ()=> {ticking }
-    }
+    if (canvasRef) setCanvasContext(canvasRef.current?.getContext("2d"));
   }, []);
 
+  // listening to any change in the windows dimension
   useEffect(() => {
-    console.log("widht, height: ", `${width}, ${height}`);
-    // initiate when there's changes in width/ height
-    if (canvasRef && canvasRef.current) {
-      const canvas = canvasRef.current;
-      if (canvas && width && height) {
-        canvas.width = width;
-        canvas.height = height;
-      }
+    function getMaxStack(): number | null {
+      return (height) ? Math.floor(height/tileSize) : null;
     }
 
-    function getMaxStack(): number | null {
-    return (height) ?
-      Math.floor(height/tileSize)
-        : null;
-    }
     function getMaxColumn(): number | null {
-    return (width) ?
-      Math.floor(width/tileSize)
-      : null;
+      return (width) ? Math.floor(width/tileSize) : null;
+    }
+
+    // initiate when there's changes in width/ height
+    if (canvasRef && canvasRef.current && width && height) {
+      const canvas = canvasRef.current;
+      canvas.width = width;
+      canvas.height = height;
+      // console.log("width, height: ", `${width}, ${height}`);
+      // console.log("canvas w, h: ", `${canvas.width}, ${canvas.height}`);
     }
 
     const maxColumn: number | null = getMaxColumn();
@@ -100,28 +91,20 @@ const MatrixEffect = () => {
     setMaxColumnLength(getMaxColumn());
     setMaxStackLength(getMaxStack());
     setXAdjust((width - (maxColumn ? (maxColumn! * tileSize) : 0)) / 2);
-    console.log("xAdjust :", xAdjust);
   }, [width, height]);
 
-  useEffect(() => {
-    // console.log("is canvasCOntext null? ",canvasContext)
-    if (canvasContext && maxColumnLength && maxStackLength) {
-      initColumns();
-    }
 
-    console.log("maxColumnLength, maxStackLength: ", `${maxColumnLength},${maxStackLength}`);
+  useEffect(() => {
+    if (canvasContext && maxColumnLength && maxStackLength) {
+      console.log("maxColumnLength, maxStackLength: ", `${maxColumnLength},${maxStackLength}`);
+      initColumnsSkeleton();
+      if (interval) clearInterval(interval);
+      interval = setInterval(() => { drawFrame(); }, 65);
+    }
+    return () => clearInterval(interval);
   }, [canvasContext, maxColumnLength, maxStackLength]);
 
-  // Whenever the columns changed -> render new
-  useEffect(() => {
-    if (canvasContext && columns.length > 1 && maxStackLength) {
-      const newTicker = ticker();
-      return () => clearTimeout(newTicker);
-    }
-  }, [columns]);
-
-  function initColumns() {
-    console.log("initiate column")
+  function initColumnsSkeleton() {
     if (maxColumnLength && maxStackLength) {
       columns = [];
       for (let i = 0; i < maxColumnLength; i++) {
@@ -130,31 +113,19 @@ const MatrixEffect = () => {
     }
   }
 
-  function ticker():NodeJS.Timeout {
-    const timeOut = setTimeout(() => {
-      drawFrame();
-      ticker();
-    }, 80);
-    return timeOut;
-  }
 
   function drawFrame() {
     if (canvasContext) {
-      // console.log("totalOpacPerFrame : ",totalOpacPerFrame);
-      // console.log("width : ",width);
-      // console.log("height : ",height);
-      // console.log("maxStackLength : ",maxStackLength);
-
+      // draw a layer for the whole dimension with some opacity -> gives fading effect
       canvasContext.fillStyle = `rgba( 0 , 0 , 0 , ${totalOpacPerFrame} )`;
       canvasContext.fillRect(0, 0, width, height);
 
+      // draw characters for each column
       canvasContext.font = (tileSize - 4) + "px monospace";
       canvasContext.fillStyle = "rgb(77,200,171)";
 
       for (let i = 0; i < columns.length; i++) {
         const element = columns[i];
-        // console.log(`i: ${i}, x: ${(element.x + xAdjust)}, xAdjust: ${xAdjust}, y: ${element.getCurrentY(tileSize)}, tileSize: ${tileSize}`);
-
         canvasContext.fillText(RandomCharacter(), (element.x + xAdjust), element.getCurrentY(tileSize));
         // add counter
         if (maxStackLength) element.stackCounter(maxStackLength);
@@ -163,10 +134,7 @@ const MatrixEffect = () => {
   }
 
   return (
-    <>
-    <button onClick={()=> {drawFrame();}} className='w-[20vw] h-10 bg-red-50 absolute top-4 right-[40vw] rounded-lg z-50 hover:bg-orange-400 duration-700 hover:scale-110 transition-all'></button>
-    <canvas ref={canvasRef} className={`${displayConfigs} absolute inset-0 overscroll-none object-contain bg-neutral-900`}></canvas>
-    </>
+    <canvas ref={canvasRef} className={`${displayConfigs} absolute inset-0 overscroll-none object-contain bg-black`}></canvas>
   )
 }
 
