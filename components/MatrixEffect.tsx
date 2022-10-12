@@ -1,13 +1,25 @@
 import { useState, useRef, useEffect, useMemo, useCallback } from "react";
 import useWindowDimensions from "./useWindowDimensions";
 
-export const MatrixEffect = () => {
+interface iMatrixEffectOptions{
+    tileSize?: number,
+    // Default to 0.08
+    opacityPerDraw?: number,
+    // Default to 15
+    fps?: number,
+}
+
+export const MatrixEffect = (options?: iMatrixEffectOptions) => {
     const [showScreen, setShowScreen] = useState(true);
     const [isPaused, setIsPaused] = useState(false);
     const { width, height } = useWindowDimensions();
     const canvasRef = useRef<HTMLCanvasElement | null >(null);
     const [canvasContext, setCanvasContext] = useState<CanvasRenderingContext2D | null | undefined>(null);
-    const tileSize: number = 22; // px
+    const tileSize: number = options?.tileSize ?? 22; // px
+    const frequency: number = Math.floor(1000 / (options?.fps ?? 15));
+    const totalOpacPerFrame: number = options?.opacityPerDraw?? 0.08;
+    const displayConfigs: string = showScreen? "flex" : "hidden";
+    let interval: NodeJS.Timer | undefined;
 
     const maxColumnLength =  useMemo<number |null>(()=>{
         return (width) ? Math.floor(width/tileSize) : null;
@@ -31,12 +43,6 @@ export const MatrixEffect = () => {
         return newEntries;
     }, [maxColumnLength, maxStackLength]);
 
-    const totalOpacPerFrame: number = 0.08;
-
-    let interval: NodeJS.Timer | undefined;
-
-    const displayConfigs: string = showScreen? "flex" : "hidden";
-
     // Initial setup, for assigning the canvas
     useEffect(() => {
         if (canvasRef) setCanvasContext(canvasRef.current?.getContext("2d"));
@@ -49,8 +55,6 @@ export const MatrixEffect = () => {
             const canvas = canvasRef.current;
             canvas.width = width;
             canvas.height = height;
-            // console.log("width, height: ", `${width}, ${height}`);
-            // console.log("canvas w, h: ", `${canvas.width}, ${canvas.height}`);
         }
     }, [width, height]);
 
@@ -64,7 +68,7 @@ export const MatrixEffect = () => {
 
     function startDrawing() {
         if (interval) clearInterval(interval);
-        interval = setInterval(() => { drawFrame(); }, 65);
+        interval = setInterval(() => { drawFrame(); }, frequency);
     }
 
     function toogleEffect() {
@@ -130,8 +134,8 @@ export const MatrixEffect = () => {
 
 const RandomCharacter = (): string => {
     const normalChars: string = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    const greekChars: string = "ΐΓΔΗΘΙΛΞΠΡΣΤΥΦΧΨΩΪΫάέήίΰαβγδεζηθικλμνξοπρςστυφχψωϊϋόύώϏϐϑϒϓϔϕϖϗϘϙϚϛϜϝϞϟϠϡϢϣϤϥϦϧϨϩϪϫϬϭϮϯϰϱϲϳϴ϶ϷϸϹϺϻϼϽϾϿ";
-    const japaneseChars: string = "゠ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモャヤュユョヨラリルレロヮワヰヱヲンヴヵヶヷヸヹヺ・ーヽヾヿ";
+    const greekChars: string = "ΐΓΔΗΘΙΛΞΠΡΣΤΥΦΧΨΩΪΫάέήίΰαβγδεζηθικλμνξοπρςστυφχψωϊϋόύώϏϐϑϒϓϔϕϖϗϘϙϚϛϜϝϞϟϠϰϱϲϳϴ϶ϷϸϹϺϻϼϽϾϿ";
+    const japaneseChars: string = "アイウエオカギゲコザジスセソタチツテドナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヰヱヲンヴヷヸヹヺヾ";
     const allChars: string = normalChars + japaneseChars + greekChars;
 
     return allChars.charAt(Math.ceil(Math.random() * allChars.length));
