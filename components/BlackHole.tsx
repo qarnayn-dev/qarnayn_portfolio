@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ReactNode, useCallback, useEffect, useState } from "react";
 import { animated, easings, useSpring } from "react-spring";
 
 interface iBlackHoleOptions{
@@ -9,7 +9,7 @@ interface iBlackHoleOptions{
     delay?: number,
 }
 
-export const BlackHole = ({ children, className, duration,isShow = true, delay }: iBlackHoleOptions) => {
+export const BlackHole = ({ children, className, duration, isShow = true, delay }: iBlackHoleOptions) => {
     const twSize: string = "w-[30vh] h-[30vh]";
     const twSupportSize: string = "w-[35vh] h-[48vh]";
     const twSinggleSupport: string = "w-[10%] h-full from-black z-0 blur-[2px]";
@@ -27,9 +27,8 @@ export const BlackHole = ({ children, className, duration,isShow = true, delay }
     });
 
     return (
-        <animated.div style={sphereSpring} className={`w-screen h-screen bg-transparent absolute top-0 right-0 flex flex-col items-center justify-center ${className?? 'z-10'}`}>
-            <div className={`${twSize} absolute rounded-full bg-transparent filter backdrop-blur-lg shadow-2xl shadow-neutral-800`}>
-            </div>
+        <animated.button style={sphereSpring} className={`w-screen h-screen bg-transparent absolute top-0 right-0 flex flex-col items-center justify-center ${className?? 'z-10'}`}>
+            <div className={`${twSize} absolute rounded-full bg-transparent filter backdrop-blur-lg shadow-2xl shadow-neutral-800`}></div>
             <div className={`${twSize} rounded-full bg-neutral-700 bg-opacity-30 filter blur-3xl absolute -z-10`}>
             </div>
             <div className={`${twSize} rounded-full bg-black bg-opacity-60 blur-xl filter absolute`}></div>
@@ -41,6 +40,27 @@ export const BlackHole = ({ children, className, duration,isShow = true, delay }
                 <span className='w-full h-full bg-black  blur-[2px]'></span>
                 <span className={`${twSinggleSupport} bg-gradient-to-r`}></span>
             </animated.div>
-        </animated.div>
+        </animated.button>
     )
+}
+
+interface iBeeping{
+    className?: string,
+}
+
+
+const Beeping = ({className}:iBeeping) => {
+    const [beep, setBeep] = useState(true);
+    const outerRingSpring = useSpring({
+        config: {  easing:easings.easeOutBack},
+        loop: true,
+        from: {scale: 1, opacity: 0},
+        to: { scale: beep? 1.6 :  1, opacity: beep? 1 :0},
+        onRest: () => setBeep(false),
+    });
+
+    return (
+        <animated.div style={outerRingSpring}  className={`${className??'w-[30vh] h-[30vh]'} absolute rounded-full ring-neutral-700 filter blur-xl ring-8`}>
+        </animated.div>
+    );
 }
