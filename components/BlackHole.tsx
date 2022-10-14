@@ -27,7 +27,7 @@ export const BlackHole = ({ children, className, duration, isShow = true, delay 
     });
 
     return (
-        <animated.button style={sphereSpring} className={`w-screen h-screen bg-transparent absolute top-0 right-0 flex flex-col items-center justify-center ${className?? 'z-10'}`}>
+        <animated.div style={sphereSpring} className={`w-screen h-screen bg-transparent absolute top-0 right-0 flex flex-col items-center justify-center ${className?? 'z-10'}`}>
             <div className={`${twSize} absolute rounded-full bg-transparent filter backdrop-blur-lg shadow-2xl shadow-neutral-800`}></div>
             <div className={`${twSize} rounded-full bg-neutral-700 bg-opacity-30 filter blur-3xl absolute -z-10`}>
             </div>
@@ -40,14 +40,13 @@ export const BlackHole = ({ children, className, duration, isShow = true, delay 
                 <span className='w-full h-full bg-black  blur-[2px]'></span>
                 <span className={`${twSinggleSupport} bg-gradient-to-r`}></span>
             </animated.div>
-        </animated.button>
+        </animated.div>
     )
 }
 
 interface iBeeping{
     className?: string,
 }
-
 
 const Beeping = ({className}:iBeeping) => {
     const [beep, setBeep] = useState(true);
