@@ -7,6 +7,9 @@ import { useScrollSnap } from '../components/useScrollSnap'
 import useWindowDimensions from '../components/useWindowDimensions'
 import { MatrixEffect } from '../components/MatrixEffect'
 import { BlackHole } from '../components/BlackHole'
+import { animated, easings, useSpring, useTransition } from 'react-spring'
+import { Transition } from '@headlessui/react'
+import { TypingEffect } from '../components/TypingEffect'
 
 
 const Devpage = () => {
@@ -23,16 +26,10 @@ const Devpage = () => {
     <>
       <DummyPage></DummyPage>
       <MatrixEffect></MatrixEffect>
-      <div className='z-10 inset-0 w-screen h-screen bg-transparent absolute top-0 right-0 flex flex-col items-center justify-center'>
-        {/* <div className='w-40 h-40 rounded-full bg-transparent filter backdrop-blur-xl flex flex-col justify-center items-center font-mono text-neutral-100 shadow-2xl shadow-neutral-700'>Hello world</div>
-        <div className='w-40 h-[50vh] absolute top-[50vh] -z-10 filter backdrop-blur-3xl bg-black shadow-black shadow-2xl'></div>
-        <div className='w-44 h-[50vh] absolute top-[50vh] -z-10 bg-transparent shadow-black shadow-lg blur-md flex'>
-          <span className='w-4 h-full bg-gradient-to-l from-black'></span>
-          <span className='w-full h-full bg-black'></span>
-          <span className='w-4 h-full bg-gradient-to-r from-black'></span>
-        </div> */}
-      </div>
-      <BlackHole>Hello world</BlackHole>
+      {/* <div className='w-40 h-40 z-50 inset-0 bg-white absolute top-[40%] left-[35%] flex items-center justify-center'>
+        <TypingEffect></TypingEffect>
+      </div> */}
+      <BlackHole><TypingEffect></TypingEffect></BlackHole>
     </>
   )
 }
