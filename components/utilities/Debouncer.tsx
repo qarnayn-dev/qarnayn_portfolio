@@ -17,7 +17,6 @@ export class Debouncer {
     }
 
     rebound(): void {
-        console.log("calls rebound");
         if (this.timeout) clearTimeout(this.timeout);
         this.timeout = setTimeout(this.callback, this.executeIn);
     }
