@@ -1,77 +1,72 @@
-import { useState, useEffect, useCallback, useMemo } from "react";
-import { useSpring, easings, animated, useTransition, Transition, config} from "react-spring";
+import { useState, useEffect, useMemo } from "react";
+import { useSpring, easings, animated, useTransition} from "react-spring";
 import { Debouncer } from "./utilities/Debouncer";
+import { stringToArray } from "./utilities/StringUtility";
 
-export const TypingEffect = () => {
-    const [isAnimate, setIsAnimate] = useState(true);
+interface iTypingEffect{
+    children: string | string[],
+    showAnimation: boolean,
+    restTime?: number,
+    callback?:()=> void,
+    delayOnCallback?:number,
+}
+
+export const TypingEffect = ({children, restTime = 1600, showAnimation,callback,delayOnCallback = 700}: iTypingEffect) => {
+    // const [isAnimate, setIsAnimate] = useState(false);
     const [isForward, setIsForward] = useState(true);
-    const manyWords: string[] = ["Hi, I'm Qarnayn.", 'An engineer who codes with a sense of aesthetics.'];
-    const [current, setCurrent] = useState<string | null>(manyWords[0]);
+    const sentenceList: string[] = (children instanceof Array) ? children : stringToArray(children);
+    const [current, setCurrent] = useState<string | null>(sentenceList[0]);
+
+    // Main array used for the transitions
+    const memoizedArray : string[] = useMemo(
+      () => (showAnimation && isForward && current)? current.split('') : [],
+      [current, isForward, showAnimation],
+    )
 
     const debouncer = new Debouncer(() => {
-        console.log("Execute this! (set isForward) ");
         setIsForward(latest => !latest);
-    }, 1000);
-
-    useEffect(() => {
-        if (!isForward) {
-        const timeOut = setTimeout(() => { setIsAnimate(true) }, 30);
-        return () => clearTimeout(timeOut);
-        }
-    }, []);
+    }, isForward? restTime: (restTime*0.22));
 
     useEffect(() => {
         // when the animation's done -> move to next
         if (!isForward) {
             setCurrent(latest => {
-                const index = (latest) ? manyWords.indexOf(latest) : null;
-                return ((index!==null ) && (index < manyWords.length)) ? manyWords[index + 1] : null;
+                const index = (latest) ? sentenceList.indexOf(latest) : null;
+                return ((index!==null ) && (index < sentenceList.length)) ? sentenceList[index + 1] : null;
             });
         }
     }, [isForward]);
 
-    const memoizedArray : string[] = useMemo(
-      () => (isAnimate && isForward && current)? current.split('') : [],
-      [current, isForward, isAnimate],
-    )
+    useEffect(() => {
+        // if there's any callback after all has fnished
+        if (current === undefined && !isForward && callback) {
+            console.log("Fininshed all! ");
+            const timeout = setTimeout(callback, delayOnCallback);
+            return () => clearTimeout(timeout);
+        }
+    }, [current === undefined])
+
 
     const cursorSpring = useSpring({
-        config: { duration: 800, easing: easings.easeInBack},
+        config: { duration: 700, easing: easings.easeInBack},
         loop: {reset: true},
         from: { opacity: 0 },
         to: { opacity: 1 },
-        delay: 200,
+        delay: 150,
     });
 
     const letterTransition = useTransition(memoizedArray, {
-        config: { duration: 180, easing: easings.easeInBack},
+        config: { duration: 150, easing: easings.easeInBack},
         keys: memoizedArray.map((v, i) => `${v}-${i}`),
         from: { opacity: 0, width: '4px', height: '16px', background: 'white'},
         enter: { opacity: 1, background: 'transparent',life: "100%"},
-        leave: { opacity: 0, life: "0%"},
-        delay: 400,
+        leave: { opacity: 0, life: "0%" },
+        delay: 300,
         trail: isForward? 200 : -20,
         expires: true,
         reverse: true,
         onRest: () => { debouncer.rebound(); },
     });
-
-    function handleNextItter() {
-        console.log("array: ", `${memoizedArray}`);
-        // after the reset
-        if (memoizedArray.length === 0) {
-            setIsForward(true);
-            console.log("set animation -> true");
-        } else if (memoizedArray.length > 0) {
-            console.log("set animation -> false");
-            // temporary disable the animation
-            setIsForward(false);
-            setCurrent(latest => {
-                const index = (latest)? manyWords.indexOf(latest) : null;
-                return (index && index < manyWords.length) ? manyWords[index + 1] : null;
-            });
-        }
-    }
 
     return (
         <div className='flex items-center justify-center'>

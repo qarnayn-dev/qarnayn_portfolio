@@ -1,14 +1,8 @@
-import React, { LegacyRef, ReactNode, useEffect, useRef, useState } from 'react'
-import TopFrame from '../components/TopFrame'
-import { AnimatedColoredText } from '../components/AnimatedColoredText'
-import { DummyBlock } from '../components/DummyBlock'
+import React, { LegacyRef, useEffect, useRef, useState } from 'react'
 import { useScroll } from 'framer-motion'
 import { useScrollSnap } from '../components/useScrollSnap'
-import useWindowDimensions from '../components/useWindowDimensions'
 import { MatrixEffect } from '../components/MatrixEffect'
 import { BlackHole } from '../components/BlackHole'
-import { animated, easings, useSpring, useTransition } from 'react-spring'
-import { Transition } from '@headlessui/react'
 import { TypingEffect } from '../components/TypingEffect'
 
 
@@ -19,8 +13,10 @@ const Devpage = () => {
   const [isShow, setIsShow] = useState(false);
   const { scrollY } = useScroll();
 
-
-
+  useEffect(() => {
+        const timeOut = setTimeout(() => { setIsShow(true) }, 2000);
+        return () => clearTimeout(timeOut);
+  }, []);
 
   return (
     <>
@@ -29,7 +25,7 @@ const Devpage = () => {
       {/* <div className='w-40 h-40 z-50 inset-0 bg-white absolute top-[40%] left-[35%] flex items-center justify-center'>
         <TypingEffect></TypingEffect>
       </div> */}
-      <BlackHole><TypingEffect></TypingEffect></BlackHole>
+      <BlackHole><TypingEffect showAnimation={isShow} callback={()=>{console.log("Do smtg when done!!!!");}}>{["Hi, I'm Qarnayn.","An engineer who codes", 'with a sense of aesthetics.', 'yo hahaha wassup']}</TypingEffect></BlackHole>
     </>
   )
 }
