@@ -106,7 +106,13 @@ export const MatrixEffect = ({children, showScreen,characterSize,opacityPerDraw,
     }
 
     return (
-        <Transition show={showScreen} className={`z-50 inset-0`}>
+        <Transition
+            show={showScreen}
+            enterTo="opacity-100"
+            leave="transition-opacity duration-[1800ms]"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+            className={`z-50 inset-0`}>
             <canvas ref={canvasRef} className={`flex absolute inset-0 -z-10 overscroll-none object-contain bg-black`}></canvas>
             {children}
         </Transition>
