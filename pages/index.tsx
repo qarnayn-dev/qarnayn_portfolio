@@ -21,6 +21,7 @@ import { AnimatedSentences } from '../components/AnimatedSentences';
 import useWindowDimensions from '../components/useWindowDimensions';
 import { useScrollSnap } from '../components/useScrollSnap';
 import { StickyLayer } from '../components/StickyLayer';
+import { GreetingsLayout } from '../components/GreetingsLayout';
 
 const Home: NextPage = () => {
   const pageConfig: string = "px-4 md:px-5 lg:px-6 py-8";
@@ -31,6 +32,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <TopFrame>
+        <GreetingsLayout></GreetingsLayout>
         <RevealingPage className={`${pageConfig} bg-gradient-to-br from-primary-t5`}>
           <Intro />
           <CardWithGraphicContainer

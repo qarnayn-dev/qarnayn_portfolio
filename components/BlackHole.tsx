@@ -5,11 +5,11 @@ interface iBlackHoleOptions{
     children?: any,
     className?: string,
     duration?: number,
-    isShow?: boolean,
+    isShow: boolean,
     delay?: number,
 }
 
-export const BlackHole = ({ children, className, duration, isShow = true, delay }: iBlackHoleOptions) => {
+export const BlackHole = ({ children, className, duration, isShow, delay }: iBlackHoleOptions) => {
     const twSize: string = "w-[30vh] h-[30vh]";
     const twSupportSize: string = "w-[35vh] h-[48vh]";
     const twSinggleSupport: string = "w-[10%] h-full from-black z-0 blur-[2px]";

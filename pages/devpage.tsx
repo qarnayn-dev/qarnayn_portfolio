@@ -10,22 +10,32 @@ const Devpage = () => {
   const fullScreenConfig: string = "w-screen h-screen flex flex-col justify-center items-center";
   const centerChildrenConfig: string = "flex flex-col justify-center items-center";
   const bgColor: string = 'bg-gradient-to-br from-primary-base to-themed-gray-base';
-  const [isShow, setIsShow] = useState(false);
+  const [showMatrixEffect, setShowMatrixEffect] = useState(true);
+  const [showBlackHole, setShowBlackHole] = useState(false);
+  const [showGreetings, setShowGreetings] = useState(false);
   const { scrollY } = useScroll();
 
   useEffect(() => {
-        const timeOut = setTimeout(() => { setIsShow(true) }, 2000);
-        return () => clearTimeout(timeOut);
+        const timeOut1 = setTimeout(() => { setShowBlackHole(true) }, 2000);
+        const timeOut2 = setTimeout(() => { setShowGreetings(true) }, 3500);
+    return () => {
+      clearTimeout(timeOut1);
+      clearTimeout(timeOut2);
+    }
   }, []);
+
+
+  function onDispose() {
+    setShowBlackHole(false);
+    const timeout = setTimeout(() => setShowMatrixEffect(false), 2600);
+  }
 
   return (
     <>
       <DummyPage></DummyPage>
-      <MatrixEffect></MatrixEffect>
-      {/* <div className='w-40 h-40 z-50 inset-0 bg-white absolute top-[40%] left-[35%] flex items-center justify-center'>
-        <TypingEffect></TypingEffect>
-      </div> */}
-      <BlackHole><TypingEffect showAnimation={isShow} callback={()=>{console.log("Do smtg when done!!!!");}}>{["Hi, I'm Qarnayn.","An engineer who codes", 'with a sense of aesthetics.', 'yo hahaha wassup']}</TypingEffect></BlackHole>
+      <MatrixEffect showScreen={showMatrixEffect}>
+        <BlackHole isShow={showBlackHole}><TypingEffect showAnimation={showGreetings} callback={() => onDispose()}>{["Hi, I'm Qarnayn.", "An engineer who codes"]}</TypingEffect></BlackHole>
+      </MatrixEffect>
     </>
   )
 }

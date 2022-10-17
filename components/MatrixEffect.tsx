@@ -1,24 +1,25 @@
-import { useState, useRef, useEffect, useMemo, useCallback } from "react";
+import { Transition } from "@headlessui/react";
+import { useState, useRef, useEffect, useMemo, ReactNode } from "react";
 import useWindowDimensions from "./useWindowDimensions";
 
 interface iMatrixEffectOptions{
-    tileSize?: number,
+    showScreen: boolean,
+    children?: ReactNode,
+    characterSize?: number,
     // Default to 0.08
     opacityPerDraw?: number,
     // Default to 15
     fps?: number,
 }
 
-export const MatrixEffect = (options?: iMatrixEffectOptions) => {
-    const [showScreen, setShowScreen] = useState(true);
+export const MatrixEffect = ({children, showScreen,characterSize,opacityPerDraw,fps}: iMatrixEffectOptions) => {
     const [isPaused, setIsPaused] = useState(false);
     const { width, height } = useWindowDimensions();
     const canvasRef = useRef<HTMLCanvasElement | null >(null);
     const [canvasContext, setCanvasContext] = useState<CanvasRenderingContext2D | null | undefined>(null);
-    const tileSize: number = options?.tileSize ?? 22; // px
-    const frequency: number = Math.floor(1000 / (options?.fps ?? 17));
-    const totalOpacPerFrame: number = options?.opacityPerDraw ?? 0.08;
-    const displayConfigs: string = showScreen? "flex" : "hidden";
+    const tileSize: number = characterSize ?? 22; // px
+    const frequency: number = Math.floor(1000 / (fps ?? 17));
+    const totalOpacPerFrame: number = opacityPerDraw ?? 0.08;
     let interval: NodeJS.Timer | undefined;
 
     const maxColumnLength =  useMemo<number |null>(()=>{
@@ -66,6 +67,14 @@ export const MatrixEffect = (options?: iMatrixEffectOptions) => {
         }
     }, [memoizedColumns, isPaused]);
 
+    // Whenever screen is being removed
+    useEffect(() => {
+        if (!showScreen) {
+            setIsPaused(true);
+            clearInterval(interval);
+        }
+    }, [showScreen]);
+
     function startDrawing() {
         if (interval) clearInterval(interval);
         interval = setInterval(() => { drawFrame(); }, frequency);
@@ -97,10 +106,10 @@ export const MatrixEffect = (options?: iMatrixEffectOptions) => {
     }
 
     return (
-        <>
-            <button onClick={() => { toogleEffect(); }} className="w-20 h-6 bg-red-50 rounded-lg z-20 absolute top-4 left-[44vw]"></button>
-            <canvas ref={canvasRef} className={`${displayConfigs} absolute inset-0 overscroll-none object-contain bg-black`}></canvas>
-        </>
+        <Transition show={showScreen} className={`z-50 inset-0`}>
+            <canvas ref={canvasRef} className={`flex absolute inset-0 -z-10 overscroll-none object-contain bg-black`}></canvas>
+            {children}
+        </Transition>
     )
 }
 
