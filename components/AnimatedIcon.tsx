@@ -30,12 +30,12 @@ const SingleIcon = ({isActive, icon}:iSingleIconComp) => {
   return (
     <Transition
           show={isActive}
-          enter="transition-opacity duration-700"
-          enterFrom="opacity-0"
-          enterTo="opacity-100"
-          leave="transition-opacity duration-300"
-          leaveFrom="opacity-100"
-          leaveTo="opacity-0"
+          enter="transition-all duration-700"
+          enterFrom="opacity-0 scale-0"
+          enterTo="opacity-100 scale-100"
+          leave="transition-all scale-0 duration-150"
+          leaveFrom="opacity-100 scale-100"
+          leaveTo="opacity-0 scale-0"
           className="absolute w-full h-full top-0 right-0 flex justify-center items-center">
           {icon}
     </Transition>

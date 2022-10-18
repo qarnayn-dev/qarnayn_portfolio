@@ -30,7 +30,7 @@ const [isExpanded, setIsExpanded] = useState(false)
 
   return (
     <div className={`p-1 pt-3 ${widgetSet} text-themed-gray-t9 h-full z-10 inset-0 fixed text-end duration-500 ease-in-out`}>
-      <div className='w-full pt-2 pb-4 relative flex justify-around'>
+      <div className='w-full pb-4 relative flex justify-around'>
         {transitionWrapper(<DarkThemeToggle />)}
         <button onClick={handleTap} className='relative mt-1 z-10 mr-2 float-right w-6 h-6'>
         <AnimatedIcon secondaryIcon={<IoMenuOutline size={iconSize} />} primaryIcon={<IoChevronBackOutline size={iconSize} />} isActive={!isExpanded}/>

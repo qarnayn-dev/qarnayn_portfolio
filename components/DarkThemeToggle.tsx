@@ -22,7 +22,7 @@ const DarkThemeToggle = ()=> {
   }
 
   return (
-    <div className='mx-1 p-1 flex flex-row relative z-20 inset-0 justify-center items-center '>
+    <div className='mx-1 p-1 flex flex-row relative z-20 inset-0 justify-center items-center'>
       <div className='float-left mr-1 text-themed-gray-t9 w-6 h-6'>
         <AnimatedIcon
           primaryIcon={<IoSunny
@@ -30,7 +30,7 @@ const DarkThemeToggle = ()=> {
           secondaryIcon={<IoMoon size={iconSize}/>}
           isActive={isDark} />
       </div>
-      <div className='float-left flex justify-center'><SwitchButton isEnabled={isDark} setIsEnabled={onToggle} /></div>
+      <SwitchButton isEnabled={isDark} setIsEnabled={onToggle} />
     </div>
   )
 }
