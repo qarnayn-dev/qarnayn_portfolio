@@ -23,7 +23,7 @@
 
     /* Sub-heading scaled */
     .style-body{
-        @apply text-sm mobile-lg:text-base xl:text-xl
+        @apply text-sm mobile-lg:text-base
     }
 
     /* Sub-heading scaled */
