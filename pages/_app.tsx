@@ -30,7 +30,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       document.documentElement.classList.add('dark')
       localStorage.setItem(THEME_LKEY,JSON.stringify('dark'))
     }
-    console.log('current theme ->', theme)
+    // console.log('current theme ->', theme)
   },[theme])
 
   return (

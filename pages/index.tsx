@@ -32,7 +32,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <TopFrame>
-        <GreetingsLayout></GreetingsLayout>
+        {/* <GreetingsLayout></GreetingsLayout> */}
         <RevealingPage className={`${pageConfig} bg-gradient-to-br from-primary-t5`}>
           <Intro />
           <CardWithGraphicContainer

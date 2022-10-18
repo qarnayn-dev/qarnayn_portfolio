@@ -16,18 +16,21 @@ const DarkThemeToggle = ()=> {
   const iconSize: number = 20
   const isDark:boolean = theme === 'dark'
 
-
   function onToggle() {
     if (theme === 'light') setTheme('dark')
     else setTheme('light')
   }
 
   return (
-    <div className='mx-1 p-1 flex flex-row relative z-20 inset-0'>
-      <div className='float-left mr-6 text-themed-gray-t9'>
-      <AnimatedIcon primaryIcon={<IoSunny size={iconSize}/>} secondaryIcon={<IoMoon size={iconSize}/>} isActive={isDark} />
+    <div className='mx-1 p-1 flex flex-row relative z-20 inset-0 justify-center items-center '>
+      <div className='float-left mr-1 text-themed-gray-t9 w-6 h-6'>
+        <AnimatedIcon
+          primaryIcon={<IoSunny
+          size={iconSize}/>}
+          secondaryIcon={<IoMoon size={iconSize}/>}
+          isActive={isDark} />
       </div>
-      <div className='float-left'><SwitchButton isEnabled={isDark} setIsEnabled={onToggle} /></div>
+      <div className='float-left flex justify-center'><SwitchButton isEnabled={isDark} setIsEnabled={onToggle} /></div>
     </div>
   )
 }

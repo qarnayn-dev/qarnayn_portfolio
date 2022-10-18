@@ -12,7 +12,7 @@ interface iPairedIcons{
 const AnimatedIcon = ({primaryIcon: defaultIcon,secondaryIcon: activeIcon,isActive,addActiveAttr,customDefaultAttr}:iPairedIcons )=> {
 
   return (
-    <div className={`relative mx-1 ${addActiveAttr} ${customDefaultAttr}`}>
+    <div className={`relative w-full h-full ${addActiveAttr} ${customDefaultAttr}`}>
       <SingleIcon isActive={isActive} icon={activeIcon} />
       <SingleIcon isActive={!isActive} icon={defaultIcon} />
     </div>
@@ -36,8 +36,8 @@ const SingleIcon = ({isActive, icon}:iSingleIconComp) => {
           leave="transition-opacity duration-300"
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
-        >
-          <div className='absolute'>{icon}</div>
-        </Transition>
+          className="absolute w-full h-full top-0 right-0 flex justify-center items-center">
+          {icon}
+    </Transition>
   )
  }
