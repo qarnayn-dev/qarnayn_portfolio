@@ -3,7 +3,6 @@
 @tailwind utilities;
 
 
-
 @layer base {
     :root{
         --neutral-black : 23,23,23;
@@ -131,7 +130,9 @@
         --semantic-success : 8,131,94; /*#08835e*/
         --semantic-success-t2 : 7,116,83; /*#077453*/
     }
+}
 
+@layer components {
     .sticky-40 {
         @apply w-screen h-[40vh] md:w-[40vw] md:h-screen
     }

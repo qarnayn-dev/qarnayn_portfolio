@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from "react";
 import { useSpring, easings, animated, useTransition} from "react-spring";
-import { Debouncer } from "./utilities/Debouncer";
-import { stringToArray } from "./utilities/StringUtility";
+import { Debouncer } from "../utilities/Debouncer";
+import { stringToArray } from "../utilities/StringUtility";
 
 interface iTypingEffect{
     children: string | string[],
