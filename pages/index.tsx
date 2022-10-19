@@ -22,6 +22,9 @@ import useWindowDimensions from '../components/useWindowDimensions';
 import { useScrollSnap } from '../components/useScrollSnap';
 import { StickyLayer } from '../components/StickyLayer';
 import { GreetingsLayout } from '../components/GreetingsLayout';
+import Lottie from 'lottie-react';
+import developerAnimation from '../assets/work_lottie.json';
+
 
 const Home: NextPage = () => {
   const pageConfig: string = "px-4 md:px-5 lg:px-6 py-8";
@@ -72,9 +75,7 @@ const Intro = () => {
 
   return (
     <div className={`mt-6 mb-10 w-full float-left relative flex flex-col  justify-start items-center gap-4 md:flex-row-reverse`}>
-      <div className='min-w-[40%] float-right mx-6 md:mr-10 '>
-        {(theme==='light')? <DevIllustration/>: <DevIllustrationDark/>}
-      </div>
+      <Lottie animationData={developerAnimation} className='min-w-[40%] max-w-[60%] float-right mx-6 md:mr-10'></Lottie>
       <div className='float-left w-full style-heading'>
         <AnimatedText
           textInput={"Hello world, I'm Qarnayn."}
