@@ -12,17 +12,17 @@
 
     /* Heading scaled */
     .style-heading{
-        @apply text-xl md:text-2xl xl:text-3xl font-medium
+        @apply text-xl mobile-lg:text-2xl md:text-3xl xl:text-4xl 2xl:text-5xl font-medium
     }
 
     /* Sub-heading scaled */
     .style-subheading{
-        @apply text-base md:text-lg xl:text-xl
+        @apply text-lg mobile-lg:text-xl lg:text-2xl 2xl:text-3xl
     }
 
     /* Sub-heading scaled */
     .style-body{
-        @apply text-sm sm:text-base xl:text-lg 2xl:text-2xl
+        @apply text-sm mobile-lg:text-base lg:text-lg 2xl:text-xl
     }
 
     /* Sub-heading scaled */

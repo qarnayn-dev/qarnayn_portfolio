@@ -20,7 +20,7 @@ export const RevealingPage = ({ children, className,speed, opacityScrolling }: i
 
 
   return (
-      <Parallax
+    <Parallax
       speed={speed}
       opacity={opacityScrolling ? [0, 2] : undefined}
       className={`relative w-screen ${className} ${isInview ? "z-10" : "z-0"}`}>
@@ -36,8 +36,8 @@ export const RevealingPage = ({ children, className,speed, opacityScrolling }: i
             onExit={()=>{if(isInview)setIsInView(false)}}
             className={`w-full absolute bottom-0 right-0 h-20 bg-gradient-to-t from-transparent  ${isInview ? 'shadow-end-page' : 'shadow-none'}`}>
           </Parallax>
-          <Parallax opacity={[0.6,-0.6] } className="w-screen h-screen bg-themed-gray-base z-0 absolute left-0 mt-8 shadow-lg backdrop-blur-lg "></Parallax>
+          <Parallax opacity={[0.6,-0.6] } className="w-screen h-screen bg-themed-gray-base z-0 absolute left-0 mt-8 shadow-lg backdrop-blur-lg"></Parallax>
         </>
-      </Parallax>
+    </Parallax>
   )
 }
