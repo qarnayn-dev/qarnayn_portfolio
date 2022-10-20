@@ -3,8 +3,6 @@ import Head from 'next/head'
 import  { ThemeContext } from '../components/DarkThemeToggle';
 import {  LegacyRef, Ref, RefObject, useContext, useEffect, useRef, useState} from 'react';
 import TopFrame from '../components/TopFrame';
-import DevIllustration from '../assets/sw_dev.svg';
-import DevIllustrationDark from '../assets/sw_dev_dark.svg';
 import CostIllu from '../assets/discount_percentage.svg';
 import CostIlluDark from '../assets/discount_percentage_dark.svg';
 import SolutionIllu from '../assets/solution_mindset.svg';
@@ -27,7 +25,7 @@ import developerAnimation from '../assets/work_lottie.json';
 
 
 const Home: NextPage = () => {
-  const pageConfig: string = "px-4 md:px-5 lg:px-6 py-8";
+  const pageConfig: string = "px-[4vw] py-8";
   return (
       <div className='flex flex-col'>
       <Head>
@@ -35,7 +33,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <TopFrame>
-        {/* <GreetingsLayout></GreetingsLayout> */}
+        <GreetingsLayout></GreetingsLayout>
         <RevealingPage className={`${pageConfig} bg-gradient-to-br from-primary-t5`}>
           <Intro />
           <CardWithGraphicContainer
@@ -74,16 +72,16 @@ const Intro = () => {
   const {theme} = useContext(ThemeContext)
 
   return (
-    <div className={`mt-6 mb-10 w-full float-left relative flex flex-col  justify-start items-center gap-4 md:flex-row-reverse`}>
-      <Lottie animationData={developerAnimation} className='min-w-[40%] max-w-[60%] float-right mx-6 md:mr-10'></Lottie>
-      <div className='float-left w-full style-heading'>
-        <AnimatedText
-          textInput={"Hello world, I'm Qarnayn."}
-          specialTexts={['Qarnayn.']}
-          specialStyleClass={`text-primary-t2 font-medium`}
-        />
-        <h1 className='style-subheading style-secondary'>An engineer who codes with a taste of art</h1>
-        <div className='mt-4 style-body'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi enim tempore nihil cupiditate voluptas, molestiae libero, facilis deleniti quos inventore odio delectus consectetur, et recusandae. Animi culpa dolor facere molestiae.</div>
+    <div className={`mt-8 md:mt-14 mb-10 w-full float-left relative flex flex-col justify-start items-center gap-6 md:flex-row-reverse`}>
+      <Lottie animationData={developerAnimation} className='min-w-[40%] max-w-[60%] md:max-w-[46%] lg:max-w-[55%] float-right mx-6 mb-10'></Lottie>
+      <div className='float-left w-full h-full flex flex-col justify-center'>
+        <h2 className='style-secondary mb-1'>Hello World! I am Qarnayn</h2>
+        <h1 className='style-heading'>An engineer who codes designer's boundless imaginations</h1>
+        <p className='mt-8 md:mt-9 lg:mt-10 style-body'>
+          <span>Hello there 👋🏼</span><br />
+          <span>looking for a developer that can solve your company’s problem?</span>
+        </p>
+        <p className='my-4 style-body'>Then, you would love to have a look at what I can bring to your team!</p>
       </div>
     </div>
   )
