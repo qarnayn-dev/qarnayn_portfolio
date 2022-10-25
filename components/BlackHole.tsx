@@ -15,7 +15,7 @@ export const BlackHole = ({ children, className, duration, isShow, delay }: iBla
     const twSinggleSupport: string = "w-[10%] h-full from-black z-0 blur-[2px]";
 
     const sphereSpring = useSpring({
-        config: { duration: duration?? 1200,easing: easings.easeInOutBack},
+        config: { duration: duration?? 900,easing: easings.easeInOutBack},
         to: { scale: isShow ? 1 : 0.2 },
         delay: delay?? 200,
     });
