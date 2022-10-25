@@ -3,14 +3,6 @@ import Head from 'next/head'
 import  { ThemeContext } from '../components/DarkThemeToggle';
 import {  LegacyRef, Ref, RefObject, useContext, useEffect, useRef, useState} from 'react';
 import TopFrame from '../components/TopFrame';
-import CostIllu from '../assets/discount_percentage.svg';
-import CostIlluDark from '../assets/discount_percentage_dark.svg';
-import SolutionIllu from '../assets/solution_mindset.svg';
-import SolutionIlluDark from '../assets/solution_mindset_dark.svg';
-import ServerIllu from '../assets/server_cluster.svg';
-import ServerIlluDark from '../assets/server_cluster_dark.svg';
-import { CardWithGraphicContainer } from '../components/CardWithGraphic';
-import { AnimatedText } from '../components/AnimatedText';
 import { RevealingPage } from '../components/RevealingPage';
 import { AnimatedColoredText } from '../components/AnimatedColoredText';
 import { motion, useScroll, useTransform } from 'framer-motion';
@@ -21,7 +13,11 @@ import { useScrollSnap } from '../components/useScrollSnap';
 import { StickyLayer } from '../components/StickyLayer';
 import { GreetingsLayout } from '../components/GreetingsLayout';
 import Lottie from 'lottie-react';
-import developerAnimation from '../assets/work_lottie.json';
+import appDevIllustration from '../assets/app_dev_lottie.json';
+import walletLottie from '../assets/wallet_ani.json';
+import smileyLottie from '../assets/smily_lottie.json';
+import compassLottie from '../assets/compass_lottie.json';
+import { MiniCard } from '../components/MiniCard';
 
 
 const Home: NextPage = () => {
@@ -34,7 +30,7 @@ const Home: NextPage = () => {
       </Head>
       <TopFrame>
         <GreetingsLayout></GreetingsLayout>
-        <RevealingPage className={`${pageConfig} bg-gradient-to-br from-primary-t5 `}>
+        <RevealingPage className={`${pageConfig} bg-gradient-to-tr from-primary-t5`}>
           <Intro />
           <BestOfMe></BestOfMe>
         </RevealingPage>
@@ -57,18 +53,14 @@ const Intro = () => {
   return (
     <div className='flex flex-col mb-[10vw]'>
       <div className={`mt-8 md:mt-14 mb-10 w-full float-left relative flex flex-col justify-start items-center gap-6 md:flex-row-reverse`}>
-        <Lottie animationData={developerAnimation} className='min-w-[40%] max-w-[60%] md:max-w-[46%] lg:max-w-[55%] float-right mx-6 mb-10'></Lottie>
+        <Lottie animationData={appDevIllustration} className='min-w-[40%] max-w-[60%] md:max-w-[46%] lg:max-w-[70%] float-right mx-6 mb-10'></Lottie>
         <div className='float-left w-full h-full flex flex-col justify-center'>
-          <h2 className='style-secondary mb-1'>Hello World! I am Qarnayn</h2>
+          <h2 className='style-secondary mb-[2px] '>Hello World! I am Qarnayn</h2>
           <h1 className='style-heading'>An engineer who codes designer's boundless imaginations</h1>
-          <p className='mt-8 md:mt-9 lg:mt-10 style-body'>
-            <span>Hello there 👋🏼</span><br />
-            <span>looking for a developer that can solve your company’s problem?</span>
-          </p>
-          <p className='my-4 style-body'>Then, you would love to have a look at what I can bring to your team!</p>
+          <p className='mt-12 style-body'>Hi there 👋🏼.<br/> I am an engineer who love to solve problems and passionate in human behaviour ℹ. I’m working as a software developer, more comfortable in Front-end, had led a small developer team, had designed a full business’ tech ecosystem, had tremendously reduced operational cost and more. Being an engineer minded person, everything I see is just somewhat of a cog that fit in this complex world. Its ‘how’ and ‘why’ are what I passionate about. It’s hard and complex, but I love every single of it!</p>
         </div>
       </div>
-      <p className='w-full md:mt-[2vw] style-body md:text-center'>Oh yeaaa, I haven’t properly introduce myself. In short, I am an engineer who love to solve problems and passionate in human behaviour ℹ️. I’m working as a software developer, more comfortable in Front-end, had led a small developer team, had designed a full business’ tech ecosystem, had tremendously reduced operational cost and more. Being an engineer minded person, everything I see is just somewhat of a cog that fit in this complex world. Its ‘how’ and ‘why’ are what I passionate about. It’s hard and complex, but I love every single of it!</p>
+
       {/* <p className='mt-10 md:mt-14'>Anyway, having that kind of mindset led to bring my absolute best!</p> */}
     </div>
   )
@@ -78,9 +70,16 @@ const BestOfMe = () => {
   return (
     <>
       <ChapterTitle>The best out of me</ChapterTitle>
+      <div className='flex flex-col lg:flex-row justify-evenly w-full gap-4'>
+        <MiniCard animationData={walletLottie}>I help company reduce their operational cost by implementing smart system into design</MiniCard>
+        <MiniCard animationData={smileyLottie}>I help bussiness strengthen their customer’s retentions by embeding psychology into product design</MiniCard>
+        <MiniCard animationData={compassLottie}>I help junior developer team grows exponentially by mentoring them individually</MiniCard>
+      </div>
     </>
   )
 }
+
+
 
 const ChapterTitle = (props: any, {className}:any) => {
   const dividerStyle: string = "w-full h-[2px] rounded-md shadow-sm bg-themed-gray-t5";
