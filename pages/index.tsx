@@ -29,7 +29,6 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <TopFrame>
-        <GreetingsLayout></GreetingsLayout>
         <RevealingPage className={`${pageConfig} bg-gradient-to-tr from-primary-t5`}>
           <Intro />
           <BestOfMe></BestOfMe>
@@ -73,7 +72,7 @@ const BestOfMe = () => {
       <div className='flex flex-col lg:flex-row justify-evenly w-full gap-4'>
         <MiniCard animationData={walletLottie}>I help company reduce their operational cost by implementing smart system into design</MiniCard>
         <MiniCard animationData={smileyLottie}>I help bussiness strengthen their customer’s retentions by embeding psychology into product design</MiniCard>
-        <MiniCard animationData={compassLottie}>I help junior developer team grows exponentially by mentoring them individually</MiniCard>
+        <MiniCard animationData={compassLottie}>I help junior developer team grows exponentially by providing mentorship and guidance</MiniCard>
       </div>
     </>
   )

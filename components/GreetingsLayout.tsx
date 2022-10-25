@@ -3,8 +3,13 @@ import { BlackHole } from './BlackHole';
 import { MatrixEffect } from './MatrixEffect';
 import { TypingEffect } from './TypingEffect';
 
-export const GreetingsLayout = () => {
-    const [showLayout, setShowLayout] = useState(true);
+
+interface iGreetingsLayout{
+    show?: boolean,
+}
+
+export const GreetingsLayout = ({show = true}:iGreetingsLayout) => {
+    const [showLayout, setShowLayout] = useState<boolean>(show);
     const [startBlackHole, setStartBlackHole] = useState(false);
     const [startGreetings, setStartGreetings] = useState(false);
 
@@ -19,12 +24,14 @@ export const GreetingsLayout = () => {
 
     function onDispose() {
         setStartBlackHole(false);
-        const timeout = setTimeout(() => setShowLayout(false), 800);
+        const timeout = setTimeout(() => {
+            setShowLayout(false);
+        }, 800);
         return () => clearTimeout(timeout);
     }
 
     return (
-        <MatrixEffect showScreen={showLayout}>
+        <MatrixEffect showScreen={showLayout} >
                 <BlackHole isShow={startBlackHole}>
                     <TypingEffect
                         showAnimation={startGreetings}
