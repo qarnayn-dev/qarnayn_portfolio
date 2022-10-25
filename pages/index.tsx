@@ -68,7 +68,7 @@ const Intro = () => {
 const BestOfMe = () => {
   return (
     <>
-      <ChapterTitle>The best out of me</ChapterTitle>
+      {/* <ChapterTitle>The best out of me</ChapterTitle> */}
       <div className='flex flex-col lg:flex-row justify-evenly w-full gap-4'>
         <MiniCard animationData={walletLottie}>I help company reduce their operational cost by implementing smart system into design</MiniCard>
         <MiniCard animationData={smileyLottie}>I help bussiness strengthen their customer’s retentions by embeding psychology into product design</MiniCard>

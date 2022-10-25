@@ -13,7 +13,7 @@ export const MiniCard = ({ animationData, children }: iMiniCard) => {
     const isInView = useInView(titleRef, { once: true });
 
     return (
-        <div className='h-full w-full float-left rounded-lg bg-themed-gray-base bg-opacity-10 flex flex-col items-center justify-center text-center px-[7vw] lg:px-[2vw] py-8 apply-glass'>
+        <div className='h-full w-full float-left rounded-lg flex flex-col items-center justify-center text-center px-[7vw] lg:px-[2vw] py-8 bg-themed-gray-base shadow-sm dark:shadow-themed-gray-t4 backdrop-blur-sm bg-opacity-10'>
         <Lottie animationData={animationData} className='my-6 h-24 mobile-lg:h-28'></Lottie>
         <div
             ref={titleRef}
