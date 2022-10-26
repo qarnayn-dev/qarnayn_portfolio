@@ -1,4 +1,4 @@
-import { motion, useInView} from "framer-motion";
+import {useInView} from "framer-motion";
 import Lottie from "lottie-react"
 import { useRef, useState} from "react"
 import { animated, config, easings, useSpring } from "react-spring";
@@ -98,15 +98,7 @@ interface iShowcaseItem{
 const ShowcaseItem = (prop: iShowcaseItem) => {
 
     return (
-        <div
-            // initial={{ opacity: 0, y:100}}
-            // animate={{ opacity: 1, y:0}}
-            // transition={{
-            //     type: 'spring',
-            //     duration: 0.9,
-            //     delay: 0.4,
-            // }}
-            className="flex flex-col style-body">
+        <div className="flex flex-col style-body">
             <h3 className="pl-1 border-l-[3px] border-spacing-4 border-primary-t5 font-medium h-4 flex items-center text-themed-gray-t4 -translate-x-[7px]">{prop.title}</h3>
             <div className="text-themed-gray-t5 mt-2 mb-6">{prop.content}</div>
         </div>

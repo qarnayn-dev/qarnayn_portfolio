@@ -11,7 +11,6 @@ import { AnimatedSentences } from '../components/AnimatedSentences';
 import useWindowDimensions from '../components/useWindowDimensions';
 import { useScrollSnap } from '../components/useScrollSnap';
 import { StickyLayer } from '../components/StickyLayer';
-import { GreetingsLayout } from '../components/GreetingsLayout';
 import Lottie from 'lottie-react';
 import appDevIllustration from '../assets/app_dev_lottie.json';
 import walletLottie from '../assets/wallet_ani.json';
@@ -29,11 +28,11 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <TopFrame>
-        <RevealingPage className={`${pageConfig} bg-gradient-to-tr from-primary-t5`}>
-          <Intro />
-          <BestOfMe></BestOfMe>
+        <Intro />
+        <BestOfMe/>
+        <RevealingPage>
+          <MyStory></MyStory>
         </RevealingPage>
-        <MyStory></MyStory>
         <div className='w-screen h-[200vh] bg-blue-100'></div>
 
       </TopFrame >

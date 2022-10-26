@@ -71,6 +71,7 @@ module.exports = {
       },
       boxShadow: {
         "end-page": `0 32px 40px -10px rgba(0, 0, 0, 0.5)`,
+        "end-b": `0px 40px 30px 2px rgba(0, 0, 0, 1)`,
       },
     },
   },
