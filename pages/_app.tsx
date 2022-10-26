@@ -3,7 +3,6 @@ import type { AppProps } from 'next/app'
 import 'tailwindcss/tailwind.css'
 import {useEffect, useState } from 'react'
 import { ThemeContext, THEME_LKEY} from '../components/DarkThemeToggle';
-import { ParallaxProvider } from 'react-scroll-parallax';
 import { GreetingsLayout } from '../components/GreetingsLayout';
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -42,7 +41,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
       <GreetingsLayout show={true}></GreetingsLayout>
-      <ParallaxProvider><Component {...pageProps} /></ParallaxProvider>
+      <Component {...pageProps} />
     </ThemeContext.Provider>
   )
 }

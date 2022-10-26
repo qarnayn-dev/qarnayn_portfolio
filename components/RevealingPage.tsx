@@ -6,8 +6,9 @@ interface iRevealingPage{
   children: any,
 }
 
-/// Storybook like effect i.e. when scrolling down, reveeal  the next page
-/// NOTE: This is the top page layer only, the next page should use <Parallax opacity={[0,2]}>
+/**
+ * Reveal the underlayer when the minimum screen is in view
+ */
 export const RevealingPage = ({ children}: iRevealingPage) => {
   const revealingLayerRef = useRef(null);
 
