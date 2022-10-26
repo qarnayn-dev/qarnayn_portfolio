@@ -3,7 +3,7 @@ import Head from 'next/head'
 import  { ThemeContext } from '../components/DarkThemeToggle';
 import {  LegacyRef, Ref, RefObject, useContext, useEffect, useRef, useState} from 'react';
 import TopFrame from '../components/TopFrame';
-import { RevealingPage } from '../components/RevealingPage';
+import { RevealingPage, ShadowPage } from '../components/RevealingPage';
 import { AnimatedColoredText } from '../components/AnimatedColoredText';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { animated, easings, useSpring } from 'react-spring';
@@ -28,8 +28,11 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <TopFrame>
-        <Intro />
-        <BestOfMe/>
+        <div className='relative pb-10'>
+          <Intro />
+          <BestOfMe />
+          <ShadowPage/>
+        </div>
         <RevealingPage>
           <MyStory></MyStory>
         </RevealingPage>
