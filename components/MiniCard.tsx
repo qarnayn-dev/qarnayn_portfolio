@@ -38,7 +38,7 @@ export const MiniCard = ({ animationData, title, extensionData }: iMiniCard) => 
     }
 
     const ShowcasesItems = () => {
-        return <TrailedChildren delay={600} duration={700}>{extensionData.showcaseList.map((v,i)=><ShowcaseItem key={`showcase#${i}`} title={v.title} content={v.content}></ShowcaseItem>)}</TrailedChildren>
+        return <TrailedChildren delay={500} duration={750}>{extensionData.showcaseList.map((v,i)=><ShowcaseItem key={`showcase#${i}`} title={v.title} content={v.content}></ShowcaseItem>)}</TrailedChildren>
     }
 
     const subTitleSpring = useSpring({
