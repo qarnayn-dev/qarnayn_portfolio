@@ -64,10 +64,10 @@ export const MiniCard = ({ animationData, title, extensionData }: iMiniCard) => 
                 </button>
             </div>
             <PopupModal isOpen={showExtension} onClose={closeModal}>
-                <div className="w-full h-full flex flex-col overflow-scroll gray-dark-pallete dark:gray-light-pallete lg:pr-[40%] px-2 py-4">
+                <div className="w-full h-full flex flex-col overflow-scroll gray-dark-pallete dark:gray-light-pallete sm:px-[5%] md:px-[8%] lg:px-[12%] xl:px-[16%] px-2 py-2 md:py-[4%] lg:py-[6%]">
                     <h2 className={subTitleStyle}>On How</h2>
                     <h1 className=" mb-6 style-subheading font-medium ">{title}</h1>
-                    <p className="mr-2 mb-10 text-themed-gray-t5">{extensionData.description}</p>
+                    <p className="mr-2 mb-10 text-themed-gray-t5 style-body">{extensionData.description}</p>
                     {(extensionData.showcaseList.length > 0) && <h2 className={`${subTitleStyle} mb-3`}>Showcases</h2>}
                     {ShowcasesItems()}
                     <></>

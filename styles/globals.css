@@ -17,12 +17,12 @@
 
     /* Sub-heading scaled */
     .style-subheading{
-        @apply text-lg lg:text-xl 2xl:text-2xl
+        @apply text-base mobile-lg:text-lg lg:text-xl 2xl:text-2xl
     }
 
     /* Sub-heading scaled */
     .style-body{
-        @apply text-base lg:text-lg 2xl:text-xl
+        @apply text-sm mobile-lg:text-base lg:text-lg 2xl:text-xl
     }
 
     /* Sub-heading scaled */
