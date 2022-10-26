@@ -1,7 +1,9 @@
-import { useInView} from "framer-motion";
+import { motion, useInView} from "framer-motion";
 import Lottie from "lottie-react"
 import { useRef, useState} from "react"
+import { animated, config, easings, useSpring } from "react-spring";
 import PopupModal from "./PopupModal";
+import TrailedChildren from "./TrailedChildren";
 
 interface iMiniCard{
     animationData: unknown,
@@ -35,17 +37,28 @@ export const MiniCard = ({ animationData, title, extensionData }: iMiniCard) => 
         }
     }
 
-    /*
-    const testArray: iShowcaseItem[] = [
-        { title: "No sports without community", content: "When developing the sports facility's booking system, I pioneered a feature to turn a private event into a public event. It eliminates the users' fear of event cancelation due to lack of participant; Hence, resulting in increases of number of successful facility booked." },
-        { title: "Lorem ipsum", content: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellendus tempora voluptatem aut pariatur illum porro eaque vel! Asperiores provident dolor cum expedita, quasi ut culpa aspernatur deleniti, quam harum nihil?" },
-        { title: "", content: "" },
-        { title: "", content: "" },];
-    */
-
     const ShowcasesItems = () => {
-        return extensionData.showcaseList.map((v,i)=><ShowcaseItem key={`showcase#${i}`} title={v.title} content={v.content}></ShowcaseItem>)
+        return <TrailedChildren delay={600} duration={700}>{extensionData.showcaseList.map((v,i)=><ShowcaseItem key={`showcase#${i}`} title={v.title} content={v.content}></ShowcaseItem>)}</TrailedChildren>
     }
+
+    const subTitleSpring = useSpring({
+        config: config.molasses,
+        delay:showExtension ? 900 :0,
+        to: {opacity:showExtension? 1:   0},
+    });
+
+    const titleSpring = useSpring({
+        config: {duration: 900,  tension: 280, friction: 120},
+        to: { x:showExtension ? 0:10, opacity: showExtension ? 1 : 0 },
+    });
+
+    const contentSpring = useSpring({
+        config: {duration:600, easing: easings.easeInCubic},
+        delay: showExtension? 200 :0,
+        to: {opacity:showExtension? 1: 0},
+    });
+
+
 
     return (
         <>
@@ -65,10 +78,10 @@ export const MiniCard = ({ animationData, title, extensionData }: iMiniCard) => 
             </div>
             <PopupModal isOpen={showExtension} onClose={closeModal}>
                 <div className="w-full h-full flex flex-col overflow-scroll gray-dark-pallete dark:gray-light-pallete sm:px-[5%] md:px-[8%] lg:px-[12%] xl:px-[16%] px-2 py-2 md:py-[4%] lg:py-[6%]">
-                    <h2 className={subTitleStyle}>On How</h2>
-                    <h1 className=" mb-6 style-subheading font-medium ">{title}</h1>
-                    <p className="mr-2 mb-10 text-themed-gray-t5 style-body">{extensionData.description}</p>
-                    {(extensionData.showcaseList.length > 0) && <h2 className={`${subTitleStyle} mb-3`}>Showcases</h2>}
+                    <animated.h2 style={subTitleSpring} className={subTitleStyle}>On How</animated.h2>
+                    <animated.h1 style={titleSpring} className=" mb-6 style-subheading font-medium ">{title}</animated.h1>
+                    <animated.p style={contentSpring} className="mr-2 mb-10 text-themed-gray-t5 style-body">{extensionData.description}</animated.p>
+                    {(extensionData.showcaseList.length > 0) && <animated.h2 style={subTitleSpring} className={`${subTitleStyle} mb-3`}>Showcases</animated.h2>}
                     {ShowcasesItems()}
                     <></>
                 </div>
@@ -83,8 +96,17 @@ interface iShowcaseItem{
 }
 
 const ShowcaseItem = (prop: iShowcaseItem) => {
+
     return (
-        <div className="flex flex-col style-body">
+        <div
+            // initial={{ opacity: 0, y:100}}
+            // animate={{ opacity: 1, y:0}}
+            // transition={{
+            //     type: 'spring',
+            //     duration: 0.9,
+            //     delay: 0.4,
+            // }}
+            className="flex flex-col style-body">
             <h3 className="pl-1 border-l-[3px] border-spacing-4 border-primary-t5 font-medium h-4 flex items-center text-themed-gray-t4 -translate-x-[7px]">{prop.title}</h3>
             <div className="text-themed-gray-t5 mt-2 mb-6">{prop.content}</div>
         </div>

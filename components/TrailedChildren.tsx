@@ -3,14 +3,14 @@ import { animated, easings, useTransition } from "react-spring";
 
 /// Animate the children props in sequennces
 /// to control the children layout, use [className]
-const TrailedChildren = ({children, className, isHorizontal, startingX, startingY, duration, trail}:iTrailedChildren) => {
+const TrailedChildren = ({children, className, isHorizontal, startingX, startingY, duration, trail,delay = 200}:iTrailedChildren) => {
 
     const propChildren: any[] = [...children];
     const numOfChild: number = propChildren.length;
     const curatedDuration:number = duration ?? ((numOfChild<6)? 230 * numOfChild : 1000);
     const curatedTrail: number = trail ?? (300 - ((numOfChild > 6) ? (numOfChild - 6) * 10 : 0));
 
-    const twConfig: string = `flex w-min h-min gap-2 ${className}`;
+    const twConfig: string = `flex gap-2 ${className}`;
     const twDirection: string = isHorizontal? 'flex-row':'flex-col';
 
     const transitions = useTransition(propChildren, {
@@ -20,7 +20,7 @@ const TrailedChildren = ({children, className, isHorizontal, startingX, starting
         from: {opacity : 0 , y: startingY ?? 200 , x: startingX ?? 0 },
         enter: {opacity : 1, y: 0, x: 0},
         to: { opacity: 0 },
-        delay: 200,
+        delay: delay,
     });
 
     return (
@@ -44,4 +44,5 @@ interface iTrailedChildren{
     startingY?: number,
     duration?: number,
     trail?: number,
+    delay?: number,
 }
