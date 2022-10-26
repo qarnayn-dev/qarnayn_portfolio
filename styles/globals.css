@@ -17,7 +17,7 @@
 
     /* Sub-heading scaled */
     .style-subheading{
-        @apply text-lg mobile-lg:text-xl 2xl:text-2xl
+        @apply text-lg lg:text-xl 2xl:text-2xl
     }
 
     /* Sub-heading scaled */

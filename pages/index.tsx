@@ -70,9 +70,28 @@ const BestOfMe = () => {
     <>
       {/* <ChapterTitle>The best out of me</ChapterTitle> */}
       <div className='flex flex-col lg:flex-row justify-evenly w-full gap-4'>
-        <MiniCard animationData={walletLottie}>I help company reduce their operational cost by implementing smart system into design</MiniCard>
-        <MiniCard animationData={smileyLottie}>I help bussiness strengthen their customer’s retentions by embeding psychology into product design</MiniCard>
-        <MiniCard animationData={compassLottie}>I help junior developer team grows exponentially by providing mentorship and guidance</MiniCard>
+        <MiniCard
+          animationData={walletLottie}
+          title="I help company reduce their operational cost by implementing smart system into design"
+          extensionData={{
+            description: "As a lead developer, one of the challenge that i faced is to build a feuture that gives the best user experience while keeping its operational cost at minimal. While a common solution is to use an inexpensive API. However, I find that it is more effective to introduce a smart mechanism into the front-end implementation that behaves as a soft stopgap from calling the API successively. By implementing as such into my works, I’m not only helping company to reduce their cost, but I’m also able to deliver an amazing user experience that designer has envisioned.",
+            showcaseList: [
+              { title: "No sports without community", content: "When developing the sports facility's booking system, I pioneered a feature to turn a private event into a public event. It eliminates the users' fear of event cancelation due to lack of participant; Hence, resulting in increases of number of successful facility booked." },
+              { title: "", content: "" },
+            ]
+          }} />
+          <MiniCard
+            title="I help bussiness strengthen their customer’s retentions by embeding psychology into product design"
+            animationData={smileyLottie}
+            extensionData={{
+              description:"Looking at what I have experienced, one of the most difficult challenges that a bussiness faces is the increasing amount of churn rate (rate of losing customers). A common counter measure is to increase the marketing expenses. While it can bring new customers, but it doesn’t tackle the root cause which is the churn rate itself. From my experiences, there’s always a psychological pattern in customer’s behaviour; I put effort in the details in every design and development process. By having a passion in human psychology and understand it, I’m apt to design and develop a software that users love, and they will  keep loving it.",
+              showcaseList:[]}}/>
+          <MiniCard
+            title="I help junior developer team grows exponentially by providing mentorship and guidance"
+            animationData={compassLottie}
+            extensionData={{
+              description:"Hiring is hard and finding a good candidate to fit the team is another level of hardship. Once a new team member enters, it could effect the entire team’s productivity. From my experiences, a well synergised teammates comes from a decent leadership. By understanding human behaviour, I’m quick to adapt in any kind of team. I strongly believed that trustworthiness must comes from the top to bottom in any team. As a lead developer, I always establish trust first and the team synergies will be improved significantly. By implementing this framework in any team, I’m able to drive the team’s productivity into its best.",
+              showcaseList:[]}}/>
       </div>
     </>
   )
