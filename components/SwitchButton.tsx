@@ -12,9 +12,8 @@ const SwitchButton = ({ isEnabled, setIsEnabled,}: iSwitch) => {
       <Switch
         checked={isEnabled}
         onChange={setIsEnabled}
-        className={`bg-themed-gray-t5 relative inline-flex h-[20px] w-[44px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 `}
+        className={`bg-themed-gray-t5 relative inline-flex h-[20px] w-[44px] 2xl:w-[48px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
       >
-        {/* <span className="sr-only">Use setting</span> */}
         <span
           aria-hidden="true"
           className={`${isEnabled ? 'translate-x-6' : 'translate-x-0'}

@@ -73,6 +73,13 @@ module.exports = {
         "end-page": `0 32px 40px -10px rgba(0, 0, 0, 0.5)`,
         "end-b": `0px 40px 30px 2px rgba(0, 0, 0, 1)`,
       },
+      transitionTimingFunction: {
+        "in-expo": "cubic-bezier(0.95, 0.05, 0.795, 0.035)",
+        "out-expo": "cubic-bezier(0.19, 1, 0.22, 1)",
+        "out-circ": "cubic-bezier(0, 0.55, 0.45, 1)",
+        "out-back": "cubic-bezier(0.34, 1.56, 0.64, 1)",
+        "out-quad": "cubic-bezier(0.5, 1, 0.89, 1)",
+      },
     },
   },
   plugins: [],

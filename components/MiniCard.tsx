@@ -63,7 +63,7 @@ export const MiniCard = ({ animationData, title, extensionData }: iMiniCard) => 
     return (
         <>
             <div className='h-full w-full float-left rounded-lg flex flex-col items-center justify-center text-center px-[7vw] lg:px-[2vw] py-8 bg-themed-gray-base shadow-sm dark:shadow-themed-gray-t4 backdrop-blur-sm bg-opacity-10'>
-                <Lottie animationData={animationData} className='my-6 h-24 mobile-lg:h-28'></Lottie>
+                <Lottie animationData={animationData} className='my-6 h-24 mobile-lg:h-28'/>
                 <div
                     ref={titleRef}
                     className='h-28 lg:h-36 w-full font-normal style-subheading'

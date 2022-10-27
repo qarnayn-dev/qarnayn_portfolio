@@ -49,7 +49,7 @@ const Intro = () => {
   const {theme} = useContext(ThemeContext)
 
   return (
-    <div className='flex flex-col frame-bounded-x mb-[10vw] mt-8 md:mt-14 w-full float-left relative  justify-start items-center gap-6 md:flex-row-reverse'>
+    <div className='flex flex-col frame-bounded-x mb-[10vw] mt-8 md:mt-14 w-full float-left relative  justify-start items-center gap-6 md:flex-row-reverse transition-all ease-out-circ'>
         <Lottie animationData={appDevIllustration} className='min-w-[40%] max-w-[60%] md:max-w-[46%] lg:max-w-[70%] float-right mx-6 mb-10'></Lottie>
         <div className='float-left w-full h-full flex flex-col justify-center'>
           <h2 className='style-secondary mb-[2px] '>Hello World! I am Qarnayn</h2>
@@ -111,7 +111,6 @@ const MyStory = () => {
 
   const titleRef = useRef(null);
   const { scrollYProgress } = useScroll({ target: titleRef, offset: ["0.5 1", "0.5 0"] });
-  const mainPageRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const titleYProgress = scrollYProgress.onChange((p) => {
