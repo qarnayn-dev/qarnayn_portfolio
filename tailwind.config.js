@@ -79,6 +79,7 @@ module.exports = {
         "out-circ": "cubic-bezier(0, 0.55, 0.45, 1)",
         "out-back": "cubic-bezier(0.34, 1.56, 0.64, 1)",
         "out-quad": "cubic-bezier(0.5, 1, 0.89, 1)",
+        "out-cubic": "cubic-bezier(0.33, 1, 0.68, 1)",
       },
     },
   },
