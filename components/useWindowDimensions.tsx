@@ -9,6 +9,7 @@ export default function useWindowDimensions() {
     if (windowDimensions.width === 0 && windowDimensions.height ===0) handleResize();
 
     function handleResize() {
+      console.log("resizing: ",`${getWindowDimensions().width},${getWindowDimensions().height}`);
       setWindowDimensions(getWindowDimensions());
     }
 
@@ -19,10 +20,7 @@ export default function useWindowDimensions() {
 
     if (window) {window.addEventListener('resize', handleResize);}
 
-    return () => window.removeEventListener('resize', () => {
-        console.log("remove subs");
-        handleResize();
-      });
+    return () => window.removeEventListener('resize', () => handleResize());
   }, []);
 
   return windowDimensions;

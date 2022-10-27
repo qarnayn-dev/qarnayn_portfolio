@@ -113,7 +113,6 @@ const MyStory = () => {
   const { scrollYProgress } = useScroll({ target: titleRef, offset: ["0.5 1", "0.5 0"] });
   const mainPageRef = useRef<HTMLElement>(null);
 
-
   useEffect(() => {
     const titleYProgress = scrollYProgress.onChange((p) => {
       if (!showTitle && p > 0.849) setShowTitle(true);
@@ -175,7 +174,7 @@ const StoryContainer = ({ children,objRef, className, title }: iStoryContainer) 
     else if (!isLarge && (width > breakPoint)) setIsLarge(true);
   }, [width]);
 
-  useScrollSnap(containerRef, { position: 'bottom',scale: 3.5});
+  // useScrollSnap(containerRef, { position: 'bottom',scale: 3.5});
 
   return (
     <motion.div

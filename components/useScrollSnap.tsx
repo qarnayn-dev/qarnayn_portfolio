@@ -1,5 +1,6 @@
 import { useScroll } from "framer-motion";
-import { RefObject, useEffect } from "react";
+import { RefObject, useCallback, useEffect, useMemo, useState } from "react";
+import { Debouncer } from "../utilities/Debouncer";
 import useWindowDimensions from "./useWindowDimensions";
 
 interface UseScrollSnapOptions{
@@ -27,23 +28,23 @@ interface UseScrollSnapOptions{
  * ```
  */
 
-export const useScrollSnap = (targetRef: RefObject<HTMLElement>,options?:UseScrollSnapOptions|undefined): void => {
+export const useScrollSnap = (targetRef: RefObject<HTMLElement>, options?: UseScrollSnapOptions | undefined): void => {
+    const [target, setTarget] = useState<HTMLElement | null>(null);
+    const [targetOffset, SetTargetOffset] = useState<number | null>(null);
     const { scrollY } = useScroll();
     const { width, height } = useWindowDimensions();
     const m: number = 0.0167; // gradient
     const C: number = 12.9; // y-intercept
 
-    let target: HTMLElement | undefined | null;
-    let threshold: number;
-    let unsubScrollY: (() => void) | null ;
-    // should be reassigned everytime the difference is close
-    let timeOut: NodeJS.Timeout | undefined;
+    let unsubScrollY: () => void | undefined;
 
+    const debouncer: Debouncer = new Debouncer(() => { scrollToYTarget(); }, options?.responseMs ?? 100);
+    // Debouncer whenever the scroll changes
+    const scrollDebouncer: Debouncer = new Debouncer(() => {SetTargetOffset(targetYOffset())}, 50);
 
-    // The difference between the top viewport and the target's `options.position`.
-    // Default: target's top  - viewport top
-    // `'bottom'`: target's bottom - viewport height - viewport's top
-    function getDifference(): number | null {
+    const threshold: number = useMemo(() => options?.distance ?? (options?.scale ?? 1) * (width * m + C), [width]);
+
+    const targetYOffset:()=> number | null = useCallback(() => {
         let diffInPixels: number | null;
 
         switch (options?.position) {
@@ -54,49 +55,40 @@ export const useScrollSnap = (targetRef: RefObject<HTMLElement>,options?:UseScro
                 diffInPixels = target ? (target.getBoundingClientRect().top) : null;
                 break;
         }
+        console.log("width, off :",`${width}, ${diffInPixels}`);
         return diffInPixels;
-    }
+    }, [height, width, target]);
+
+    useEffect(() => {
+        if(!target) setTarget(targetRef.current);
+
+        if (target && !unsubScrollY && width !== 0 && height !== 0) {
+            unsubScrollY = scrollY.onChange((y) => {
+                // console.log("scrolY: ", y);
+                scrollDebouncer.rebound();
+            });
+        }
+
+        return ()=> {unsubScrollY}
+    }, [target]);
+
+    // react whenever choll changes
+    useEffect(() => {
+        console.log("New target offset : ", targetOffset);
+        if (targetOffset && Math.abs(targetOffset) < threshold) debouncer.rebound();
+        else debouncer.cancel();
+        return () => {}
+    }, [targetOffset])
+
 
     function getTargetScrollY(): number | null {
-        const boundingOffset: number | null = getDifference();
-        const addOffset: number = 0;
-        // console.log("from update: ", `${scrollY.get()} + ${boundingOffset} + ${addOffset}`);
-        const targetScrollYPosition = boundingOffset ? (scrollY.get() + boundingOffset + addOffset) : null;
-
-        return targetScrollYPosition;
-    }
-
-    function reassignTimeout(): void {
-        if (timeOut) clearTimeout(timeOut);
-        timeOut = setTimeout(() => { scrollToYTarget(); }, options?.responseMs?? 200)
-    }
-
-    function calculateThreshold() {
-        // Note: the threshhold by default uses linear geometry scaling
-        threshold = options?.distance ?? (options?.scale ?? 1) * (width * m + C);
-        // console.log("new threshold: ",threshold);
-    }
-
-    function handleOnScroll(): void {
-        const diff: number | null = getDifference();
-        if (diff && Math.abs(diff) < threshold) reassignTimeout();
-        else clearTimeout(timeOut);
+        const offset = targetOffset;
+        return offset ? (scrollY.get() + offset) : null;
     }
 
     function scrollToYTarget(): void {
-        const targetScrollYPosition: number | null = getTargetScrollY();
-        if (targetScrollYPosition) window.scrollTo({ top: targetScrollYPosition, behavior: "smooth" });
+        const targetYPosition = getTargetScrollY();
+        console.log("scrolToY: ", targetYPosition);
+        if (targetYPosition) window.scrollTo({ top: targetYPosition, behavior: "smooth" });
     }
-
-    useEffect(() => {
-        if(!target) target = targetRef.current;
-
-        if (target && !unsubScrollY && width !== 0 && height !== 0) {
-            calculateThreshold();
-            unsubScrollY = scrollY.onChange((y) => {handleOnScroll();});
-            return ()=> {unsubScrollY}
-        }
-
-    }, [width,height]);
-
 }
