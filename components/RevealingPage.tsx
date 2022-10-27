@@ -17,7 +17,7 @@ export const RevealingPage = ({ children}: iRevealingPage) => {
 
   return (
     <div className="relative">
-      <motion.div ref={revealingLayerRef} style={{ opacity }}  className="w-screen h-screen bg-themed-gray-base absolute top-0 left-0 z-30"></motion.div>
+      <motion.div ref={revealingLayerRef} style={{ opacity }}  className="w-screen h-screen bg-themed-gray-base absolute top-0 left-0 z-20"></motion.div>
       {children}
     </div>
   )
@@ -33,6 +33,6 @@ export const ShadowPage = () => {
   const opacity = useTransform(scrollYProgress, [0, 0.75, 0.999, 1], [0, 1, 1, 0]);
 
   return (
-    <motion.div ref={ref} style={{opacity}} className="w-screen h-10 shadow-end-page absolute bottom-0 left-0 z-40"></motion.div>
+    <motion.div ref={ref} style={{opacity}} className="w-screen h-10 shadow-end-page absolute bottom-0 left-0 z-30"></motion.div>
   )
 }
