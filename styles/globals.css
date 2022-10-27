@@ -10,6 +10,14 @@
         @apply light-color-pallete gray-light-pallete duration-300 bg-themed-gray-base text-themed-gray-inverse font-poppins style-body font-light
     }
 
+    .frame-bounded-x {
+        @apply px-[6vw]
+    }
+
+    .frame-bounded-y {
+        @apply  py-[3vh] md:py-[6vh]
+    }
+
     /* Heading scaled */
     .style-heading{
         @apply text-2xl mobile-lg:text-3xl md:text-4xl xl:text-5xl 2xl:text-6xl font-medium
