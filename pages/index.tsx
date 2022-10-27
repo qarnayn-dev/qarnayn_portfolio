@@ -9,7 +9,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { animated, easings, useSpring } from 'react-spring';
 import { AnimatedSentences } from '../components/AnimatedSentences';
 import useWindowDimensions from '../components/useWindowDimensions';
-import { useScrollSnap } from '../components/useScrollSnap';
+import { ScrollSnapWrapper, useScrollSnap } from '../components/useScrollSnap';
 import { StickyLayer } from '../components/StickyLayer';
 import Lottie from 'lottie-react';
 import appDevIllustration from '../assets/app_dev_lottie.json';
@@ -28,11 +28,11 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <TopFrame className="frame-bounded-y">
-        <div className='relative pb-10'>
+        <ScrollSnapWrapper className='relative pb-10' options={{position: 'bottom'}}>
           <Intro />
           <BestOfMe />
           <ShadowPage/>
-        </div>
+        </ScrollSnapWrapper>
         <RevealingPage>
           <MyStory></MyStory>
         </RevealingPage>
@@ -126,10 +126,8 @@ const MyStory = () => {
     to: { y: showTitle ? "0vh" : "40vh"},
   });
 
-  useScrollSnap(mainPageRef);
-
   return (
-    <div ref={mainPageRef as LegacyRef<HTMLDivElement>} className='bg-gradient-to-tr from-primary-t2 to-secondary-t5 justify-end items-end text-end'>
+    <ScrollSnapWrapper className='bg-gradient-to-tr from-primary-t2 to-secondary-t5 justify-end items-end text-end'>
       <animated.div style={titleSpring} className={`w-screen pt-[10vh] pb-2 flex flex-col justify-start items-center bg-transparent `}>
         <AnimatedColoredText objRef={titleRef} isOpen={showTitle}>My journey, I'm sharing with you</AnimatedColoredText>
       </animated.div>
@@ -139,7 +137,7 @@ const MyStory = () => {
         className='mt-[45vh] md:mt-0 mr-0 md:mr-[45vw'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat dolor veniam earum ullam hic iusto nemo officia! In totam aliquam laborum velit veniam, nesciunt, ab eum itaque possimus quibusdam aperiam.</StoryContainer>
       <StoryContainer title='Then...'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consequatur omnis voluptatem dolorem, dolores vitae aliquid illo rerum eum, quod, illum accusantium natus quisquam! Nulla quos eveniet sit neque autem perferendis.</StoryContainer>
       <div className='w-screen h-screen bg-sky-100'></div>
-    </div>
+    </ScrollSnapWrapper>
   )
 }
 
@@ -174,7 +172,7 @@ const StoryContainer = ({ children,objRef, className, title }: iStoryContainer) 
     else if (!isLarge && (width > breakPoint)) setIsLarge(true);
   }, [width]);
 
-  // useScrollSnap(containerRef, { position: 'bottom',scale: 3.5});
+  useScrollSnap(containerRef, { position: 'bottom',scale: 2});
 
   return (
     <motion.div

@@ -1,5 +1,5 @@
 import { useScroll } from "framer-motion";
-import { RefObject, useCallback, useEffect, useMemo, useState } from "react";
+import { RefObject, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Debouncer } from "../utilities/Debouncer";
 import useWindowDimensions from "./useWindowDimensions";
 
@@ -38,9 +38,9 @@ export const useScrollSnap = (targetRef: RefObject<HTMLElement>, options?: UseSc
 
     let unsubScrollY: () => void | undefined;
 
-    const debouncer: Debouncer = new Debouncer(() => { scrollToYTarget(); }, options?.responseMs ?? 100);
+    const debouncer: Debouncer = new Debouncer(() => { scrollToYTarget(); }, options?.responseMs ?? 80);
     // Debouncer whenever the scroll changes
-    const scrollDebouncer: Debouncer = new Debouncer(() => {SetTargetOffset(targetYOffset())}, 50);
+    const scrollDebouncer: Debouncer = new Debouncer(() => {SetTargetOffset(targetYOffset())}, 40);
 
     const threshold: number = useMemo(() => options?.distance ?? (options?.scale ?? 1) * (width * m + C), [width]);
 
@@ -55,7 +55,6 @@ export const useScrollSnap = (targetRef: RefObject<HTMLElement>, options?: UseSc
                 diffInPixels = target ? (target.getBoundingClientRect().top) : null;
                 break;
         }
-        console.log("width, off :",`${width}, ${diffInPixels}`);
         return diffInPixels;
     }, [height, width, target]);
 
@@ -74,7 +73,7 @@ export const useScrollSnap = (targetRef: RefObject<HTMLElement>, options?: UseSc
 
     // react whenever choll changes
     useEffect(() => {
-        console.log("New target offset : ", targetOffset);
+        // console.log("New target offset : ", targetOffset);
         if (targetOffset && Math.abs(targetOffset) < threshold) debouncer.rebound();
         else debouncer.cancel();
         return () => {}
@@ -88,7 +87,22 @@ export const useScrollSnap = (targetRef: RefObject<HTMLElement>, options?: UseSc
 
     function scrollToYTarget(): void {
         const targetYPosition = getTargetScrollY();
-        console.log("scrolToY: ", targetYPosition);
         if (targetYPosition) window.scrollTo({ top: targetYPosition, behavior: "smooth" });
     }
+}
+
+interface iScrollSnapWrapper{
+    children?: any,
+    className?: string,
+    options?: UseScrollSnapOptions,
+}
+
+export const ScrollSnapWrapper = ({children, className, options}: iScrollSnapWrapper) => {
+    const ref = useRef<HTMLDivElement>(null);
+
+    useScrollSnap(ref, options);
+
+    return (
+        <div ref={ref} className={className}>{children}</div>
+    )
 }

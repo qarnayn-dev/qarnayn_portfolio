@@ -9,7 +9,7 @@ export default function useWindowDimensions() {
     if (windowDimensions.width === 0 && windowDimensions.height ===0) handleResize();
 
     function handleResize() {
-      console.log("resizing: ",`${getWindowDimensions().width},${getWindowDimensions().height}`);
+      // console.log("resizing: ",`${getWindowDimensions().width},${getWindowDimensions().height}`);
       setWindowDimensions(getWindowDimensions());
     }
 
