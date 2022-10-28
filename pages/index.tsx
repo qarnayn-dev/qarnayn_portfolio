@@ -1,7 +1,6 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import  { ThemeContext } from '../components/DarkThemeToggle';
-import {  LegacyRef, Ref, RefObject, useContext, useEffect, useRef, useState} from 'react';
+import {  Ref, RefObject, useContext, useEffect, useRef, useState} from 'react';
 import TopFrame from '../components/TopFrame';
 import { RevealingPage, ShadowPage } from '../components/RevealingPage';
 import { AnimatedColoredText } from '../components/AnimatedColoredText';
@@ -17,10 +16,14 @@ import walletLottie from '../assets/wallet_ani.json';
 import smileyLottie from '../assets/smily_lottie.json';
 import compassLottie from '../assets/compass_lottie.json';
 import { MiniCard } from '../components/MiniCard';
+import TableLight from '../assets/table_light.svg'
+import TableDark from '../assets/table_dark.svg'
+import { ThemeContext } from '../components/DarkThemeToggle';
 
 
 const Home: NextPage = () => {
-  const pageConfig: string = "px-[4vw] py-8";
+  const {theme} = useContext(ThemeContext);
+
   return (
       <div className='flex flex-col'>
       <Head>
@@ -28,7 +31,10 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <TopFrame className="frame-bounded-y">
-        <ScrollSnapWrapper className='relative pb-10' options={{position: 'bottom'}}>
+        <ScrollSnapWrapper className='relative pb-10 flex flex-col' options={{ position: 'bottom' }}>
+          <div className="absolute top-20 md:top-32 lg:top-20 right-0 overflow-clip w-[120vw] opacity-40 dark:opacity-100">
+            {(theme==='light')?<TableLight/>:<TableDark/>}
+          </div>
           <Intro />
           <BestOfMe />
           <ShadowPage/>
@@ -61,7 +67,7 @@ const Intro = () => {
 const BestOfMe = () => {
   return (
     <>
-      {/* <ChapterTitle>The best out of me</ChapterTitle> */}
+      <div className='frame-bounded-x mt-20 md:mt-24 mb-16 style-subheading text-themed-gray-t9 font-sans'>The Best Of Me</div>
       <div className='frame-bounded-x flex flex-col lg:flex-row justify-evenly w-full gap-4'>
         <MiniCard
           animationData={walletLottie}
@@ -138,8 +144,6 @@ const MyStory = () => {
   )
 }
 
-
-
 interface iStoryContainer{
   children: string,
   objRef?: RefObject<HTMLElement>,
@@ -185,4 +189,4 @@ const StoryContainer = ({ children,objRef, className, title }: iStoryContainer) 
         >{children}</AnimatedSentences>
     </motion.div>
   )
- }
+}

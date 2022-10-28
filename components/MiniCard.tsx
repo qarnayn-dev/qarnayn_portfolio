@@ -58,8 +58,6 @@ export const MiniCard = ({ animationData, title, extensionData }: iMiniCard) => 
         to: {opacity:showExtension? 1: 0},
     });
 
-
-
     return (
         <>
             <div className='h-full w-full float-left rounded-lg flex flex-col items-center justify-center text-center px-[7vw] lg:px-[2vw] py-8 bg-themed-gray-base shadow-sm dark:shadow-themed-gray-t4 backdrop-blur-sm bg-opacity-10'>
