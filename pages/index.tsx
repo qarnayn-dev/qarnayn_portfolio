@@ -19,6 +19,7 @@ import { MiniCard } from '../components/MiniCard';
 import TableLight from '../assets/table_light.svg'
 import TableDark from '../assets/table_dark.svg'
 import { ThemeContext } from '../components/DarkThemeToggle';
+import { ParallaxWrapper } from '../components/ParallaxWrapper';
 
 
 const Home: NextPage = () => {
@@ -32,9 +33,9 @@ const Home: NextPage = () => {
       </Head>
       <TopFrame className="frame-bounded-y">
         <ScrollSnapWrapper className='relative pb-10 flex flex-col' options={{ position: 'bottom' }}>
-          <div className="absolute top-20 md:top-32 lg:top-20 right-0 overflow-clip w-[120vw] opacity-40 dark:opacity-100">
+          <ParallaxWrapper yDisplacement={-150} className="absolute top-20 md:top-32 lg:top-20 right-0 overflow-clip w-[120vw] opacity-40 dark:opacity-100">
             {(theme==='light')?<TableLight/>:<TableDark/>}
-          </div>
+          </ParallaxWrapper>
           <Intro />
           <BestOfMe />
           <ShadowPage/>
@@ -102,19 +103,6 @@ const BestOfMe = () => {
               showcaseList:[]}}/>
       </div>
     </>
-  )
-}
-
-
-
-const ChapterTitle = (props: any, {className}:any) => {
-  const dividerStyle: string = "w-full h-[2px] rounded-md shadow-sm bg-themed-gray-t5";
-  return (
-    <div className={`my-4 text-md mobile-lg:style-subheading font-medium flex text-center justify-center items-center ${className}`}>
-      <div className={`${dividerStyle} float-left`}></div>
-      <div className='w-full mx-2 md:mx-3 2xl:mx-5 '>{props.children}</div>
-      <div className={`${dividerStyle} float-right`}></div>
-    </div>
   )
 }
 
