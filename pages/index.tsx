@@ -64,10 +64,19 @@ const Intro = () => {
   )
 }
 
+const SectionTitle = (props:any) => {
+  return (
+      <div className={`${props.className} style-subheading text-themed-gray-t9 font-sans flex -translate-x-0`}>
+        <span className='w-1 h-6 bg-primary-t2 float-left mr-2'></span>
+        {props.children}
+      </div>
+    )
+ }
+
 const BestOfMe = () => {
   return (
     <>
-      <div className='frame-bounded-x mt-20 md:mt-24 mb-16 style-subheading text-themed-gray-t9 font-sans'>The Best Of Me</div>
+      <SectionTitle className="frame-bounded-x mt-20 mb-8">The Best Of Me</SectionTitle>
       <div className='frame-bounded-x flex flex-col lg:flex-row justify-evenly w-full gap-4'>
         <MiniCard
           animationData={walletLottie}

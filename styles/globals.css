@@ -7,7 +7,7 @@
     :root{
         --neutral-black : 23,23,23;
         --neutral-white : 242,242,242;
-        @apply light-color-pallete gray-light-pallete bg-themed-gray-base text-themed-gray-inverse font-poppins style-body font-light transition-all duration-1000 ease-out-quad
+        @apply light-color-pallete gray-light-pallete bg-themed-gray-base text-themed-gray-inverse font-poppins style-body font-light transition-all duration-500 ease-out-cubic
     }
 
     .frame-bounded-x {
