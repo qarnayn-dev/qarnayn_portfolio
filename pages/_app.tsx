@@ -40,7 +40,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
-      <GreetingsLayout show={true}></GreetingsLayout>
+      <GreetingsLayout show={loading}></GreetingsLayout>
       <Component {...pageProps} />
     </ThemeContext.Provider>
   )
