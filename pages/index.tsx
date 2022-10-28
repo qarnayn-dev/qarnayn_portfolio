@@ -33,7 +33,7 @@ const Home: NextPage = () => {
       </Head>
       <TopFrame className="frame-bounded-y">
         <ScrollSnapWrapper className='relative pb-10 flex flex-col' options={{ position: 'bottom' }}>
-          <ParallaxWrapper yDisplacement={-150} className="absolute top-20 md:top-32 lg:top-20 right-0 overflow-clip w-[120vw] opacity-40 dark:opacity-100">
+          <ParallaxWrapper yDisplacement={-150} className="absolute md:top-40 lg:top-32 right-0 overflow-clip w-[120vw] opacity-40 dark:opacity-100">
             {(theme==='light')?<TableLight/>:<TableDark/>}
           </ParallaxWrapper>
           <Intro />
