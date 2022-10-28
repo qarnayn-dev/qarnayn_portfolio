@@ -32,14 +32,14 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <TopFrame className="frame-bounded-y">
-        <ScrollSnapWrapper className='relative pb-10 flex flex-col' options={{ position: 'bottom' }}>
+        <div className='relative pb-24 md:pb-28  flex flex-col'>
           <ParallaxWrapper yDisplacement={-150} className="absolute md:top-40 lg:top-32 right-0 overflow-clip w-[120vw] opacity-40 dark:opacity-100">
             {(theme==='light')?<TableLight/>:<TableDark/>}
           </ParallaxWrapper>
           <Intro />
           <BestOfMe />
           <ShadowPage/>
-        </ScrollSnapWrapper>
+        </div>
         <RevealingPage>
           <MyStory></MyStory>
         </RevealingPage>
