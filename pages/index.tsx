@@ -85,7 +85,6 @@ const BestOfMe = () => {
           extensionData={{
             description: "As a lead developer, one of the challenge that i faced is to build a feuture that gives the best user experience while keeping its operational cost at minimal. While a common solution is to use an inexpensive API. However, I find that it is more effective to introduce a smart mechanism into the front-end implementation that behaves as a soft stopgap from calling the API successively. By implementing as such into my works, I’m not only helping company to reduce their cost, but I’m also able to deliver an amazing user experience that designer has envisioned.",
             showcaseList: [
-              { title: "No sports without community", content: "When developing the sports facility's booking system, I pioneered a feature to turn a private event into a public event. It eliminates the users' fear of event cancelation due to lack of participant; Hence, resulting in increases of number of successful facility booked." },
               { title: "", content: "" },
             ]
           }} />
@@ -94,7 +93,9 @@ const BestOfMe = () => {
             animationData={smileyLottie}
             extensionData={{
               description:"Looking at what I have experienced, one of the most difficult challenges that a bussiness faces is the increasing amount of churn rate (rate of losing customers). A common counter measure is to increase the marketing expenses. While it can bring new customers, but it doesn’t tackle the root cause which is the churn rate itself. From my experiences, there’s always a psychological pattern in customer’s behaviour; I put effort in the details in every design and development process. By having a passion in human psychology and understand it, I’m apt to design and develop a software that users love, and they will  keep loving it.",
-              showcaseList:[]}}/>
+              showcaseList: [
+                 { title: "No sports without community", content: "When developing the sports facility's booking system, I pioneered a feature to turn a private event into a public event. It eliminates the users' fear of event cancelation due to lack of participant; Hence, resulting in increases of number of successful facility booked." },
+              ]}}/>
           <MiniCard
             title="I help junior developer team grows exponentially by providing mentorship and guidance"
             animationData={compassLottie}
