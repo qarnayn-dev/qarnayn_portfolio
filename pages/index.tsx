@@ -67,12 +67,13 @@ const Intro = () => {
 
 const SectionTitle = (props:any) => {
   return (
-      <div className={`${props.className} style-subheading text-themed-gray-t9 font-sans flex -translate-x-0`}>
-        <span className='w-1 h-6 bg-primary-t2 float-left mr-2'></span>
+      <div className={`${props.className} style-subheading text-themed-gray-t9 font-sans flex -translate-x-0 flex-col drop-shadow-lg`}>
+        <span className='w-8 h-1 rounded-md mb-2 bg-primary-t5 float-left'></span>
         {props.children}
       </div>
     )
- }
+}
+
 
 const BestOfMe = () => {
   return (
