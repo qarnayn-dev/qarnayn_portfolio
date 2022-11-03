@@ -41,6 +41,7 @@ interface iTextInputField{
     hintText?: string,
     labelId?: string,
     useTextArea?: boolean,
+    className?: string,
 }
 
 const TextInputField = (props:iTextInputField) => {
@@ -52,7 +53,7 @@ const TextInputField = (props:iTextInputField) => {
     const inputBoxCN: string = "w-full px-2 pt-2 pb-1 bg-transparent border-[1px] border-themed-gray-t2 rounded-md outline-none focus:outline-offset-0 focus:duration-500 ease-out-circ focus:outline-primary-t2 focus:border-transparent";
 
     return (
-        <div className='relative group mb-4'>
+        <div className={`relative group ${props.className ?? 'mb-4'}`}>
             <motion.label
                 transition={{duration: isFocus ? 0.3 : 0.12}}
                 animate={{
@@ -78,8 +79,6 @@ const TextInputField = (props:iTextInputField) => {
                 onChange={(e) => props.onChange(e)}
                 className={`${inputBoxCN} h-20`} />
             }
-
-
         </div>
     )
  }
