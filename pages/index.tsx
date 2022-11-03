@@ -20,6 +20,7 @@ import TableLight from '../assets/table_light.svg'
 import TableDark from '../assets/table_dark.svg'
 import { ThemeContext } from '../components/DarkThemeToggle';
 import { ParallaxWrapper } from '../components/ParallaxWrapper';
+import { ContactSection } from '../components/ContactSection';
 
 
 const Home: NextPage = () => {
@@ -33,7 +34,7 @@ const Home: NextPage = () => {
       </Head>
       <TopFrame className="frame-bounded-y">
         <div className='relative pb-24 md:pb-28  flex flex-col'>
-          <ParallaxWrapper yDisplacement={-150} className="absolute md:top-40 lg:top-32 right-0 overflow-clip w-[120vw] opacity-40 dark:opacity-100">
+          <ParallaxWrapper yDisplacement={-150} className="absolute z-0 md:top-40 lg:top-32 right-0 overflow-clip w-[120vw] opacity-40 dark:opacity-100">
             {(theme==='light')?<TableLight/>:<TableDark/>}
           </ParallaxWrapper>
           <Intro />
@@ -43,7 +44,7 @@ const Home: NextPage = () => {
         <RevealingPage>
           <MyStory></MyStory>
         </RevealingPage>
-        {/* <div className='w-screen h-[200vh] bg-blue-100'></div> */}
+        <ContactSection/>
       </TopFrame >
     </div>
   )
@@ -74,12 +75,34 @@ const SectionTitle = (props:any) => {
     )
 }
 
+interface iMatrixParallax{
+  distance: number,
+}
+
+const MatrixParallax = ({distance}:iMatrixParallax) => {
+  return (
+    <ParallaxWrapper yDisplacement={distance} className='text-secondary-base font-medium  text-opacity-40 p-4 bg-green-200 -z-10 inset-0'>A</ParallaxWrapper>
+  )
+}
+
 
 const BestOfMe = () => {
   return (
     <>
       <SectionTitle className="frame-bounded-x mt-20 mb-8">The Best Of Me</SectionTitle>
-      <div className='frame-bounded-x flex flex-col lg:flex-row justify-evenly w-full gap-4'>
+      <div className='frame-bounded-x flex flex-col lg:flex-row justify-evenly w-full gap-4 relative'>
+        {/* <div className='absolute w-full h-full top-0 left-0 gap-2 justify-evenly inline-grid grid-flow-col'>
+          <MatrixParallax distance={-30}></MatrixParallax>
+          <MatrixParallax distance={-10}></MatrixParallax>
+          <MatrixParallax distance={20}></MatrixParallax>
+          <MatrixParallax distance={50}></MatrixParallax>
+          <MatrixParallax distance={130}></MatrixParallax>
+          <MatrixParallax distance={-30}></MatrixParallax>
+          <MatrixParallax distance={-10}></MatrixParallax>
+          <MatrixParallax distance={20}></MatrixParallax>
+          <MatrixParallax distance={50}></MatrixParallax>
+        </div> */}
+
         <MiniCard
           animationData={walletLottie}
           title="I help company reduce their operational cost by implementing smart system into design"
@@ -138,7 +161,6 @@ const MyStory = () => {
         title='How it started'
         className='mt-[45vh] md:mt-0 mr-0 md:mr-[45vw'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat dolor veniam earum ullam hic iusto nemo officia! In totam aliquam laborum velit veniam, nesciunt, ab eum itaque possimus quibusdam aperiam.</StoryContainer>
       <StoryContainer title='Then...'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consequatur omnis voluptatem dolorem, dolores vitae aliquid illo rerum eum, quod, illum accusantium natus quisquam! Nulla quos eveniet sit neque autem perferendis.</StoryContainer>
-      <div className='w-screen h-screen bg-sky-100'></div>
     </ScrollSnapWrapper>
   )
 }
