@@ -1,3 +1,4 @@
+import { constants } from 'buffer';
 import { motion } from 'framer-motion';
 import React, { useEffect, useMemo, useState } from 'react'
 import { animated, useSpring } from 'react-spring';
@@ -12,29 +13,34 @@ export const ContactSection = () => {
 
 
 const ContactMeForm = () => {
+    const [title, setTitle] = useState("");
+
     return (
         <div className='w-full max-w-lg h-[80%] rounded-xl px-4 py-8 bg-themed-gray-base drop-shadow-md dark:bg-neutral-900 style-body'>
-            <TextInputField hintText='Your name sir?' title='Name'/>
-            <TextInputField title='Title'/>
-
+            {/* <TextInputField hintText='Your name sir?' title='Name'/> */}
+            <TextInputField title='Title' value={title} onChange={(input) => {
+                // console.log("from parent: ", input);
+                setTitle(input);
+            }} />
+            {/* <button className='bg-red-400 p-4' onClick={()=>console.log("get latest -> ",title)}>test</button> */}
         </div>
     )
 }
 
 interface iTextIputField{
     title: string,
+    value: string,
+    onChange: (input:string)=>void,
     hintText?: string,
-    labelId?:string,
+    labelId?: string,
 }
 
 const TextInputField = (props:iTextIputField) => {
-    const id: string = "fname";
-
     const [isFocus, setIsFocus] = useState(false);
-    const [inputText, setInputText] = useState("");
-
-    const shouldOnTop = useMemo(() => (!isFocus && inputText.length === 0), [isFocus, inputText.length]);
-
+    const shouldOnTop = useMemo(() => {
+        console.log(props.value);
+        return (!isFocus && props.value.length === 0)
+    }, [isFocus, props.value.length===0]);
 
     return (
         <div className='relative group mb-4'>
@@ -48,17 +54,16 @@ const TextInputField = (props:iTextIputField) => {
                 }}
                 className='bg-themed-gray-base text-themed-gray-t7 absolute top-0 left-0 px-1 group-focus-within:text-primary-base group-focus-within:font-medium'>{props.title}</motion.label>
             <input
-                id={id}
+                // id={id}
                 placeholder={isFocus?"": props.hintText?? props.title}
                 onFocus={()=>setIsFocus(true)}
                 onBlur={() => setIsFocus(false)}
+                value={props.value}
                 onChange={(e) => {
                     e.preventDefault();
-                    console.log("changed value -> ", e.currentTarget.value);;
-                    setInputText(e.currentTarget.value);
+                    props.onChange(e.currentTarget.value);
                 }}
                 className='w-full px-2 pt-2 pb-1 bg-transparent border-[1px] border-themed-gray-t2 rounded-md outline-none focus:outline-offset-0 focus:duration-500 ease-out-circ focus:outline-primary-t2 focus:border-transparent' />
-
         </div>
     )
  }
