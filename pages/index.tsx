@@ -90,19 +90,7 @@ const BestOfMe = () => {
   return (
     <>
       <SectionTitle className="frame-bounded-x mt-20 mb-8">The Best Of Me</SectionTitle>
-      <div className='frame-bounded-x flex flex-col lg:flex-row justify-evenly w-full gap-4 relative'>
-        {/* <div className='absolute w-full h-full top-0 left-0 gap-2 justify-evenly inline-grid grid-flow-col'>
-          <MatrixParallax distance={-30}></MatrixParallax>
-          <MatrixParallax distance={-10}></MatrixParallax>
-          <MatrixParallax distance={20}></MatrixParallax>
-          <MatrixParallax distance={50}></MatrixParallax>
-          <MatrixParallax distance={130}></MatrixParallax>
-          <MatrixParallax distance={-30}></MatrixParallax>
-          <MatrixParallax distance={-10}></MatrixParallax>
-          <MatrixParallax distance={20}></MatrixParallax>
-          <MatrixParallax distance={50}></MatrixParallax>
-        </div> */}
-
+      <div className='frame-bounded-x flex flex-col lg:flex-row justify-evenly w-full gap-4'>
         <MiniCard
           animationData={walletLottie}
           title="I help company reduce their operational cost by implementing smart system into design"
