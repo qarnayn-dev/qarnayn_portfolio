@@ -15,19 +15,19 @@ const ContactMeForm = () => {
     return (
         <div className='w-full max-w-lg h-[80%] rounded-xl px-4 py-8 bg-themed-gray-base drop-shadow-md dark:bg-neutral-900 style-body'>
             <TextInputField hintText='Your name sir?' title='Name'/>
-            <TextInputField hintText='Give a cache one!' title='Title'/>
+            <TextInputField title='Title'/>
 
         </div>
     )
 }
 
 interface iTextIputField{
+    title: string,
     hintText?: string,
-    title?: string,
     labelId?:string,
 }
 
-const TextInputField = (config:iTextIputField) => {
+const TextInputField = (props:iTextIputField) => {
     const id: string = "fname";
 
     const [isFocus, setIsFocus] = useState(false);
@@ -39,17 +39,17 @@ const TextInputField = (config:iTextIputField) => {
     return (
         <div className='relative group mb-4'>
             <motion.label
-                transition={{duration: isFocus ? 0.3 : 0.1}}
+                transition={{duration: isFocus ? 0.3 : 0.12}}
                 animate={{
                     translateY: shouldOnTop ? 0 : -14,
                     translateX: shouldOnTop ? 6:0,
                     scale: shouldOnTop ? 0.9 : 0.8,
                     opacity:  shouldOnTop? 0: 1,
                 }}
-                className='bg-themed-gray-base text-themed-gray-t7 absolute top-0 left-0 px-1 group-focus-within:text-primary-base group-focus-within:font-medium'>{config.title?? config.hintText}</motion.label>
+                className='bg-themed-gray-base text-themed-gray-t7 absolute top-0 left-0 px-1 group-focus-within:text-primary-base group-focus-within:font-medium'>{props.title}</motion.label>
             <input
                 id={id}
-                placeholder={isFocus?"": config.hintText}
+                placeholder={isFocus?"": props.hintText?? props.title}
                 onFocus={()=>setIsFocus(true)}
                 onBlur={() => setIsFocus(false)}
                 onChange={(e) => {
