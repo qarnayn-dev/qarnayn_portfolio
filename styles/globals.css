@@ -33,6 +33,11 @@
         @apply text-sm mobile-lg:text-base 2xl:lg:text-lg
     }
 
+     /* Sub-heading scaled */
+    .style-small-text{
+        @apply text-xs mobile-lg:text-sm 2xl:lg:text-base font-light
+    }
+
     /* Sub-heading scaled */
     .style-secondary{
         @apply text-neutral-600 dark:text-neutral-400 font-extralight
