@@ -18,10 +18,10 @@ export const TextInputField = (props:iTextInputField) => {
         return (!isFocus && props.value.length === 0)
     }, [isFocus, props.value.length === 0]);
 
-    const inputBoxCN: string = "w-full px-2 pt-2 pb-1 bg-transparent border-[1px] border-themed-gray-t2 rounded-md outline-none focus:outline-offset-0 focus:duration-500 ease-out-circ focus:outline-primary-t2 focus:border-transparent";
+    const inputBoxCN: string = "w-full px-2 pt-2 pb-2 bg-transparent border-[1px] border-themed-gray-t2 rounded-md outline-none focus:outline-offset-0 focus:duration-500 ease-out-circ focus:outline-primary-t2 focus:border-transparent dark:bg-themed-gray-t2";
 
     return (
-        <div className={`relative group  ${props.className ?? 'mb-4 w-full'}`}>
+        <div className={`relative group  ${props.className ?? 'mb-8 w-full'}`}>
             <motion.label
                 transition={{duration: isFocus ? 0.3 : 0.12}}
                 animate={{
