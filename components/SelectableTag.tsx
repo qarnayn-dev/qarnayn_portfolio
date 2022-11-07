@@ -18,9 +18,9 @@ interface iSelectableTag{
  * NOTE: The component use `React.memo` -> consider wrapping the `onToggleFn` with `useCallback` hook to avoid any unnecessary re-rendering. It is due to `React` works by re-creating any function except for `useCallback`
  */
 export const SelectableTag = memo((props: iSelectableTag) => {
-    console.log(`${props.item} : `, props.isSelected);
+    // console.log(`${props.item} : `, props.isSelected);
 
     return (
-        <button onClick={()=>props.onToggleFn(props.id)} className={`h-7 px-3 py-1 rounded-2xl overflow-clip style-small-text duration-300 transition-all ease-in-out ${props.isSelected? 'bg-primary-t5 text-on-primary text-opacity-60':'bg-themed-gray-t3 text-themed-gray-t9'}`}>{props.item}</button>
+        <button onClick={()=>props.onToggleFn(props.id)} className={`h-7 px-3 py-1 rounded-2xl overflow-clip style-small-text duration-300 transition-all ease-in-out hover:duration-700 hover:shadow-md dark:shadow-themed-gray-t3 ${props.isSelected? 'bg-primary-t5 text-on-primary text-opacity-60':'bg-themed-gray-t3 text-themed-gray-t9'}`}>{props.item}</button>
     )
  })
