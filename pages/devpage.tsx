@@ -1,12 +1,11 @@
-import React, { ChangeEvent, LegacyRef, memo, ReactNode, useCallback, useEffect, useMemo, useReducer, useRef, useState } from 'react'
-import { motion, useScroll} from 'framer-motion'
+import React, { ChangeEvent,  memo, useCallback, useReducer} from 'react'
+import { useScroll} from 'framer-motion'
 import { DummyBlock } from '../components/DummyBlock'
 import { ParallaxWrapper } from '../components/ParallaxWrapper';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import { iInterestTag, toggleTag } from '../redux/tagSlice';
 import { TextInputField } from '../components/TextInputField';
-import { a } from 'react-spring';
 import { SelectableTag } from '../components/SelectableTag';
 
 
@@ -87,13 +86,12 @@ const InputTest = () => {
     dispatch({ type: "UPDATE", payload: { keyName: e.currentTarget.name, value: e.currentTarget.value } });
   }, []);
 
-  const allTags = useSelector<RootState, iInterestTag[]>((state)=> state.tags);
+  const allTags = useSelector<RootState, iInterestTag[]>((state)=> state.interestTags);
 
   return (
     <div className='w-[80%] h-[60%] p-10 rounded-xl shadow-lg bg-white'>
       <TextInputField inputKeyName={"name"} title={"Name"} value={state.name} onChange={callbackUpdate} />
       <TextInputField inputKeyName={"title"} title={"Title"} value={state.title} onChange={callbackUpdate} />
-      {/* {allTags.map((item) => <Tag key={`interesttag#${item.id}`} id={item.id} title={item.title} selected={item.selected}></Tag>)} */}
       {allTags.map((item, i) =>
         <SelectableTag key={i} id={item.id} item={item.title} isSelected={item.selected} onToggleFn={toggleTagItem} />)}
     </div>

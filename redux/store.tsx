@@ -1,12 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import todoReducer from './todoSlice';
-import tagReducer from './tagSlice';
+import interestTagReducer from './tagSlice';
 
 
 export const store = configureStore({
 	reducer: {
 		todos: todoReducer,
-		tags: tagReducer,
+		interestTags: interestTagReducer,
 	},
 });
 

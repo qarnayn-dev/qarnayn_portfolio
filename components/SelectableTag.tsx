@@ -13,6 +13,8 @@ interface iSelectableTag{
  * @param item the text display
  * @param isSelected the state of the `item` (note: should be handle in its parent's level state or with using any state management libraries).
  * @param onToggleFn function to be invoked when the tag is being selected or deselected. It's is flexible to accept any state management solutions.
+ *
+ *
  * NOTE: The component use `React.memo` -> consider wrapping the `onToggleFn` with `useCallback` hook to avoid any unnecessary re-rendering. It is due to `React` works by re-creating any function except for `useCallback`
  */
 export const SelectableTag = memo((props: iSelectableTag) => {
