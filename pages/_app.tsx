@@ -4,6 +4,9 @@ import 'tailwindcss/tailwind.css'
 import {useEffect, useState } from 'react'
 import { ThemeContext, THEME_LKEY} from '../components/DarkThemeToggle';
 import { GreetingsLayout } from '../components/GreetingsLayout';
+import { Provider } from 'react-redux';
+import {store} from '../redux/store';
+
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [theme, setTheme] = useState('light');
@@ -39,10 +42,12 @@ function MyApp({ Component, pageProps }: AppProps) {
   },[theme])
 
   return (
-    <ThemeContext.Provider value={{ theme, setTheme }}>
-      <GreetingsLayout show={loading}></GreetingsLayout>
-      <Component {...pageProps} />
-    </ThemeContext.Provider>
+    <Provider store={store}>
+      <ThemeContext.Provider value={{ theme, setTheme }}>
+        <GreetingsLayout show={loading}></GreetingsLayout>
+        <Component {...pageProps} />
+      </ThemeContext.Provider>
+    </Provider>
   )
 }
 
