@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ChangeEvent, useMemo, useState } from "react";
+import { ChangeEvent, memo, useState } from "react";
 
 interface iTextInputField{
     inputKeyName: string,
@@ -12,16 +12,17 @@ interface iTextInputField{
     className?: string,
 }
 
-export const TextInputField = (props:iTextInputField) => {
+//
+export const TextInputField = memo((props:iTextInputField) => {
     const [isFocus, setIsFocus] = useState(false);
-    const shouldOnTop = useMemo(() => {
-        return (!isFocus && props.value.length === 0)
-    }, [isFocus, props.value.length === 0]);
+    const shouldOnTop = !isFocus && props.value.length === 0;
 
     const inputBoxCN: string = "w-full px-2 pt-2 pb-2 bg-transparent border-[1px] border-themed-gray-t2 rounded-md outline-none focus:outline-offset-0 focus:duration-500 ease-out-circ focus:outline-primary-t2 focus:border-transparent dark:bg-themed-gray-t2";
 
+    console.log(`${props.title} : `, isFocus);
+
     return (
-        <div className={`relative group  ${props.className ?? 'mb-8 w-full'}`}>
+        <div className={`relative group  ${props.className ?? 'mb-6 w-full'}`}>
             <motion.label
                 transition={{duration: isFocus ? 0.3 : 0.12}}
                 animate={{
@@ -49,4 +50,4 @@ export const TextInputField = (props:iTextInputField) => {
             }
         </div>
     )
- }
+ })
