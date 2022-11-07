@@ -19,10 +19,16 @@ export const tagSlice = createSlice({
     name: 'interestTags',
     initialState: INITIAL_STATE,
     reducers: {
+        /**
+         * @param payload provide the item to display
+         */
         addNewTag: (state, action:{payload:string}) => {
             const newTag: iInterestTag = {id: `${state.length+1}`,title:action.payload, selected: true};
             state.push(newTag);
         },
+        /**
+         * @param payload the id
+         */
         toggleTag: (state, action:{payload:string}) => {
             const index: number = state.findIndex((v)=> v.id === action.payload);
             state[index].selected = !state[index].selected;

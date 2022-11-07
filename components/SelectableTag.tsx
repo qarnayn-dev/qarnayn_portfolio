@@ -21,6 +21,6 @@ export const SelectableTag = memo((props: iSelectableTag) => {
     console.log(`${props.item} : `, props.isSelected);
 
     return (
-        <button onClick={()=>props.onToggleFn(props.id)} className={`px-3 py-1 rounded-2xl overflow-clip style-small-text duration-300 transition-all ease-in-out ${props.isSelected? 'bg-primary-t5 text-on-primary text-opacity-60':'bg-themed-gray-t3 text-themed-gray-t9'}`}>{props.item}</button>
+        <button onClick={()=>props.onToggleFn(props.id)} className={`h-7 px-3 py-1 rounded-2xl overflow-clip style-small-text duration-300 transition-all ease-in-out ${props.isSelected? 'bg-primary-t5 text-on-primary text-opacity-60':'bg-themed-gray-t3 text-themed-gray-t9'}`}>{props.item}</button>
     )
  })

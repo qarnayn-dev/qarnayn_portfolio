@@ -3,7 +3,7 @@ import React, { ChangeEvent, useMemo, useReducer, useState, useCallback, memo, u
 import { IoAdd, IoAddCircle, IoAddSharp } from 'react-icons/io5';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
-import { iInterestTag, toggleTag } from '../redux/tagSlice';
+import { addNewTag, iInterestTag, toggleTag } from '../redux/tagSlice';
 import { SelectableTag } from './SelectableTag';
 import { TextInputField } from './TextInputField';
 import OutsideAlerter from './useOutsideAlerter';
@@ -101,7 +101,7 @@ const Tags = () => {
         <div className='w-full mt-4 mb-2 relative'>
             <div className='style-small-text text-primary-t4 '>optional</div>
             <div className='mb-3'>Scouting for talent? What role's field are you interested in?</div>
-            <div className='w-full gap-2 flex flex-wrap'>
+            <div className='w-full gap-2 flex flex-wrap '>
                 {allTags.map((item, i) =>
                 <SelectableTag
                     key={`interesttag#${i}`}
@@ -120,13 +120,18 @@ const AddTag = memo(() => {
     const [isActive, setIsActive] = useState(false);
     const [value, setValue] = useState("");
     const isOpen: boolean = isActive || value.length > 0;
+    const reduxDispatch = useDispatch();
 
     const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
-            console.log('Has pressed "Enter" ')
-            setIsActive(false);
-            // TODO: add new entry -> reste all
+            console.log('Has pressed "Enter" ');
+            if (value.length > 0) addTagEntry();
         }
+    }
+
+    const addTagEntry = () => {
+        reduxDispatch(addNewTag(value));
+        reset();
     }
 
     const reset = () => {
@@ -141,14 +146,15 @@ const AddTag = memo(() => {
                 onClick={() => setIsActive((state) => !state)}
                 transition={{ duration: 0.6, type: 'spring' }}
                 animate={{ width: isOpen ? "160px" : "40px" }}
-                className={`relative px-2 h-full rounded-2xl overflow-clip style-small-text duration-700 transition-all ease-out-cubic text-themed-gray-t9 flex justify-center items-center border-themed-gray-t3 bg-themed-gray-t2 ${isOpen ? 'border-none' : 'border-2 cursor-pointer hover:text-primary-t5 hover:border-primary-t5 hover:shadow-md dark:shadow-themed-gray-t3'}`}>
+                className={`relative px-2 h-7 rounded-2xl overflow-clip style-small-text duration-700 transition-all ease-out-cubic text-themed-gray-t9 flex justify-center items-center border-themed-gray-t3 bg-themed-gray-t2 ${isOpen ? 'border-none' : 'border-2 cursor-pointer hover:text-primary-t5 hover:border-primary-t5 hover:shadow-md dark:shadow-themed-gray-t3'}`}>
                 {isOpen ?
                     <input
                         autoFocus
                         value={value}
                         onChange={(e) => {
                             e.preventDefault();
-                            setValue(e.currentTarget.value);
+                            const currentValue: string = e.currentTarget.value;
+                            if (currentValue.length < 32) setValue(currentValue);
                         }}
                         onSubmit={(e) => {
                             e.preventDefault(); // DO NOT REMOVE or it'll jitter
