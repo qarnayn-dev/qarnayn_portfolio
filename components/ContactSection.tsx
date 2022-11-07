@@ -1,9 +1,12 @@
-import React, { ChangeEvent, useMemo, useReducer, useState, useCallback, memo } from 'react'
+import { motion } from 'framer-motion';
+import React, { ChangeEvent, useMemo, useReducer, useState, useCallback, memo, useRef } from 'react'
+import { IoAdd, IoAddCircle, IoAddSharp } from 'react-icons/io5';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import { iInterestTag, toggleTag } from '../redux/tagSlice';
 import { SelectableTag } from './SelectableTag';
 import { TextInputField } from './TextInputField';
+import OutsideAlerter from './useOutsideAlerter';
 
 export const ContactSection = () => {
   return (
@@ -107,7 +110,55 @@ const Tags = () => {
                     isSelected={item.selected}
                     onToggleFn={toggleTagItem}
                     />)}
+                <AddTag/>
             </div>
         </div>
     )
 }
+
+const AddTag = memo(() => {
+    const [isActive, setIsActive] = useState(false);
+    const [value, setValue] = useState("");
+    const isOpen: boolean = isActive || value.length > 0;
+
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === 'Enter') {
+            console.log('Has pressed "Enter" ')
+            setIsActive(false);
+            // TODO: add new entry -> reste all
+        }
+    }
+
+    const reset = () => {
+        setIsActive(false);
+        setValue("");
+    }
+
+    console.log("render!")
+    return (
+        <OutsideAlerter onOutsideClick={() => { setIsActive(false) }}>
+            <motion.button
+                onClick={() => setIsActive((state) => !state)}
+                transition={{ duration: 0.6, type: 'spring' }}
+                animate={{ width: isOpen ? "160px" : "40px" }}
+                className={`relative px-2 h-full rounded-2xl overflow-clip style-small-text duration-700 transition-all ease-out-cubic text-themed-gray-t9 flex justify-center items-center border-themed-gray-t3 bg-themed-gray-t2 ${isOpen ? 'border-none' : 'border-2 cursor-pointer hover:text-primary-t5 hover:border-primary-t5 hover:shadow-md dark:shadow-themed-gray-t3'}`}>
+                {isOpen ?
+                    <input
+                        autoFocus
+                        value={value}
+                        onChange={(e) => {
+                            e.preventDefault();
+                            setValue(e.currentTarget.value);
+                        }}
+                        onSubmit={(e) => {
+                            e.preventDefault(); // DO NOT REMOVE or it'll jitter
+                            setIsActive(false)
+                        }}
+                        onKeyDown={handleKeyDown}
+                        className='outline-none text-center bg-transparent absolute'></input> :
+                    <IoAdd size={24}></IoAdd>
+                }
+            </motion.button>
+        </OutsideAlerter>
+    )
+});

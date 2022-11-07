@@ -1,5 +1,5 @@
-import React, { ChangeEvent,  memo, useCallback, useReducer} from 'react'
-import { useScroll} from 'framer-motion'
+import React, { ChangeEvent,  memo, useCallback, useReducer, useState} from 'react'
+import { motion, useScroll} from 'framer-motion'
 import { DummyBlock } from '../components/DummyBlock'
 import { ParallaxWrapper } from '../components/ParallaxWrapper';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,6 +7,8 @@ import { RootState } from '../redux/store';
 import { iInterestTag, toggleTag } from '../redux/tagSlice';
 import { TextInputField } from '../components/TextInputField';
 import { SelectableTag } from '../components/SelectableTag';
+import OutsideAlerter from '../components/useOutsideAlerter';
+import { IoAdd } from 'react-icons/io5';
 
 
 const Devpage = () => {
@@ -31,9 +33,9 @@ const DummyPage = () => {
   return (
     <>
       <div className='w-screen h-screen bg-green-100 flex flex-col justify-center items-center'>
-        <InputTest></InputTest>
+        <TestObjetct></TestObjetct>
       </div>
-      <div className='w-screen h-screen bg-blue-100 flex justify-center items-center'>
+      {/* <div className='w-screen h-screen bg-blue-100 flex justify-center items-center'>
         <div id="test-rotate"><DummyBlock size='lg' colorChoose={2}></DummyBlock></div>
         <ParallaxWrapper yDisplacement={700}>
           <div id="test-rotate"><DummyBlock size='lg' colorChoose={6}></DummyBlock></div>
@@ -42,74 +44,57 @@ const DummyPage = () => {
           <div id="test-rotate"><DummyBlock size='lg' colorChoose={19}></DummyBlock></div>
         </ParallaxWrapper>
         <div id="test-rotate"><DummyBlock size='lg' colorChoose={12}></DummyBlock></div>
-      </div>
+      </div> */}
       <div className='w-screen h-screen bg-green-100'></div>
       <div className='w-screen h-screen bg-red-100'></div>
     </>
   )
 }
 
-interface iState{
-  name: string, title: string
-}
+const TestObjetct = () => {
 
-interface iAction{
-  type: string,
-  payload: iPayload,
-}
+  const [isActive, setIsActive] = useState(false);
+  const [value, setValue] = useState("");
+  const isOpen:boolean = isActive || value.length > 0;
 
-interface iPayload{
-  keyName: string,
-  value: string,
-}
-
-const reducer = (state: iState, action: iAction) => {
-  switch (action.type) {
-    case "UPDATE":
-      return {...state,[action.payload.keyName]:action.payload.value}
-    default:
-      return state;
-  }
-}
-
-
-const InputTest = () => {
-  const INITIAL: iState = { name: "", title: "" }
-  const [state, dispatch] = useReducer(reducer, INITIAL);
-
-  const reduxDispatch = useDispatch();
-  const toggleTagItem = useCallback((id: string) => {
-    reduxDispatch(toggleTag(id));
-  },[])
-
-  const callbackUpdate = useCallback((e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    dispatch({ type: "UPDATE", payload: { keyName: e.currentTarget.name, value: e.currentTarget.value } });
-  }, []);
-
-  const allTags = useSelector<RootState, iInterestTag[]>((state)=> state.interestTags);
-
-  return (
-    <div className='w-[80%] h-[60%] p-10 rounded-xl shadow-lg bg-white'>
-      <TextInputField inputKeyName={"name"} title={"Name"} value={state.name} onChange={callbackUpdate} />
-      <TextInputField inputKeyName={"title"} title={"Title"} value={state.title} onChange={callbackUpdate} />
-      {allTags.map((item, i) =>
-        <SelectableTag key={i} id={item.id} item={item.title} isSelected={item.selected} onToggleFn={toggleTagItem} />)}
-    </div>
-  )
-}
-
-
-const Tag = memo((data: iInterestTag) => {
-  const dispatch = useDispatch();
-
-  function onToggle() {
-    dispatch(toggleTag(data.id));
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      console.log('Has pressed "Enter" ')
+      setIsActive(false);
+      // TODO: add new entry -> reste all
+    }
   }
 
-  // console.log(`${data.title} : `, data.selected);
-  console.log(`${data.id},${data.title},${data.selected}`);
+  const reset = () => {
+    setIsActive(false);
+    setValue("");
+  }
 
+  console.log("render!")
   return (
-    <button onClick={()=>onToggle()} className={`px-3 py- m-3 rounded-md  ${data.selected?'bg-blue-200':'bg-gray-200'}`}>{data.title}</button>
+    <OutsideAlerter onOutsideClick={()=>{setIsActive(false)}}>
+      <motion.button
+        onClick={()=> setIsActive((state)=>!state)}
+        transition={{ duration: 0.7 }}
+        animate={{width: isOpen? "160px":"40px"}}
+        className={`h-10 m-12 rounded-md bg-red-600 shadow-lg flex justify-center items-center overflow-clip`}>
+        {isOpen ?
+          <input
+            autoFocus
+            value={value}
+            onChange={(e) => {
+              e.preventDefault();
+              setValue(e.currentTarget.value);
+            }}
+            onSubmit={(e) => {
+              e.preventDefault(); // DO NOT REMOVE or it'll jitter
+              setIsActive(false)
+            }}
+            onKeyDown={handleKeyDown}
+            className='outline-none text-center bg-transparent'></input> :
+          <IoAdd size={28}></IoAdd>
+        }
+      </motion.button>
+    </OutsideAlerter>
   )
-})
+}
