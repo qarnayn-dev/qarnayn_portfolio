@@ -19,7 +19,7 @@ export const TextInputField = memo((props:iTextInputField) => {
 
     const inputBoxCN: string = "w-full px-2 pt-2 pb-2 bg-transparent border-[1px] border-themed-gray-t2 rounded-md outline-none focus:outline-offset-0 focus:duration-500 ease-out-circ focus:outline-primary-t2 focus:border-transparent dark:bg-themed-gray-t2";
 
-    console.log(`${props.title} : `, isFocus);
+    // console.log(`${props.title} : `, isFocus);
 
     return (
         <div className={`relative group  ${props.className ?? 'mb-6 w-full'}`}>
@@ -31,7 +31,10 @@ export const TextInputField = memo((props:iTextInputField) => {
                     scale: shouldOnTop ? 0.9 : 0.8,
                     opacity:  shouldOnTop? 0: 1,
                 }}
-                className='bg-themed-gray-base text-themed-gray-t7 absolute top-0 left-0 px-1 group-focus-within:text-primary-base group-focus-within:font-medium'>{props.title}</motion.label>
+                className=' text-themed-gray-t7 absolute top-0 left-0 px-1 group-focus-within:text-primary-base group-focus-within:font-medium'>
+                <div className="h-2 w-full absolute bottom-2 -z-10 bg-themed-gray-base -translate-x-[2px]"></div>
+                {props.title}
+            </motion.label>
             {!props.useTextArea ?
             <input
                 name={props.inputKeyName}
