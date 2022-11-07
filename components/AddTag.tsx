@@ -36,7 +36,6 @@ export const AddTag = memo((props: iAddTag) => {
         setValue("");
     }
 
-    console.log("render!")
     return (
         <OutsideAlerter onOutsideClick={() => { setIsActive(false) }}>
             <motion.button
