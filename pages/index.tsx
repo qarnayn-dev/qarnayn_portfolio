@@ -1,10 +1,10 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import {  Ref, RefObject, useContext, useEffect, useRef, useState} from 'react';
+import {  Ref, RefObject, useContext, useEffect, useMemo, useRef, useState} from 'react';
 import TopFrame from '../components/TopFrame';
 import { RevealingPage, ShadowPage } from '../components/RevealingPage';
 import { AnimatedColoredText } from '../components/AnimatedColoredText';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion';
 import { animated, easings, useSpring } from 'react-spring';
 import { AnimatedSentences } from '../components/AnimatedSentences';
 import useWindowDimensions from '../components/useWindowDimensions';
@@ -25,6 +25,7 @@ import { IoLogoGithub, IoLogoLinkedin, IoMailOpen } from 'react-icons/io5';
 import { IconType } from 'react-icons/lib';
 import copy from 'copy-to-clipboard';
 import { IconButton } from '../components/IconButton';
+import { useTrigger } from '../utilities/useTrigger';
 
 
 const Home: NextPage = () => {
@@ -194,9 +195,11 @@ const StoryContainer = ({ children,objRef, className, title }: iStoryContainer) 
 }
 
 const ContactSection = () => {
+  const {active, fire} = useTrigger();
+
   const onClickEmailIcon = () => {
     copy("qarnayn.khddin@gmail.com");
-    // TODO: prompt to notify user
+    fire();
   }
 
   return (
@@ -213,9 +216,36 @@ const ContactSection = () => {
           <a href='https://github.com/qarnaynsv001' target="_blank">
             <IconButton icon={IoLogoGithub} title="github" tooltip="Go to Github profile"/>
           </a>
+          <NotificationBanner show={active} message={"Qarnayn's email address has been copied to your clipboard"} />
         </div>
       </div>
       <ContactForm/>
     </div>
+  )
+}
+
+interface iNotificationBanner{
+  show: boolean,
+  message: string,
+  className?: string,
+  delay?: number,
+  duration?: number,
+}
+
+const NotificationBanner = (props: iNotificationBanner) => {
+
+  return (
+    <AnimatePresence >
+      {props.show &&
+        <motion.div
+          transition={{ duration: props.duration ?? 0.7, type: "spring", delay: props.delay??0.1}}
+          initial={{y: -100}}
+          exit={{y: -100}}
+          animate={{y: 0}}
+          className='fixed w-screen h-fit inset-0 z-20 flex justify-center'>
+          <div className='relative top-3 w-72 py-3 px-4 inset-0 z-30 gray-dark-pallete dark:gray-light-pallete bg-themed-gray-t4 rounded-xl drop-shadow-xl text-center text-themed-gray-inverse style-small-text'>{props.message}</div>
+        </motion.div>
+      }
+    </AnimatePresence>
   )
 }
