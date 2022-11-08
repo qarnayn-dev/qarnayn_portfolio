@@ -15,7 +15,7 @@ interface iContactForm{
 
 const INITIAL_CONTACT: iContactForm = { name: "", email: "", message: "" };
 
-export const ContactSection = () => {
+export const ContactForm = () => {
     const [formData, dispatch] = useReducer(contactFormReducer, INITIAL_CONTACT);
 
     const onInputChange = useCallback((e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {dispatch({ type: ActionType.valueUpdate, payload: { keyName: e.currentTarget.name, value: e.currentTarget.value } });

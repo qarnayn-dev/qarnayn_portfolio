@@ -20,9 +20,11 @@ import TableLight from '../assets/table_light.svg'
 import TableDark from '../assets/table_dark.svg'
 import { ThemeContext } from '../components/DarkThemeToggle';
 import { ParallaxWrapper } from '../components/ParallaxWrapper';
-import { ContactSection } from '../components/ContactSection';
+import { ContactForm } from '../components/ContactForm';
 import { IoLogoGithub, IoLogoLinkedin, IoMailOpen } from 'react-icons/io5';
 import { IconType } from 'react-icons/lib';
+import copy from 'copy-to-clipboard';
+import { IconButton } from '../components/IconButton';
 
 
 const Home: NextPage = () => {
@@ -46,19 +48,7 @@ const Home: NextPage = () => {
         <RevealingPage>
           <MyStory></MyStory>
         </RevealingPage>
-        <div className='frame-bounded-x py-10 flex flex-col gap-5 md:flex-row'>
-          <div className='max-w-[85%] sm:w-full mb-6'>
-            <SectionTitle className="mt-20 mb-6">Contact</SectionTitle>
-            <div className='style-heading mb-8'>Love to hear from you, don’t hesitate to get in touch!</div>
-            <div className='mb-8 style-body max-w-[90%]'>I’m open to any opportunity. Feel free to contact me via the message section or you can send me an email directly. Also, I am on LinkedIn! Come and connect with me in LiknedIn to keep in touch.</div>
-            <div className='flex flex-row gap-4'>
-              <Media icon={IoMailOpen} title="email" tooltip="Copy email address" leftAligned/>
-              <Media icon={IoLogoLinkedin} title="linkedin" tooltip="Go to LinkedIn profile"/>
-              <Media icon={IoLogoGithub} title="github" tooltip="Go to Github profile"/>
-            </div>
-          </div>
-          <ContactSection/>
-        </div>
+        <ContactSection/>
       </TopFrame >
     </div>
   )
@@ -88,9 +78,6 @@ const SectionTitle = (props:any) => {
       </div>
     )
 }
-
-
-
 
 const BestOfMe = () => {
   return (
@@ -206,38 +193,30 @@ const StoryContainer = ({ children,objRef, className, title }: iStoryContainer) 
   )
 }
 
-
-interface iMedia{
-  icon: IconType,
-  title: string,
-  tooltip?: string,
-  leftAligned?: boolean,
-}
-
-/**
- * Button to represent the social media `Hyperlink` or any other similar types
- * // TODO: Add logic on pressing the button
- * @param icon react icon
- * @param title will be place at the bottom
- * @param tooltip description of what the button would do
- * @param leftAligned for any left sided elemt (that'd probably collides with the left margin), default to false
- *
- */
-const Media = (props:iMedia) => {
-  const twTransitions: string = "transition-all duration-500 ease-out-cubic";
-  const twTooltipBg: string = "gray-dark-pallete dark:gray-light-pallete bg-themed-gray-t4";
-
+const ContactSection = () => {
+  const onClickEmailIcon = () => {
+    copy("qarnayn.khddin@gmail.com");
+    // TODO: prompt to notify user
+  }
+  const onClickLinkedInIcon = () => {
+    // TODO: go to likedin profile
+  }
+  const onClickGithubIcon = () => {
+    // TODO: go to github profile
+  }
   return (
-    <div className={`relative flex flex-col items-center group `}>
-      <div className={`w-12 h-12 md:w-14 md:h-14 p-2 flex flex-col items-center justify-center rounded-lg border-2 border-primary-t5 border-opacity-20 group-hover:apply-glass group-hover:border-opacity-0  ${twTransitions}`}>
-        <props.icon className={`text-primary-t3 group-hover:scale-110 group-hover:text-primary-base ${twTransitions} `} size={24} />
+    <div className='frame-bounded-x py-10 flex flex-col gap-5 md:flex-row'>
+      <div className='max-w-[85%] sm:w-full mb-6'>
+        <SectionTitle className="mt-20 mb-6">Contact</SectionTitle>
+        <div className='style-heading mb-8'>Love to hear from you, don’t hesitate to get in touch!</div>
+        <div className='mb-8 style-body max-w-[90%]'>I’m open to any opportunity. Feel free to contact me via the message section or you can send me an email directly. Also, I am on LinkedIn! Come and connect with me in LiknedIn to keep in touch.</div>
+        <div className='flex flex-row gap-4'>
+          <IconButton icon={IoMailOpen} title="email" tooltip="Copy email address" leftAligned onClickFn={()=>onClickEmailIcon()}/>
+          <IconButton icon={IoLogoLinkedin} title="linkedin" tooltip="Go to LinkedIn profile" onClickFn={()=>onClickLinkedInIcon()}/>
+          <IconButton icon={IoLogoGithub} title="github" tooltip="Go to Github profile" onClickFn={()=>onClickGithubIcon()}/>
+        </div>
       </div>
-      <div className={`w-12 md:w-14 mt-1 font-extralight overflow-clip text-themed-gray-t8 text-center text-xs group-hover:style-secondary group-hover:drop-shadow-md ${twTransitions}`}>{props.title}</div>
-      {props.tooltip &&
-      <div className={`opacity-0 group-hover:opacity-100 absolute w-32 -bottom-12 py-2 px-1 rounded-md shadow-sm text-themed-gray-inverse text-xs text-center pointer-events-none ${twTooltipBg} ${props.leftAligned? 'left-0':'-left-[85%] md:-left-[65%]'}`}>
-        <div className={`w-3 h-3 absolute -top-1 rotate-45 ${twTooltipBg} ${props.leftAligned? 'left-4':'left-[46%]'}`} />
-        {props.tooltip}
-      </div>}
+      <ContactForm/>
     </div>
   )
 }
