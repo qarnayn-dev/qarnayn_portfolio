@@ -198,12 +198,7 @@ const ContactSection = () => {
     copy("qarnayn.khddin@gmail.com");
     // TODO: prompt to notify user
   }
-  const onClickLinkedInIcon = () => {
-    // TODO: go to likedin profile
-  }
-  const onClickGithubIcon = () => {
-    // TODO: go to github profile
-  }
+
   return (
     <div className='frame-bounded-x py-10 flex flex-col gap-5 md:flex-row'>
       <div className='max-w-[85%] sm:w-full mb-6'>
@@ -212,8 +207,12 @@ const ContactSection = () => {
         <div className='mb-8 style-body max-w-[90%]'>I’m open to any opportunity. Feel free to contact me via the message section or you can send me an email directly. Also, I am on LinkedIn! Come and connect with me in LiknedIn to keep in touch.</div>
         <div className='flex flex-row gap-4'>
           <IconButton icon={IoMailOpen} title="email" tooltip="Copy email address" leftAligned onClickFn={()=>onClickEmailIcon()}/>
-          <IconButton icon={IoLogoLinkedin} title="linkedin" tooltip="Go to LinkedIn profile" onClickFn={()=>onClickLinkedInIcon()}/>
-          <IconButton icon={IoLogoGithub} title="github" tooltip="Go to Github profile" onClickFn={()=>onClickGithubIcon()}/>
+          <a href='https://www.linkedin.com/in/qarnaynkhairuddin' target="_blank">
+            <IconButton icon={IoLogoLinkedin} title="linkedin" tooltip="Go to LinkedIn profile"/>
+          </a>
+          <a href='https://github.com/qarnaynsv001' target="_blank">
+            <IconButton icon={IoLogoGithub} title="github" tooltip="Go to Github profile"/>
+          </a>
         </div>
       </div>
       <ContactForm/>

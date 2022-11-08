@@ -5,7 +5,7 @@ interface iIconButton{
   title: string,
   tooltip?: string,
   leftAligned?: boolean,
-  onClickFn: ()=> void,
+  onClickFn?: ()=> void,
 }
 
 /**
@@ -22,7 +22,7 @@ export const IconButton = (props:iIconButton) => {
   const twTooltipBg: string = "gray-dark-pallete dark:gray-light-pallete bg-themed-gray-t4";
 
   return (
-    <button onClick={()=> props.onClickFn()} className={`relative flex flex-col items-center group `}>
+    <button onClick={()=> props.onClickFn && props.onClickFn()} className={`relative flex flex-col items-center group `}>
       <div className={`w-12 h-12 md:w-14 md:h-14 p-2 flex flex-col items-center justify-center rounded-lg border-2 border-primary-t5 border-opacity-20 group-hover:apply-glass group-hover:border-opacity-0  ${twTransitions}`}>
         <props.icon className={`text-primary-t3 group-hover:scale-110 group-hover:text-primary-base ${twTransitions} `} size={24} />
       </div>
