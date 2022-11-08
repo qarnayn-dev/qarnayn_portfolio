@@ -21,6 +21,8 @@ module.exports = {
       "mobile-sm": "320px",
       "mobile-md": "375px",
       "mobile-lg": "425px",
+      "mobile-xl": "480px",
+      xs: "540px",
       ...defaultTheme.screens,
     },
     extend: {
