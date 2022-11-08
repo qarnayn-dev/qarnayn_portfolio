@@ -229,10 +229,10 @@ const Media = (props:iMedia) => {
 
   return (
     <div className={`relative flex flex-col items-center group `}>
-      <div className={`w-12 h-12 md:w-14 md:h-14 p-2 flex flex-col items-center justify-center rounded-lg border-2 border-themed-gray-t2 bg-opacity-40 border-opacity-40 group-hover:apply-glass group-hover:border-opacity-0  ${twTransitions}`}>
-        <props.icon className={`text-themed-gray-t6 group-hover:scale-110 group-hover:text-primary-base ${twTransitions} `} size={24} />
+      <div className={`w-12 h-12 md:w-14 md:h-14 p-2 flex flex-col items-center justify-center rounded-lg border-2 border-primary-t5 border-opacity-20 group-hover:apply-glass group-hover:border-opacity-0  ${twTransitions}`}>
+        <props.icon className={`text-primary-t3 group-hover:scale-110 group-hover:text-primary-base ${twTransitions} `} size={24} />
       </div>
-      <div className={`w-12 md:w-14 mt-1 font-extralight overflow-clip text-themed-gray-t4 text-center text-xs group-hover:style-secondary group-hover:drop-shadow-md ${twTransitions}`}>{props.title}</div>
+      <div className={`w-12 md:w-14 mt-1 font-extralight overflow-clip text-themed-gray-t8 text-center text-xs group-hover:style-secondary group-hover:drop-shadow-md ${twTransitions}`}>{props.title}</div>
       {props.tooltip &&
       <div className={`opacity-0 group-hover:opacity-100 absolute w-32 -bottom-12 py-2 px-1 rounded-md shadow-sm text-themed-gray-inverse text-xs text-center pointer-events-none ${twTooltipBg} ${props.leftAligned? 'left-0':'-left-[85%] md:-left-[65%]'}`}>
         <div className={`w-3 h-3 absolute -top-1 rotate-45 ${twTooltipBg} ${props.leftAligned? 'left-4':'left-[46%]'}`} />
