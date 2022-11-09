@@ -85,7 +85,8 @@ const BestOfMe = () => {
   return (
     <>
       <SectionTitle className="frame-bounded-x mt-20 mb-8">The best of me</SectionTitle>
-      <div className='frame-bounded-x flex flex-col lg:flex-row justify-evenly w-full gap-4'>
+      <div className='absolute w-full h-full opacity-20 -z-30 bottom-0 bg-gradient-to-t from-primary-base dark:from-primary-t4 '></div>
+      <div className='frame-bounded-x flex flex-col lg:flex-row justify-evenly w-full gap-4 '>
         <MiniCard
           animationData={walletLottie}
           title="I help the company reduced their operational cost by implementing a smart system into design"
@@ -141,7 +142,7 @@ const MyStory = () => {
   });
 
   return (
-    <ScrollSnapWrapper className='bg-gradient-to-tr from-primary-t2 to-secondary-t5 justify-end items-end text-end'>
+    <ScrollSnapWrapper className='bg-themed-gray-base justify-end items-end text-end'>
       <animated.div style={titleSpring} className={`w-screen pt-[10vh] pb-2 flex flex-col justify-start items-center bg-transparent `}>
         <AnimatedColoredText objRef={titleRef} isOpen={showTitle}>My journey, I'm sharing with you</AnimatedColoredText>
       </animated.div>
