@@ -1,10 +1,10 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import {  Children, cloneElement, isValidElement, Ref, RefObject, useContext, useEffect, useMemo, useRef, useState} from 'react';
+import { Ref, RefObject, useContext, useEffect, useRef, useState} from 'react';
 import TopFrame from '../components/TopFrame';
 import { RevealingPage, ShadowPage } from '../components/RevealingPage';
 import { AnimatedColoredText } from '../components/AnimatedColoredText';
-import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { animated, easings, useSpring } from 'react-spring';
 import { AnimatedSentences } from '../components/AnimatedSentences';
 import useWindowDimensions from '../components/useWindowDimensions';
@@ -22,7 +22,6 @@ import { ThemeContext } from '../components/DarkThemeToggle';
 import { ParallaxWrapper } from '../components/ParallaxWrapper';
 import { ContactForm } from '../components/ContactForm';
 import { IoLogoGithub, IoLogoLinkedin, IoMailOpen } from 'react-icons/io5';
-import { IconType } from 'react-icons/lib';
 import copy from 'copy-to-clipboard';
 import { IconButton } from '../components/IconButton';
 import { useTrigger } from '../utilities/useTrigger';
@@ -59,20 +58,6 @@ const Home: NextPage = () => {
 
 export default Home
 
-
-const Intro = () => {
-  return (
-    <div className='flex flex-col frame-bounded-x mb-[10vw] mt-8 md:mt-14 w-full float-left relative  justify-start items-center gap-6 md:flex-row-reverse transition-all ease-out-circ duration-500'>
-        <Lottie animationData={appDevIllustration} className='min-w-[40%] max-w-[60%] md:max-w-[46%] lg:max-w-[70%] float-right mx-6 mb-10'></Lottie>
-        <div className='float-left w-full h-full flex flex-col justify-center'>
-          <h2 className='style-secondary mb-[2px] '>Hello World! I am Qarnayn</h2>
-          <h1 className='style-heading'>An engineer who codes designer's boundless imaginations</h1>
-          <p className='mt-12 style-body'>Hi there 👋🏼.<br/> I am an engineer who love to solve problems and passionate in human behaviour ℹ. I’m working as a software developer, more comfortable in Front-end, had led a small developer team, had designed a full business’ tech ecosystem, had tremendously reduced operational cost and more. Being an engineer minded person, everything I see is just somewhat of a cog that fit in this complex world. Its ‘how’ and ‘why’ are what I passionate about. It’s hard and complex, but I love every single of it!</p>
-        </div>
-      </div>
-  )
-}
-
 const SectionTitle = (props:any) => {
   return (
       <div className={`${props.className} style-subheading text-themed-gray-t9 font-sans flex -translate-x-0 flex-col drop-shadow-lg`}>
@@ -82,34 +67,54 @@ const SectionTitle = (props:any) => {
     )
 }
 
+const Intro = () => {
+  return (
+    <div className='flex flex-col frame-bounded-x mb-[10vw] mt-8 md:mt-14 w-full float-left relative  justify-start items-center gap-6 md:flex-row-reverse transition-all ease-out-circ duration-500'>
+        <Lottie animationData={appDevIllustration} className='min-w-[40%] max-w-[60%] md:max-w-[46%] lg:max-w-[70%] float-right mx-6 mb-10'></Lottie>
+        <div className='float-left w-full h-full flex flex-col justify-center'>
+          <h2 className='style-secondary mb-[2px] '>Hello World! I am Qarnayn</h2>
+          <h1 className='style-heading'>An engineer who codes designer's boundless imaginations</h1>
+          <p className='mt-12 style-body'>Hi there 👋🏼.<br/> I am an engineer who loves to solve problems and is passionate about human behaviour. I’m working as a software developer, ideally in Front-end development. I have led a developers team, designed a full business software architecture ecosystem, engineered an efficient system architecture and more. Having an engineer's frame of mind, everything I see is just somewhat of a cog that fits in this complex world. It's the ‘how’ and ‘why’ that fascinates me every time. It’s hard and complex, but I love every single bit of it!
+</p>
+        </div>
+      </div>
+  )
+}
+
 const BestOfMe = () => {
   return (
     <>
-      <SectionTitle className="frame-bounded-x mt-20 mb-8">The Best Of Me</SectionTitle>
+      <SectionTitle className="frame-bounded-x mt-20 mb-8">The best of me</SectionTitle>
       <div className='frame-bounded-x flex flex-col lg:flex-row justify-evenly w-full gap-4'>
         <MiniCard
           animationData={walletLottie}
-          title="I help company reduce their operational cost by implementing smart system into design"
+          title="I help the company reduced their operational cost by implementing a smart system into design"
           extensionData={{
-            description: "As a lead developer, one of the challenge that i faced is to build a feuture that gives the best user experience while keeping its operational cost at minimal. While a common solution is to use an inexpensive API. However, I find that it is more effective to introduce a smart mechanism into the front-end implementation that behaves as a soft stopgap from calling the API successively. By implementing as such into my works, I’m not only helping company to reduce their cost, but I’m also able to deliver an amazing user experience that designer has envisioned.",
+            description: "As the lead developer, one of the challenges that I faced is to build a feature that provides the best user experience while keeping its operational cost minimal. While a common solution is to use an inexpensive API, I discovered that it is more effective to introduce a smart mechanism into the front-end implementation which functions as a soft stopgap from an extensive execution of external API services successively. By implementing as such into my works, I managed to reduce the operational cost while still being able to deliver a decent user experience as the designer envisioned without any significant trade-offs.",
             showcaseList: [
-              { title: "", content: "" },
+              { title: "How I cut down 87% of the cost of expensive API usage.", content: "In one of the projects that I’m involved in, it uses google map autocomplete API (with a price range of $2.17-$17 per 1000 requests) directly on the client-side application. So, I designed and implemented a mechanism on the front-end development side where it only executes the API request once the user has completed (paused once a significant keyword has been typed) their typing action. By implementing as such, the cost was reduced up to 87% while without noticeably compromising any of the user experience as we monitored." },
+              { title: "Database writing is expensive, so I invented a way to make it low-cost.", content: "Yes, databases are supposedly cheap, but when dealing with scaling a software, it can be expensive in terms of cost and traffic due to concurrency limitations. Based on the user's behaviour predictions, I developed a mechanism that only updates the database only once the user has finished their actions. This was implemented in the user favourites, likes, bookmarks and other similar features. It results in reducing approximately 3 times the normal server traffic." },
+              { title: "How I engineered a low cost architecture systems design.", content: "Nowadays, with a massive number of severless services to choose from for developing an architecture design, it can be daunting. As an engineer, I utilise my skill of creative problem-solving and helped the company to design and develop a low cost yet efficient system architecture suited for its needs. During my involvement in developing a sport facility booking system with built-in social features, I engineered a hybrid database system (SQL and NoSQL) in which caters to its use cases. The design is only suited for this project due to its nature; i.e., reading the database is more prominent while a frequent update to the database is expected." },
             ]
           }} />
           <MiniCard
-            title="I help bussiness strengthen their customer’s retentions by embeding psychology into product design"
+            title="I help the business strengthen their customer retention by embedding psychology into product design"
             animationData={smileyLottie}
             extensionData={{
-              description:"Looking at what I have experienced, one of the most difficult challenges that a bussiness faces is the increasing amount of churn rate (rate of losing customers). A common counter measure is to increase the marketing expenses. While it can bring new customers, but it doesn’t tackle the root cause which is the churn rate itself. From my experiences, there’s always a psychological pattern in customer’s behaviour; I put effort in the details in every design and development process. By having a passion in human psychology and understand it, I’m apt to design and develop a software that users love, and they will  keep loving it.",
+              description:"Looking back at my previous experiences, one of the most difficult challenges that a business faces is the increasing amount of churn rate (rate of losing customers). A common counter measure is to increase the marketing expenses. While it can bring in new customers, it doesn’t tackle the root cause which is the churn rate itself. From my experience, there is always a psychological pattern in customers’ behaviour. I put effort in the details of every design and its development process. As someone who's passionate in understanding human psychology and customers behaviour, I’m apt to design and develop softwares that users love and will subconsciously keep loving.",
               showcaseList: [
-                 { title: "No sports without community", content: "When developing the sports facility's booking system, I pioneered a feature to turn a private event into a public event. It eliminates the users' fear of event cancelation due to lack of participant; Hence, resulting in increases of number of successful facility booked." },
+                { title: "Searching for people is hard, so I made it easier", content: "In my process of developing the sports facility's booking system, I pioneered a feature of turning a private event into a public event. It eliminates the users' fear of event cancellations due to lack of participants hence resulting in an increase in the number of successful facilities booked as cancellations are less likely to happen. At the same time, it also allows users to search for other interested people to join their teams or games. This will effectively encourage participants turnout and lead to increase number of sales." },
+                { title: "How I turned social needs into a feature’s marketing behemoth.", content: "Have you heard of a sport that has only one player, yet popular? Personally, I have not. By understanding the psychological behaviour of our user bases, I created a social system to support the sport community built-in directly into the sport’s booking facility application. I realised that introducing a group feature will lead to word of mouth being spread among the users’ peers. So, I capitalised this social need and engineered it as a feature that indirectly functions as an effective marketing strategy as well." },
               ]}}/>
           <MiniCard
-            title="I help junior developer team grows exponentially by providing mentorship and guidance"
+            title="I help the junior developer team grow exponentially by providing mentorship and guidance"
             animationData={compassLottie}
             extensionData={{
-              description:"Hiring is hard and finding a good candidate to fit the team is another level of hardship. Once a new team member enters, it could effect the entire team’s productivity. From my experiences, a well synergised teammates comes from a decent leadership. By understanding human behaviour, I’m quick to adapt in any kind of team. I strongly believed that trustworthiness must comes from the top to bottom in any team. As a lead developer, I always establish trust first and the team synergies will be improved significantly. By implementing this framework in any team, I’m able to drive the team’s productivity into its best.",
-              showcaseList:[]}}/>
+              description:"Hiring is hard and finding good candidates that fits the team is even harder. Once a new team member enters, it could affect the entire team’s productivity significantly. From my experience, a well synergised group of teammates comes from profound leadership. However, behind any team is simply a cluster of people.  Through my understanding of their different demeanour and styles, it helps me to quickly adapt and fit in any teams make up. I also strongly believe that faithful reliance must come from the top to bottom in any team. As the lead developer, my approach was to establish trust before we start working and I observed a significant morale boost to the team which subsequently led to higher productivity. By implementing this framework, my team became more creative and willing to explore beyond their comfort zones.",
+              showcaseList: [
+                { title: "How I turn an electrical engineer into a software engineer.", content: "One of my team members has an electrical engineering background and had no prior experience in software development. Naturally, his way of working comes from an electrical engineer's perspective and not a software engineer's. However, I managed to make the best out of his personal skills as an electrical engineer through direct mentoring. He then became one of our team's greatest asset and contributed to exponential growth of our productivity. As a team leader, I provided direction to my teammates and encouraged them to think from a first principal framework; Any complex problem can be easily solve by dividing into its simplest origins while solving them respectively in isolation. I also acted as their safeguard such that whenever there is a problem that cannot be resolved due to lack of skills and knowledge, I will be there to help them solve it." },
+                { title: "How I influenced a non problem-solver person to think critically.", content: "No, it is not magic to turn people into something we desire. I had an experience of mentoring a computer science intern where I found him difficult to mentor and initially thought that it was due to the limitations from remote working. However, I later discovered that  it was actually due to his lack of critical thinking and analytical skills. Realising that he might not be able to keep up with the fast pace of the rest of team, I changed my mentorship approach to fit his learning style. I did it by simplifying my explanations, teaching him to be more inquisitive, encouraging questions and introducing different perspectives to a problem. I observed a significant improvement from before although it cannot compete with an innate engineering minded person. Yet it is still a worthy change." },
+              ]}}/>
       </div>
     </>
   )
@@ -167,7 +172,6 @@ const StoryContainer = ({ children,objRef, className, title }: iStoryContainer) 
   useEffect(() => {
     const unsub = scrollYProgress.onChange((p) => {
       if (!show && p > 0.01 && p < 1) setShow(true);
-      // console.log(p);
     });
     return () => { unsub; }
   }, []);
