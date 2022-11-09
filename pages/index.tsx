@@ -27,6 +27,10 @@ import { IconButton } from '../components/IconButton';
 import { useTrigger } from '../utilities/useTrigger';
 import React from 'react';
 import { NotificationBanner } from '../components/NotificationBanner';
+import Sheet from '../assets/sheet.svg'
+import LeftBlock from '../assets/left_bloc.svg'
+import FrontBlock from '../assets/front_bloc.svg'
+import RearBlock from '../assets/rear_bloc.svg'
 
 
 const Home: NextPage = () => {
@@ -48,7 +52,7 @@ const Home: NextPage = () => {
           <ShadowPage/>
         </div>
         <RevealingPage>
-          <MyStory></MyStory>
+          <Expertise></Expertise>
         </RevealingPage>
         <ContactSection/>
       </TopFrame >
@@ -122,7 +126,8 @@ const BestOfMe = () => {
 }
 
 
-const MyStory = () => {
+const Expertise = () => {
+  /*
   const [showTitle, setShowTitle] = useState(false);
 
   const titleRef = useRef(null);
@@ -140,17 +145,26 @@ const MyStory = () => {
     config: { duration: 800 },
     to: { y: showTitle ? "0vh" : "40vh"},
   });
+  */
 
   return (
-    <ScrollSnapWrapper className='bg-themed-gray-base justify-end items-end text-end'>
-      <animated.div style={titleSpring} className={`w-screen pt-[10vh] pb-2 flex flex-col justify-start items-center bg-transparent `}>
+    <ScrollSnapWrapper className='frame-bounded-x py-[10vw] flex flex-col items-start relative'>
+      {/* <animated.div style={titleSpring} className={`w-screen pt-[10vh] pb-2 flex flex-col justify-start items-center bg-transparent `}>
         <AnimatedColoredText objRef={titleRef} isOpen={showTitle}>My journey, I'm sharing with you</AnimatedColoredText>
       </animated.div>
       <StickyLayer viewPercent={45}></StickyLayer>
       <StoryContainer
         title='How it started'
         className='mt-[45vh] md:mt-0 mr-0 md:mr-[45vw'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat dolor veniam earum ullam hic iusto nemo officia! In totam aliquam laborum velit veniam, nesciunt, ab eum itaque possimus quibusdam aperiam.</StoryContainer>
-      <StoryContainer title='Then...'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consequatur omnis voluptatem dolorem, dolores vitae aliquid illo rerum eum, quod, illum accusantium natus quisquam! Nulla quos eveniet sit neque autem perferendis.</StoryContainer>
+      <StoryContainer title='Then...'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consequatur omnis voluptatem dolorem, dolores vitae aliquid illo rerum eum, quod, illum accusantium natus quisquam! Nulla quos eveniet sit neque autem perferendis.</StoryContainer> */}
+      <div className='mt-[15vh] mb-[30vh] mx-[5%]  style-heading bg-gradient-to-bl from-primary-base to-secondary-t4 font-extrabold bg-clip-text text-transparent w-[60vw] max-w-[520px] drop-shadow-lg '>Actions are louder than words, so I build things.</div>
+      <div className='w-full h-fit absolute top-60 right-0 z-0'>
+        <Sheet className=""></Sheet>
+        <LeftBlock className="absolute right-0  top-0 translate-y-[6%] -translate-x-[30vw] w-[12%]"></LeftBlock>
+        <FrontBlock className="absolute right-0 top-0 translate-y-[80%] -translate-x-[20vw] w-[18%]"></FrontBlock>
+        <RearBlock className="absolute right-0 top-0 translate-y-[10%] -translate-x-[26%] w-[14%]"></RearBlock>
+      </div>
+      <SectionTitle className="mb-10">Expertise</SectionTitle>
     </ScrollSnapWrapper>
   )
 }
