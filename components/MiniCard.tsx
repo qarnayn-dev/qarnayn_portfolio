@@ -75,13 +75,12 @@ export const MiniCard = ({ animationData, title, extensionData }: iMiniCard) => 
                 </button>
             </div>
             <PopupModal isOpen={showExtension} onClose={closeModal}>
-                <div className="w-full h-full flex flex-col overflow-scroll gray-dark-pallete dark:gray-light-pallete sm:px-[5%] md:px-[8%] lg:px-[12%] xl:px-[16%] px-2 py-2 md:py-[4%] lg:py-[6%]">
+                <div className="w-full h-full flex flex-col overflow-scroll gray-dark-pallete dark:gray-light-pallete px-[5%] mobile-lg:px-[8%] sm:px-[12%] lg:px-[14%] py-2 mobile-lg:py-[3%] md:py-[4%] lg:py-[6%]">
                     <animated.h2 style={subTitleSpring} className={subTitleStyle}>On How</animated.h2>
                     <animated.h1 style={titleSpring} className=" mb-6 style-subheading font-medium ">{title}</animated.h1>
-                    <animated.p style={contentSpring} className="mr-2 mb-10 text-themed-gray-t5 style-body">{extensionData.description}</animated.p>
+                    <animated.p style={contentSpring} className="mr-2 mb-12 text-themed-gray-t5 style-body text-justify">{extensionData.description}</animated.p>
                     {(extensionData.showcaseList.length > 0) && <animated.h2 style={subTitleSpring} className={`${subTitleStyle} mb-3`}>Showcases</animated.h2>}
                     {ShowcasesItems()}
-                    <></>
                 </div>
             </PopupModal>
         </>
@@ -94,11 +93,10 @@ interface iShowcaseItem{
 }
 
 const ShowcaseItem = (prop: iShowcaseItem) => {
-
     return (
-        <div className="flex flex-col style-body">
-            <h3 className="pl-1 border-l-[3px] border-spacing-4 border-primary-t5 font-medium h-4 flex items-center text-themed-gray-t4 -translate-x-[7px]">{prop.title}</h3>
-            <div className="text-themed-gray-t5 mt-2 mb-6">{prop.content}</div>
+        <div className="flex flex-col style-subheading">
+            <h3 className="pl-1 border-l-[3px] mb-4 border-primary-t5 font-medium flex items-center text-themed-gray-t5 ">{prop.title}</h3>
+            <div className="text-themed-gray-t8 mb-6 text-justify style-body">{prop.content}</div>
         </div>
     )
  }
