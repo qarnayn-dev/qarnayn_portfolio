@@ -12,7 +12,7 @@ interface options{
 }
 
 /**
- * Mainly to return a state of `active` after `fire()` has been executed
+ * Mainly to return a state of `active` after `fire()` has been executed.
  * @param config optional setting.
  * @param config.duration the duration to dissapears. The default duration is 2000ms.
  * @param config.alwaysAlive option for staying alive after the `fire()` execution
