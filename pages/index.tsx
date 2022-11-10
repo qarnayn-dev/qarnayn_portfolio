@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import { Ref, RefObject, useContext, useEffect, useRef, useState} from 'react';
+import { ReactNode, Ref, RefObject, useContext, useEffect, useRef, useState} from 'react';
 import TopFrame from '../components/TopFrame';
 import { RevealingPage, ShadowPage } from '../components/RevealingPage';
 import { AnimatedColoredText } from '../components/AnimatedColoredText';
@@ -31,6 +31,9 @@ import Sheet from '../assets/sheet.svg'
 import LeftBlock from '../assets/left_bloc.svg'
 import FrontBlock from '../assets/front_bloc.svg'
 import RearBlock from '../assets/rear_bloc.svg'
+import Ecosystem from '../assets/schematic.svg'
+import MobileDev from '../assets/mobile_dev.svg'
+import Creative from '../assets/imagination.svg'
 
 
 const Home: NextPage = () => {
@@ -127,36 +130,8 @@ const BestOfMe = () => {
 
 
 const Expertise = () => {
-  /*
-  const [showTitle, setShowTitle] = useState(false);
-
-  const titleRef = useRef(null);
-  const { scrollYProgress } = useScroll({ target: titleRef, offset: ["0.5 1", "0.5 0"] });
-
-  useEffect(() => {
-    const titleYProgress = scrollYProgress.onChange((p) => {
-      if (!showTitle && p > 0.849) setShowTitle(true);
-    });
-    return () => { titleYProgress };
-  }, []);
-
-  const titleSpring = useSpring({
-    delay: 600,
-    config: { duration: 800 },
-    to: { y: showTitle ? "0vh" : "40vh"},
-  });
-  */
-
   return (
     <ScrollSnapWrapper className='frame-bounded-x py-[16vw] flex flex-col items-start relative'>
-      {/* <animated.div style={titleSpring} className={`w-screen pt-[10vh] pb-2 flex flex-col justify-start items-center bg-transparent `}>
-        <AnimatedColoredText objRef={titleRef} isOpen={showTitle}>My journey, I'm sharing with you</AnimatedColoredText>
-      </animated.div>
-      <StickyLayer viewPercent={45}></StickyLayer>
-      <StoryContainer
-        title='How it started'
-        className='mt-[45vh] md:mt-0 mr-0 md:mr-[45vw'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat dolor veniam earum ullam hic iusto nemo officia! In totam aliquam laborum velit veniam, nesciunt, ab eum itaque possimus quibusdam aperiam.</StoryContainer>
-      <StoryContainer title='Then...'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consequatur omnis voluptatem dolorem, dolores vitae aliquid illo rerum eum, quod, illum accusantium natus quisquam! Nulla quos eveniet sit neque autem perferendis.</StoryContainer> */}
       <div className='mt-[16vh] mb-[40vh] mx-[5%]  style-heading bg-gradient-to-bl from-primary-base to-secondary-t4 font-extrabold bg-clip-text text-transparent w-[60vw] max-w-[520px] drop-shadow-lg z-20'>Actions are louder than words, so I build things.</div>
       <div className='w-full h-fit xl:max-w-[1400px] xl:opacity-60 absolute top-72 right-0 z-0'>
         <Sheet className=""></Sheet>
@@ -166,14 +141,17 @@ const Expertise = () => {
       </div>
       <SectionTitle className="mb-4">Expertise</SectionTitle>
       <ExpertiseContainer
+        graphic={<Ecosystem/>}
         title="I engineered a system architecture and ecosystem for a sport facilities booking software from zero"
         content="Despite having zero prior experience, I found myself working in an early stage startup where I had the chance to create the underlying system’s architecture for the product ecosystem including databases, data structures, server-side services, event handler, system applications as well as integrations. Having limited resources forced me to always make a system design with high reliability. The biggest challenge that I faced was to design a robust ecosystem that is effective, yet maintainable and scallable. As an engineer minded person, I am naturally curious and accustomed to view things from a broader perspective which I then apply into my works. Now, I am apt to engineer an efficient ecosystem with a minimal tradeoff in which the initial unique problem can be solved effectively."/>
       <ExpertiseContainer
+        graphic={<MobileDev/>}
         title="7+ billion people own a smartphone, so I built a mobile-first software application with my team using the Flutter framework"
         content="Through my understanding of the statistics and trajectory of the future of technology, I decided to develop a product that focuses on smartphone usage. Since resources for an early stage startup are scarce, my team and I adopted and learned new knowledge such as the Dart language and the Flutter framework for our company’s sport facility booking system in order to capitalise on a fast production environment. Having good critical thinking skills, it helped me to steer the project to adapt with challenges efficiently by eliminating overly risky and unreliable decisions. With this, I am ideal to aid your company to make an effective decision in such a way that it serves and solves your unique problem."/>
       <ExpertiseContainer
-        title="How writing codes changes my life forever and I encourage anyone to try"
-        content="Coding is not just picking up a new language and starting to type on the keyboard – it is more. Writing codes turned me from being a passive worker to a proactive thinker. It also exponentially sharpened my analytical skills, problem solving skills, organising skills and communicating skills by being involved in an industrial grade project collaboratively with other engineers. This discipline turns me into someone who actively approach any real life problems in analytical ways; enabling me to adapt to any changes effectively. To top it off, working in a team with a diverse background of disciplines has improved my ability to read, learn and understand complex codebases written by other engineers hence improving my ability to write effective, readable and maintainable codes."/>
+        graphic={<Creative className="scale-125"/>}
+        title="Why I will never stop building things even at times where everyone else lose their passion"
+        content="When I first learned to write codes, it felt like my inner child curiosity had been revived –  I could let my imagination run wild. At the start, I had zero knowledge of coding, so I began learning by reading technical documents and starting to build projects. I have run into problems, so I learned to find solutions and started analysing the root causes. When I run out of ideas, I reach out to people and start understanding their needs. To me, the act of writing the code itself is just a small part – it is the process of learning and re-learning that I truly love as an engineer. Building any project requires brainpower and ideas from all fields of disciplines – and that is just what I desire; the growth from gaining knowledge. I will continue writing codes, solving problems and keep on building things even without anyone asking for it. It’s a passion."/>
     </ScrollSnapWrapper>
   )
 }
@@ -181,6 +159,7 @@ const Expertise = () => {
 interface iExpertiseContainer{
   title: string,
   content: string,
+  graphic?: ReactNode,
 }
 
 const ExpertiseContainer = (props: iExpertiseContainer) => {
@@ -190,10 +169,8 @@ const ExpertiseContainer = (props: iExpertiseContainer) => {
   let unsub: ()=> void | undefined;
 
   useEffect(() => {
-    console.log("present? : ",isPresent);
     if (!isPresent) {
       unsub = scrollYProgress.onChange((p) => {
-        console.log(p);
         if (p > 0.25) setIsPresent(true);
       });
     }
@@ -202,16 +179,21 @@ const ExpertiseContainer = (props: iExpertiseContainer) => {
 
 
   return (
-    <div ref={ref} className='mt-2 mb-[40vh] w-full apply-inverse-gray max-w-[540px]'>
-      <motion.h2
-        transition={{ duration: 0.9, ease:'backOut' }}
-        animate={{ opacity: isPresent ? 1 : 0, x: isPresent ? 0: 100}}
-        className='w-[90%] mb-10 style-heading-h2 text-themed-gray-base font-medium'>{props.title}</motion.h2>
-      <motion.p
-        transition={{ duration: 1.6, type: 'spring', delay: 1 }}
-        animate={{ opacity: isPresent ? 1 : 0, y: isPresent ? 0: 100}}
-        className='w-[95%] mobile-xl:w-[90%] md:w-[86%] style-body text-themed-gray-t4 text-justify md:text-start'>{props.content}</motion.p>
-    </div>
+    <div className='w-full h-full mb-[32vh] flex flex-col lg:flex-row-reverse gap-4 items-center justify-end '>
+      <div className='w-[80%] pt-[5vw] pb-[8vw] flex justify-center items-center float-right'>
+        {props.graphic && props.graphic}
+      </div>
+        <div ref={ref} className='mt-2  w-full apply-inverse-gray max-w-[540px]'>
+          <motion.h2
+            transition={{ duration: 0.9, ease:'backOut' }}
+            animate={{ opacity: isPresent ? 1 : 0, x: isPresent ? 0: 100}}
+            className='w-[90%] mb-10 style-heading-h2 text-themed-gray-base font-medium'>{props.title}</motion.h2>
+          <motion.p
+          transition={{ duration: 1.6, type: 'spring', delay: 1 }}
+          animate={{ opacity: isPresent ? 1 : 0, y: isPresent ? 0: 100}}
+          className='w-[95%] mobile-xl:w-[90%] md:w-[86%] style-body text-themed-gray-t4 text-justify md:text-start'>{props.content}</motion.p>
+        </div>
+      </div>
   )
 }
 
