@@ -148,7 +148,7 @@ const Expertise = () => {
   */
 
   return (
-    <ScrollSnapWrapper className='frame-bounded-x py-[10vw] flex flex-col items-start relative'>
+    <ScrollSnapWrapper className='frame-bounded-x py-[16vw] flex flex-col items-start relative'>
       {/* <animated.div style={titleSpring} className={`w-screen pt-[10vh] pb-2 flex flex-col justify-start items-center bg-transparent `}>
         <AnimatedColoredText objRef={titleRef} isOpen={showTitle}>My journey, I'm sharing with you</AnimatedColoredText>
       </animated.div>
@@ -157,61 +157,61 @@ const Expertise = () => {
         title='How it started'
         className='mt-[45vh] md:mt-0 mr-0 md:mr-[45vw'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat dolor veniam earum ullam hic iusto nemo officia! In totam aliquam laborum velit veniam, nesciunt, ab eum itaque possimus quibusdam aperiam.</StoryContainer>
       <StoryContainer title='Then...'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consequatur omnis voluptatem dolorem, dolores vitae aliquid illo rerum eum, quod, illum accusantium natus quisquam! Nulla quos eveniet sit neque autem perferendis.</StoryContainer> */}
-      <div className='mt-[15vh] mb-[30vh] mx-[5%]  style-heading bg-gradient-to-bl from-primary-base to-secondary-t4 font-extrabold bg-clip-text text-transparent w-[60vw] max-w-[520px] drop-shadow-lg '>Actions are louder than words, so I build things.</div>
-      <div className='w-full h-fit absolute top-60 right-0 z-0'>
+      <div className='mt-[16vh] mb-[40vh] mx-[5%]  style-heading bg-gradient-to-bl from-primary-base to-secondary-t4 font-extrabold bg-clip-text text-transparent w-[60vw] max-w-[520px] drop-shadow-lg z-20'>Actions are louder than words, so I build things.</div>
+      <div className='w-full h-fit xl:max-w-[1400px] xl:opacity-60 absolute top-72 right-0 z-0'>
         <Sheet className=""></Sheet>
-        <LeftBlock className="absolute right-0  top-0 translate-y-[6%] -translate-x-[30vw] w-[12%]"></LeftBlock>
+        <LeftBlock className="absolute right-0 top-0 translate-y-[6%] -translate-x-[30vw] w-[12%]"></LeftBlock>
         <FrontBlock className="absolute right-0 top-0 translate-y-[80%] -translate-x-[20vw] w-[18%]"></FrontBlock>
         <RearBlock className="absolute right-0 top-0 translate-y-[10%] -translate-x-[26%] w-[14%]"></RearBlock>
       </div>
-      <SectionTitle className="mb-10">Expertise</SectionTitle>
+      <SectionTitle className="mb-4">Expertise</SectionTitle>
+      <ExpertiseContainer
+        title="I engineered a system architecture and ecosystem for a sport facilities booking software from zero"
+        content="Despite having zero prior experience, I found myself working in an early stage startup where I had the chance to create the underlying system’s architecture for the product ecosystem including databases, data structures, server-side services, event handler, system applications as well as integrations. Having limited resources forced me to always make a system design with high reliability. The biggest challenge that I faced was to design a robust ecosystem that is effective, yet maintainable and scallable. As an engineer minded person, I am naturally curious and accustomed to view things from a broader perspective which I then apply into my works. Now, I am apt to engineer an efficient ecosystem with a minimal tradeoff in which the initial unique problem can be solved effectively."/>
+      <ExpertiseContainer
+        title="7+ billion people own a smartphone, so I built a mobile-first software application with my team using the Flutter framework"
+        content="Through my understanding of the statistics and trajectory of the future of technology, I decided to develop a product that focuses on smartphone usage. Since resources for an early stage startup are scarce, my team and I adopted and learned new knowledge such as the Dart language and the Flutter framework for our company’s sport facility booking system in order to capitalise on a fast production environment. Having good critical thinking skills, it helped me to steer the project to adapt with challenges efficiently by eliminating overly risky and unreliable decisions. With this, I am ideal to aid your company to make an effective decision in such a way that it serves and solves your unique problem."/>
+      <ExpertiseContainer
+        title="How writing codes changes my life forever and I encourage anyone to try"
+        content="Coding is not just picking up a new language and starting to type on the keyboard – it is more. Writing codes turned me from being a passive worker to a proactive thinker. It also exponentially sharpened my analytical skills, problem solving skills, organising skills and communicating skills by being involved in an industrial grade project collaboratively with other engineers. This discipline turns me into someone who actively approach any real life problems in analytical ways; enabling me to adapt to any changes effectively. To top it off, working in a team with a diverse background of disciplines has improved my ability to read, learn and understand complex codebases written by other engineers hence improving my ability to write effective, readable and maintainable codes."/>
     </ScrollSnapWrapper>
   )
 }
 
-interface iStoryContainer{
-  children: string,
-  objRef?: RefObject<HTMLElement>,
-  className?: string,
-  title?: string,
+interface iExpertiseContainer{
+  title: string,
+  content: string,
 }
 
-const StoryContainer = ({ children,objRef, className, title }: iStoryContainer) => {
-  const { width} = useWindowDimensions();
-  const [show, setShow] = useState(false);
-  const [isLarge, setIsLarge] = useState((width > 768));
-  const containerRef = objRef ?? useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({ target: containerRef, offset: ["1 1", "0.3 0.45"] });
-  const leaveOpacity = useTransform(scrollYProgress, [0, 0.6, 1], isLarge? [1,1,1]: [1, 1, 0], { ease: easings.easeOutCirc });
+const ExpertiseContainer = (props: iExpertiseContainer) => {
+  const [isPresent, setIsPresent] = useState(false);
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["0 1", "1 0"] });
+  let unsub: ()=> void | undefined;
 
   useEffect(() => {
-    const unsub = scrollYProgress.onChange((p) => {
-      if (!show && p > 0.01 && p < 1) setShow(true);
-    });
-    return () => { unsub; }
-  }, []);
+    console.log("present? : ",isPresent);
+    if (!isPresent) {
+      unsub = scrollYProgress.onChange((p) => {
+        console.log(p);
+        if (p > 0.25) setIsPresent(true);
+      });
+    }
+    if (unsub) return () => { unsub(); };
+  }, [isPresent]);
 
-  useEffect(() => {
-    const breakPoint: number = 768;
-    if (isLarge && (width < breakPoint)) setIsLarge(false);
-    else if (!isLarge && (width > breakPoint)) setIsLarge(true);
-  }, [width]);
-
-  useScrollSnap(containerRef, { position: 'bottom',scale: 2});
 
   return (
-    <motion.div
-      ref={containerRef as Ref<HTMLDivElement>}
-      style={{ opacity: leaveOpacity}}
-      className={`antisticky-45 flex-col justify-center items-center ${className}`}
-      >
-        <AnimatedSentences
-          title={title}
-          showAnimation={show}
-          twTextAlignment="text-center md:text-start"
-          className={`w-full h-full`}
-        >{children}</AnimatedSentences>
-    </motion.div>
+    <div ref={ref} className='mt-2 mb-[40vh] w-full apply-inverse-gray max-w-[540px]'>
+      <motion.h2
+        transition={{ duration: 0.9, ease:'backOut' }}
+        animate={{ opacity: isPresent ? 1 : 0, x: isPresent ? 0: 100}}
+        className='w-[90%] mb-10 style-heading-h2 text-themed-gray-base font-medium'>{props.title}</motion.h2>
+      <motion.p
+        transition={{ duration: 1.6, type: 'spring', delay: 1 }}
+        animate={{ opacity: isPresent ? 1 : 0, y: isPresent ? 0: 100}}
+        className='w-[95%] mobile-xl:w-[90%] md:w-[86%] style-body text-themed-gray-t4 text-justify md:text-start'>{props.content}</motion.p>
+    </div>
   )
 }
 
@@ -224,9 +224,9 @@ const ContactSection = () => {
   }
 
   return (
-    <div className='frame-bounded-x py-10 flex flex-col gap-5 md:flex-row'>
+    <div className='frame-bounded-x pb-10 flex flex-col gap-5 md:flex-row'>
       <div className='max-w-[85%] sm:w-full mb-6'>
-        <SectionTitle className="mt-20 mb-6">Contact</SectionTitle>
+        <SectionTitle className="mb-6">Contact</SectionTitle>
         <div className='style-heading mb-8'>Love to hear from you, don’t hesitate to get in touch!</div>
         <div className='mb-8 style-body max-w-[90%]'>I’m open to any opportunity. Feel free to contact me via the message section or you can send me an email directly. Also, I am on LinkedIn! Come and connect with me in LiknedIn to keep in touch.</div>
         <div className='flex flex-row gap-4'>

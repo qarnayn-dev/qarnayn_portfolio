@@ -23,6 +23,10 @@
         @apply text-2xl mobile-lg:text-3xl md:text-4xl xl:text-5xl 2xl:text-6xl font-medium
     }
 
+    .style-heading-h2{
+        @apply text-xl mobile-lg:text-2xl md:text-3xl 2xl:text-4xl font-medium
+    }
+
     /* Sub-heading scaled */
     .style-subheading{
         @apply text-base mobile-lg:text-lg lg:text-xl 2xl:text-2xl
@@ -52,47 +56,51 @@
         @apply dark-color-pallete gray-dark-pallete
     }
 
-        .gray-light-pallete {
-            --gray-base: 242, 242, 246;
-            --gray-t2: 229, 229, 232;
-            /*#e5e5e5*/
-            --gray-t3: 215, 215, 219;
-            /*#d7d7d7*/
-            --gray-t4: 202, 202, 207;
-            /*#cacaca*/
-            --gray-t5: 189, 189, 194;
-            /*#bdbdbd*/
-            --gray-t6: 176, 176, 181;
-            /*#b0b0b0*/
-            --gray-t7: 163, 163, 169;
-            /*#a3a3a3*/
-            --gray-t8: 149, 149, 155;
-            /*#959595*/
-            --gray-t9: 136, 136, 142;
-            /*#888888*/
-            --gray-inverse: 30,30,34;
-        }
+    .apply-inverse-gray{
+        @apply gray-dark-pallete dark:gray-light-pallete
+    }
 
-        .gray-dark-pallete {
-            --gray-base: 22, 22, 25;
-            --gray-t2: 28, 28, 32;
-            /*#191919*/
-            --gray-t3: 37, 37, 41;
-            /*#252525*/
-            --gray-t4: 49, 49, 54;
-            /*#313131*/
-            --gray-t5: 62, 62, 68;
-            /*#3e3e3e*/
-            --gray-t6: 74, 74, 82;
-            /*#4a4a4a*/
-            --gray-t7: 86, 86, 92;
-            /*#565656*/
-            --gray-t8: 98, 98, 104;
-            /*#626262*/
-            --gray-t9: 111, 111, 118;
-            --gray-inverse: 210,210,218;
-            /* --gray-inverse: 235,235,248; */
-        }
+    .gray-light-pallete {
+        --gray-base: 242, 242, 246;
+        --gray-t2: 229, 229, 232;
+        /*#e5e5e5*/
+        --gray-t3: 215, 215, 219;
+        /*#d7d7d7*/
+        --gray-t4: 202, 202, 207;
+        /*#cacaca*/
+        --gray-t5: 189, 189, 194;
+        /*#bdbdbd*/
+        --gray-t6: 176, 176, 181;
+        /*#b0b0b0*/
+        --gray-t7: 163, 163, 169;
+        /*#a3a3a3*/
+        --gray-t8: 149, 149, 155;
+        /*#959595*/
+        --gray-t9: 136, 136, 142;
+        /*#888888*/
+        --gray-inverse: 30,30,34;
+    }
+
+    .gray-dark-pallete {
+        --gray-base: 22, 22, 25;
+        --gray-t2: 28, 28, 32;
+        /*#191919*/
+        --gray-t3: 37, 37, 41;
+        /*#252525*/
+        --gray-t4: 49, 49, 54;
+        /*#313131*/
+        --gray-t5: 62, 62, 68;
+        /*#3e3e3e*/
+        --gray-t6: 74, 74, 82;
+        /*#4a4a4a*/
+        --gray-t7: 86, 86, 92;
+        /*#565656*/
+        --gray-t8: 98, 98, 104;
+        /*#626262*/
+        --gray-t9: 111, 111, 118;
+        --gray-inverse: 210,210,218;
+        /* --gray-inverse: 235,235,248; */
+    }
 
     .light-color-pallete{
         --primary : 26,142,184; /*#1a8eb8*/
