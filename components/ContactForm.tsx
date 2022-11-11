@@ -22,8 +22,8 @@ export const ContactForm = () => {
     }, []);
 
     return (
-        <div className='w-full h-[100vh] py-8'>
-            <div className='w-full max-w-lg rounded-xl px-4 mobile-lg:px-6 sm:px-8 pt-16 pb-6 bg-themed-gray-base drop-shadow-md dark:bg-neutral-900 style-body flex flex-col justify-center items-start md:float-right'>
+        <div className='w-full py-8'>
+            <div className='w-full max-w-lg rounded-xl px-4 mobile-lg:px-6 sm:px-8 pt-8 pb-6 bg-themed-gray-base drop-shadow-md dark:bg-neutral-900 style-body flex flex-col justify-center items-start md:float-right'>
                 <TextInputField title='Message' hintText="Write me anything. It's that easy to get in touch!" inputKeyName="message" value={formData.message} onChange={onInputChange} useTextArea />
                 <TextInputField title='Name' inputKeyName="name" value={formData.name} onChange={onInputChange} />
                 <TextInputField title='Email' inputKeyName="email" value={formData.email} onChange={onInputChange} />
