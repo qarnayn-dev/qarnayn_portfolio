@@ -131,7 +131,7 @@ const BestOfMe = () => {
 
 const Expertise = () => {
   return (
-    <ScrollSnapWrapper className='frame-bounded-x py-[16vw] flex flex-col items-start relative'>
+    <ScrollSnapWrapper className='frame-bounded-x pt-[16vw] flex flex-col items-start relative'>
       <div className='mt-[16vh] mb-[40vh] mx-[5%]  style-heading bg-gradient-to-bl from-primary-base to-secondary-t4 font-extrabold bg-clip-text text-transparent w-[60vw] max-w-[520px] drop-shadow-lg z-20'>Actions are louder than words, so I build things.</div>
       <div className='w-full h-fit xl:max-w-[1400px] xl:opacity-60 absolute top-72 right-0 z-0'>
         <Sheet className=""></Sheet>
@@ -206,7 +206,7 @@ const ContactSection = () => {
   }
 
   return (
-    <div className='frame-bounded-x pb-10 flex flex-col gap-5 md:flex-row'>
+    <div className='frame-bounded-x pt-32 pb-10 flex flex-col gap-5 md:flex-row bg-primary-base bg-opacity-10'>
       <div className='max-w-[85%] sm:w-full mb-6'>
         <SectionTitle className="mb-6">Contact</SectionTitle>
         <div className='style-heading mb-8'>Love to hear from you, don’t hesitate to get in touch!</div>

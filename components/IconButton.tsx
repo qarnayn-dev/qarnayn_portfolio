@@ -23,8 +23,8 @@ export const IconButton = (props:iIconButton) => {
 
   return (
     <button onClick={()=> props.onClickFn && props.onClickFn()} className={`relative flex flex-col items-center group `}>
-      <div className={`w-12 h-12 md:w-14 md:h-14 p-2 flex flex-col items-center justify-center rounded-lg border-2 border-primary-t5 border-opacity-20 group-hover:apply-glass group-hover:border-opacity-0 bg-themed-gray-base apply-glass ${twTransitions}`}>
-        <props.icon className={`text-primary-t3 group-hover:scale-110 group-hover:text-primary-base ${twTransitions} `} size={24} />
+      <div className={`w-12 h-12 md:w-14 md:h-14 p-2 flex flex-col items-center justify-center rounded-lg border-2 border-primary-t5 border-opacity-20 group-hover:apply-glass bg-themed-gray-base bg-opacity-40 group-hover:border-opacity-0 group-hover:bg-opacity-100 apply-glass ${twTransitions}`}>
+        <props.icon className={`text-primary-t4 group-hover:scale-110 group-hover:text-primary-base ${twTransitions} `} size={24} />
       </div>
       <div className={`w-12 md:w-14 mt-1 font-extralight overflow-clip text-themed-gray-t8 text-center text-xs group-hover:style-secondary group-hover:drop-shadow-md ${twTransitions}`}>{props.title}</div>
       {props.tooltip &&
