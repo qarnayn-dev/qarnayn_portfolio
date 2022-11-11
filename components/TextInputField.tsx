@@ -49,7 +49,7 @@ export const TextInputField = memo((props:iTextInputField) => {
                 onFocus={() => setIsFocus(true)}
                 onBlur={() => setIsFocus(false)}
                 onChange={(e) => props.onChange(e)}
-                className={`${inputBoxCN} h-20`} />
+                className={`${inputBoxCN} h-28`} />
             }
         </div>
     )
