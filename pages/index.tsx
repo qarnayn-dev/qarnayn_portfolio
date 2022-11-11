@@ -201,7 +201,7 @@ const ContactSection = () => {
   }
 
   return (
-    <div className='frame-bounded-x pt-32 pb-10 flex flex-col gap-5 md:flex-row bg-primary-base bg-opacity-10 relative'>
+    <div className='frame-bounded-x pt-32 pb-10 flex flex-col gap-5 md:flex-row bg-primary-base bg-opacity-10 dark:bg-opacity-5 relative'>
       <div className='max-w-[85%] sm:w-full mb-6'>
         <SectionTitle className="mb-6">Contact</SectionTitle>
         <div className='style-heading mb-8'>Love to hear from you, don’t hesitate to get in touch!</div>
