@@ -149,7 +149,7 @@ const Expertise = () => {
         title="7+ billion people own a smartphone, so I built a mobile-first software application with my team using the Flutter framework"
         content="Through my understanding of the statistics and trajectory of the future of technology, I decided to develop a product that focuses on smartphone usage. Since resources for an early stage startup are scarce, my team and I adopted and learned new knowledge such as the Dart language and the Flutter framework for our company’s sport facility booking system in order to capitalise on a fast production environment. Having good critical thinking skills, it helped me to steer the project to adapt with challenges efficiently by eliminating overly risky and unreliable decisions. With this, I am ideal to aid your company to make an effective decision in such a way that it serves and solves your unique problem."/>
       <ExpertiseContainer
-        graphic={<Creative className="scale-125"/>}
+        graphic={<Creative className="translate-y-[20vw] mobile-xl:translate-y-[28vw] md:translate-y-[200px] lg:translate-y-[80px]"/>}
         title="Why I will never stop building things even at times where everyone else lose their passion"
         content="When I first learned to write codes, it felt like my inner child curiosity had been revived –  I could let my imagination run wild. At the start, I had zero knowledge of coding, so I began learning by reading technical documents and starting to build projects. I have run into problems, so I learned to find solutions and started analysing the root causes. When I run out of ideas, I reach out to people and start understanding their needs. To me, the act of writing the code itself is just a small part – it is the process of learning and re-learning that I truly love as an engineer. Building any project requires brainpower and ideas from all fields of disciplines – and that is just what I desire; the growth from gaining knowledge. I will continue writing codes, solving problems and keep on building things even without anyone asking for it. It’s a passion."/>
     </ScrollSnapWrapper>
@@ -179,21 +179,21 @@ const ExpertiseContainer = (props: iExpertiseContainer) => {
 
 
   return (
-    <div className='w-full h-full mb-[20vh] flex flex-col lg:flex-row-reverse gap-4 items-center justify-end '>
-      <div className='w-[80%] pt-[5vw] pb-[8vw] flex justify-center items-center float-right'>
+    <div className='w-full h-full mb-[20vh] overflow-x-visible items-center justify-end relative'>
+      <div className='absolute w-[80vw] lg:w-[40vw] max-w-[480px] top-0 lg:left-[600px] z-0 pt-[5vw] pb-[8vw] flex justify-center items-center float-right overflow-x-visible'>
         {props.graphic && props.graphic}
       </div>
-        <div ref={ref} className='mt-2  w-full apply-inverse-gray max-w-[540px]'>
-          <motion.h2
-            transition={{ duration: 0.9, ease:'backOut' }}
-            animate={{ opacity: isPresent ? 1 : 0, x: isPresent ? 0: 100}}
-            className='w-[90%] mb-10 style-heading-h2 text-themed-gray-base font-medium'>{props.title}</motion.h2>
-          <motion.p
-          transition={{ duration: 1.6, type: 'spring', delay: 1 }}
-          animate={{ opacity: isPresent ? 1 : 0, y: isPresent ? 0: 100}}
-          className='w-[95%] mobile-xl:w-[90%] md:w-[86%] style-body text-themed-gray-t4 text-justify md:text-start'>{props.content}</motion.p>
-        </div>
+      <div ref={ref} className='mt-[80vw] sm:mt-[480px] lg:mt-2 w-full apply-inverse-gray max-w-[540px]'>
+        <motion.h2
+          transition={{ duration: 0.9, ease:'backOut' }}
+          animate={{ opacity: isPresent ? 1 : 0, x: isPresent ? 0: 100}}
+          className='w-[90%] mb-10 style-heading-h2 text-themed-gray-base font-medium'>{props.title}</motion.h2>
+        <motion.p
+        transition={{ duration: 1.6, type: 'spring', delay: 1 }}
+        animate={{ opacity: isPresent ? 1 : 0, y: isPresent ? 0: 100}}
+        className='w-[95%] mobile-xl:w-[90%] md:w-[86%] style-body text-themed-gray-t4 text-justify md:text-start'>{props.content}</motion.p>
       </div>
+    </div>
   )
 }
 
