@@ -1,15 +1,10 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import { ReactNode, Ref, RefObject, useContext, useEffect, useRef, useState} from 'react';
+import { ReactNode, useContext, useEffect, useRef, useState} from 'react';
 import TopFrame from '../components/TopFrame';
 import { RevealingPage, ShadowPage } from '../components/RevealingPage';
-import { AnimatedColoredText } from '../components/AnimatedColoredText';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { animated, easings, useSpring } from 'react-spring';
-import { AnimatedSentences } from '../components/AnimatedSentences';
-import useWindowDimensions from '../components/useWindowDimensions';
-import { ScrollSnapWrapper, useScrollSnap } from '../components/useScrollSnap';
-import { StickyLayer } from '../components/StickyLayer';
+import { motion, useScroll} from 'framer-motion';
+import { ScrollSnapWrapper} from '../components/useScrollSnap';
 import Lottie from 'lottie-react';
 import appDevIllustration from '../assets/app_dev_lottie.json';
 import walletLottie from '../assets/wallet_ani.json';
@@ -45,7 +40,7 @@ const Home: NextPage = () => {
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <TopFrame className="frame-bounded-y">
+      <TopFrame className="pt-[3vh] md:pt-[6vh]">
         <div className='relative pb-24 md:pb-28  flex flex-col'>
           <ParallaxWrapper yDisplacement={-150} className="absolute z-0 md:top-40 lg:top-32 right-0 overflow-clip w-[120vw] opacity-40 dark:opacity-100">
             {(theme==='light')?<TableLight/>:<TableDark/>}
@@ -82,7 +77,7 @@ const Intro = () => {
           <h2 className='style-secondary mb-[2px] '>Hello World! I am Qarnayn</h2>
           <h1 className='style-heading'>An engineer who codes designer's boundless imaginations</h1>
           <p className='mt-12 style-body'>Hi there 👋🏼.<br/> I am an engineer who loves to solve problems and is passionate about human behaviour. I’m working as a software developer, ideally in Front-end development. I have led a developers team, designed a full business software architecture ecosystem, engineered an efficient system architecture and more. Having an engineer's frame of mind, everything I see is just somewhat of a cog that fits in this complex world. It's the ‘how’ and ‘why’ that fascinates me every time. It’s hard and complex, but I love every single bit of it!
-</p>
+          </p>
         </div>
       </div>
   )

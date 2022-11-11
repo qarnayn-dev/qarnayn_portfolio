@@ -6,6 +6,7 @@ import { ThemeContext, THEME_LKEY} from '../components/DarkThemeToggle';
 import { GreetingsLayout } from '../components/GreetingsLayout';
 import { Provider } from 'react-redux';
 import {store} from '../redux/store';
+import { Footer } from '../components/Footer';
 
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -46,6 +47,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <ThemeContext.Provider value={{ theme, setTheme }}>
         <GreetingsLayout show={loading}></GreetingsLayout>
         <Component {...pageProps} />
+        <Footer/>
       </ThemeContext.Provider>
     </Provider>
   )
