@@ -179,7 +179,7 @@ const ExpertiseContainer = (props: iExpertiseContainer) => {
 
 
   return (
-    <div className='w-full h-full mb-[32vh] flex flex-col lg:flex-row-reverse gap-4 items-center justify-end '>
+    <div className='w-full h-full mb-[20vh] flex flex-col lg:flex-row-reverse gap-4 items-center justify-end '>
       <div className='w-[80%] pt-[5vw] pb-[8vw] flex justify-center items-center float-right'>
         {props.graphic && props.graphic}
       </div>
