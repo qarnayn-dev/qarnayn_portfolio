@@ -4,6 +4,17 @@ import { IconType } from 'react-icons'
 import { IoLockClosed, IoLogoGithub, IoLogoPython, IoChevronUpOutline } from 'react-icons/io5'
 import { ChainedPost } from '../components/ChainedPost'
 import TopFrame from '../components/TopFrame'
+import DartLogo from '../assets/Logos/dart_logo.svg'
+import FlutterLogo from '../assets/Logos/flutter_logo.svg'
+import FirebaseLogo from '../assets/Logos/firebase_logo.svg'
+import AWSLogo from '../assets/Logos/aws_logo.svg'
+import HTML5Logo from '../assets/Logos/html_logo.svg'
+import MySQLLogo from '../assets/Logos/mysql_logo.svg'
+import PythonLogo from '../assets/Logos/python_logo.svg'
+import ReactLogo from '../assets/Logos/react_js_logo.svg'
+import ReduxLogo from '../assets/Logos/redux_logo.svg'
+import TailwindLogo from '../assets/Logos/tailwindcss_logo.svg'
+import TypeScriptLogo from '../assets/Logos/typescript_logo.svg'
 
 const Projects = () => {
   return (
@@ -81,10 +92,14 @@ const ProjectCard = () => {
 
   const TechStack = () => {
     const datas: iTechIcon[] = [
-      {icon: IoLogoPython,displayTitle:"Python"},
-      {icon: IoLogoPython,displayTitle:"Python"},
-      {icon: IoLogoPython,displayTitle:"Python"},
-      {icon: IoLogoPython,displayTitle:"Python"},
+      {icon: DartLogo,displayTitle:"Dart"},
+      {icon: FlutterLogo,displayTitle:"Flutter"},
+      {icon: FirebaseLogo,displayTitle:"Firebase"},
+      {icon: MySQLLogo,displayTitle:"MySQL"},
+      {icon: AWSLogo,displayTitle:"AWS"},
+      {icon: PythonLogo,displayTitle:"Phyton"},
+      // {icon: ,displayTitle:""},
+      // {icon: ,displayTitle:""},
       // {icon: ,displayTitle:""},
     ];
     return (
@@ -101,7 +116,7 @@ const ProjectCard = () => {
           transition={{ duration: 2.6, type: 'spring' }}
           initial={{ opacity:0}}
           animate={{ opacity:1 }}
-          className="w-full mt-2 mb-12 flex flex-row flex-wrap gap-4">
+          className="w-full mt-2 mb-12 flex flex-row flex-wrap">
           {datas.map((v,i)=> <TechIcon key={i} icon={v.icon} displayTitle={v.displayTitle}></TechIcon>)}
         </motion.div>
       </>
@@ -203,11 +218,11 @@ interface iTechIcon{
 }
 
 const TechIcon = (data: iTechIcon) => {
-  const twHover = "opacity-40 group-hover:opacity-60 transition-all ease-out-circ duration-500";
+  const twHover = "opacity-50 group-hover:opacity-80 transition-all ease-out-circ duration-500";
   return (
-    <div className='group flex flex-col items-center justify-center' >
-      <data.icon className={`${twHover}`} size={26}/>
-      <div className={`${twHover} t-1 style-small-text apply-inverse-gray text-themed-gray-t4 scale-75`}>{data.displayTitle}</div>
+    <div className='w-16 group flex flex-col items-center justify-center' >
+      <data.icon className={`${twHover} w-6 h-6 flex items-center justify-center`}/>
+      <div className={`${twHover} t-1 h-5 style-small-text apply-inverse-gray text-themed-gray-t4 scale-75 overflow-hidden text-center`}>{data.displayTitle}</div>
     </div>
   )
 }
