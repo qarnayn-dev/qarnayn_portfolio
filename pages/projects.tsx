@@ -21,7 +21,51 @@ const Projects = () => {
     <>
     <TopFrame/>
     <div className='frame-bounded-x pt-32 pb-28 bg-gradient-to-tr from-primary-t4'>
-        <ProjectCard></ProjectCard>
+        <ProjectCard
+          name='Sportivity Application'
+          title='A sport facility booking platform with social and community features.'
+          description="A mobile-first software applications – both IOS and Android users to search for a sport facility service, reserve their facility service’s slot and socially connect with their community or strangers with commen interest."
+          techStach={[
+            {icon: DartLogo,displayTitle:"Dart"},
+            {icon: FlutterLogo,displayTitle:"Flutter"},
+            {icon: FirebaseLogo,displayTitle:"Firebase"},
+            {icon: MySQLLogo,displayTitle:"MySQL"},
+            {icon: AWSLogo,displayTitle:"AWS"},
+            {icon: PythonLogo,displayTitle:"Phyton"},
+          ]}
+          contributionOverview=""
+          shortContributions={[
+            "Led the engineering team",
+            "Designed the app’s architechtures",
+            "Wrote, reviewed and managed the app’s code base",
+          ]}
+          contributions={[]}
+          isLocked={true}
+          status={ProjectStatus.active}
+        />
+        <ProjectCard
+          name=""
+          title=""
+          description=""
+          techStach={[]}
+          contributionOverview=""
+          shortContributions={[]}
+          contributions={[]}
+          isLocked={true}
+          status={ProjectStatus.active}
+        />
+        <ProjectCard
+          name=""
+          title=""
+          description=""
+          techStach={[]}
+          contributionOverview=""
+          shortContributions={[]}
+          contributions={[]}
+          isLocked={false}
+          status={ProjectStatus.completed}
+          githubUrl="https://github.com/qarnaynsv001/qarnayn_portfolio"
+        />
       </div>
     </>
   )
@@ -29,21 +73,53 @@ const Projects = () => {
 
 export default Projects
 
+interface iProjectCard{
+  name: string,
+  title: string,
+  description: string,
+  techStach: iTechIcon[],
+  contributionOverview: string,
+  shortContributions: string[],
+  contributions: string[],
+  isLocked?: boolean,
+  status: ProjectStatus,
+  githubUrl?: string,
+}
 
-const ProjectCard = () => {
+enum ProjectStatus{
+  active = "active",
+  completed = "completed",
+  inProgress = "in-progress",
+  comingSoon = "coming soon"
+}
+
+const ProjectCard = (props: iProjectCard) => {
   const [isExpand, setIsExpand] = useState(false);
   const twSub: string = "style-small-text text-themed-gray-t6";
   const twTransition: string = "transition-all duration-500 ease-out-cubic";
+  const isCodeAvailable: boolean = !props.isLocked && (props.githubUrl!==undefined);
 
   const Tag = () => {
-    return <div className={`${isExpand?'scale-100':'scale-75'} ${twTransition} px-3 pb-[1px] style-small-text rounded-xl bg-semantic-success text-nwhite`}>active</div>
+    let twBgColor: string;
+    switch (props.status) {
+      case ProjectStatus.active:
+        twBgColor = "bg-semantic-success";
+        break;
+      case ProjectStatus.completed:
+        twBgColor = "bg-semantic-info";
+        break;
+      default:
+        twBgColor = "";
+        break;
+    }
+    return <div className={`${isExpand ? 'scale-100' : 'scale-75'} ${twTransition} ${twBgColor} px-3 pb-[1px] style-small-text rounded-xl text-nwhite`}>{props.status}</div>
   }
 
   const ProjectName = () => {
     return (
       <div className='flex flex-row gap-1 items-center'>
-        <div className={`${isExpand? 'style-heading font-normal mb-1':'style-subheading font-light'} ${twTransition} font-light text-primary-base`}>Sportivity Application</div>
-        <IoLockClosed className={`${twTransition} text-themed-gray-t9`} size={isExpand? 20: 14} />
+        <div className={`${isExpand ? 'style-heading font-normal mb-1' : 'style-subheading font-light'} ${twTransition} font-light text-primary-base`}>{props.name}</div>
+        {props.isLocked && <IoLockClosed className={`${twTransition} text-themed-gray-t9`} size={isExpand? 20: 14} />}
         <Tag/>
       </div>
     )
@@ -51,7 +127,7 @@ const ProjectCard = () => {
 
   const ProjectTitle = () => {
     return (
-      <h2 className={`${isExpand ? 'style-body w-[70%] mb-4' : 'style-heading-h2 w-full mb-8'} ${twTransition} font-light`}>A sport facility booking platform with social and community features.</h2>
+      <h2 className={`${isExpand ? 'style-body w-[70%] mb-4' : 'style-heading-h2 w-full mb-8'} ${twTransition} font-light`}>{props.title}</h2>
     )
   }
 
@@ -64,25 +140,25 @@ const ProjectCard = () => {
         animate={{ opacity: 1,  x:0}}
         className={`w-[90%] ${isExpand? 'md:w-[60%]':'md:w-[90%]'} mt-2 mb-5 style-body apply-inverse-gray text-themed-gray-t4`}
         >
-        A mobile-first software applications – both IOS and Android users to search for a sport facility service, reserve their facility service’s slot and socially connect with their community or strangers with commen interest.
+        {props.description}
       </motion.p>
     )
   }
 
-  const contibution = (items: string[]) => {
+  const ShortContibutions = () => {
     return (
       <AnimatePresence >
         {!isExpand &&
           <motion.div
             transition={{ duration: 0.6, type: 'spring' }}
-            initial={{x:50,opacity:0}}
-            exit={{x:50,opacity:0}}
+            initial={{x:50, opacity:0}}
+            exit={{x:50, opacity:0}}
             animate={{ x: 0, opacity: 1 }}
             className='mt-8'>
             <div className={`${twSub}`}>CONTRIBUTIONS</div>
             <div className='style-body text-themed-gray-t9 pl-1'>
-              {items.map((v,i) => <li key={i}>{v}</li>)}
-              <div className='italic text-themed-gray-t8'>... more</div>
+              {props.shortContributions.map((v,i) => <li key={i}>{v}</li>)}
+              <div className='italic text-themed-gray-t6'>... more</div>
             </div>
           </motion.div>
         }
@@ -91,17 +167,6 @@ const ProjectCard = () => {
   }
 
   const TechStack = () => {
-    const datas: iTechIcon[] = [
-      {icon: DartLogo,displayTitle:"Dart"},
-      {icon: FlutterLogo,displayTitle:"Flutter"},
-      {icon: FirebaseLogo,displayTitle:"Firebase"},
-      {icon: MySQLLogo,displayTitle:"MySQL"},
-      {icon: AWSLogo,displayTitle:"AWS"},
-      {icon: PythonLogo,displayTitle:"Phyton"},
-      // {icon: ,displayTitle:""},
-      // {icon: ,displayTitle:""},
-      // {icon: ,displayTitle:""},
-    ];
     return (
       <>
         <AnimatePresence>
@@ -117,24 +182,22 @@ const ProjectCard = () => {
           initial={{ opacity:0}}
           animate={{ opacity:1 }}
           className="w-full mt-2 mb-12 flex flex-row flex-wrap">
-          {datas.map((v,i)=> <TechIcon key={i} icon={v.icon} displayTitle={v.displayTitle}></TechIcon>)}
+          {props.techStach.map((v,i)=> <TechIcon key={i} icon={v.icon} displayTitle={v.displayTitle}></TechIcon>)}
         </motion.div>
       </>
     )
   }
 
-  const ScreenWidePhoto = (
-    <AnimatePresence>
-      {isExpand &&
-        <motion.div
-          transition={{ duration: 2.4, type: 'spring' }}
-          initial={{opacity:0}}
-          exit={{opacity:0}}
-          animate={{opacity:1}}
-          className='w-full h-60 mb-5 bg-red-100'></motion.div>
-      }
-    </AnimatePresence>
-  )
+  const ScreenWidePhoto = () => {
+    return (
+      <motion.div
+        transition={{ duration: 2.4, type: 'spring' }}
+        initial={{opacity:0}}
+        exit={{opacity:0}}
+        animate={{opacity:1}}
+        className='w-full h-60 mb-5 bg-red-100'/>
+    )
+  }
 
   const ExpandCTA = () => {
     return (
@@ -148,9 +211,9 @@ const ProjectCard = () => {
 
   const ToGithubCTA = () => {
     return (
-      <button className='py-[2px] px-4 rounded-md border-2 border-themed-gray-t3 text-center text-themed-gray-t6 hover:drop-shadow-sm transition-all ease-out-circ duration-300 flex flex-row items-center hover:text-themed-gray-t7'>See codes
+      <a href={props.githubUrl} target="_blank" className='py-[2px] px-4 rounded-md border-2 border-themed-gray-t3 text-center text-themed-gray-t6 hover:drop-shadow-sm transition-all ease-out-circ duration-300 flex flex-row items-center hover:text-themed-gray-t7'>See codes
         <IoLogoGithub className='pl-1' size={22}></IoLogoGithub>
-      </button>
+      </a>
     )
   }
 
@@ -160,36 +223,35 @@ const ProjectCard = () => {
 
   const MinimizedUiLayout = (
     <>
-      {ScreenWidePhoto}
       <Description/>
-      {contibution([
-        "Led the engineering team",
-        "Designed the app’s architechtures",
-        "Wrote, reviewed and managed the app’s code base",
-      ])}
-      {TechStack()}
+      <ShortContibutions/>
+      <TechStack/>
       <div className='flex flex-row gap-2 items-center'>
-        <ExpandCTA/>
-        <DividerForCTAs/>
-        <ToGithubCTA/>
+        <ExpandCTA />
+        {isCodeAvailable &&
+          <>
+            <DividerForCTAs/>
+            <ToGithubCTA/>
+          </>
+        }
       </div>
     </>
   )
 
   const ExpandedUiLayout = (
     <>
-      {TechStack()}
-      {ScreenWidePhoto}
+      <TechStack/>
+      <ScreenWidePhoto/>
       <Description />
       <SectionTitle className="mt-12 mb-2">Contibutions</SectionTitle>
-      <ChainedPost className={`w-[90%] ${isExpand? 'md:w-[45%]':'md:w-[90%]'}`} header={"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam, repudiandae! Libero in, reiciendis non dolorum nisi obcaecati quaerat minima corporis magnam ea, architecto rerum tempora autem odio voluptatum officia quidem!"}>
-        {[
-          "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam, repudiandae! Libero in, reiciendis non dolorum nisi obcaecati quaerat minima corporis magnam ea, architecto rerum tempora autem odio voluptatum officia quidem!",
-          "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam, repudiandae! Libero in, reiciendis non dolorum nisi obcaecati quaerat minima corporis magnam ea, architecto rerum tempora autem odio voluptatum officia quidem!",
-          "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam, repudiandae! Libero in, reiciendis non dolorum nisi obcaecati quaerat minima corporis magnam ea, architecto rerum tempora autem odio voluptatum officia quidem!"
-        ]}
-          </ChainedPost>
-      <div className='ml-6'><ToGithubCTA/></div>
+      <ChainedPost
+        className={`w-[90%] ${isExpand? 'md:w-[45%]':'md:w-[90%]'}`}
+        header={props.contributionOverview}>
+        {props.contributions}
+      </ChainedPost>
+      {isCodeAvailable &&
+        <div className='ml-6'><ToGithubCTA/></div>
+      }
       <div className='absolute bottom-0 left-0 w-full h-6 mb-[2%] flex items-center justify-center'>
         <button onClick={()=> setIsExpand(false)} className='style-body text-themed-gray-t6 felx flex-row justify-center items-center hover:text-primary-t4 '>
           <IoChevronUpOutline size={18} className='mx-1 float-left'/>
@@ -198,8 +260,6 @@ const ProjectCard = () => {
       </div>
     </>
   )
-
-
 
   return (
     <div className='relative w-full max-w-7xl mb-16 px-6 pt-8 lg:pt-[5%] pb-16 lg:pb-[9%] rounded-2xl bg-themed-gray-base flex flex-col lg:flex-row-reverse '>
@@ -220,7 +280,7 @@ interface iTechIcon{
 const TechIcon = (data: iTechIcon) => {
   const twHover = "opacity-50 group-hover:opacity-80 transition-all ease-out-circ duration-500";
   return (
-    <div className='w-16 group flex flex-col items-center justify-center' >
+    <div className='w-14 group flex flex-col items-center justify-center' >
       <data.icon className={`${twHover} w-6 h-6 flex items-center justify-center`}/>
       <div className={`${twHover} t-1 h-5 style-small-text apply-inverse-gray text-themed-gray-t4 scale-75 overflow-hidden text-center`}>{data.displayTitle}</div>
     </div>
