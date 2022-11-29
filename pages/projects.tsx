@@ -19,6 +19,8 @@ import SportivityAppMock1 from '../assets/Projects/sportivity_app_ip13.svg'
 import SportivityAppMockExtnd from '../assets/Projects/sportivity_app_mockup.svg'
 import SvPartnerAppMockExtnd from '../assets/Projects/sportivity_partner_mockup.svg'
 import SvPartnerAppThumbnail from '../assets/Projects/sportivity_partner_thumbnail.svg'
+import PortfolioMockup from '../assets/Projects/portfolio_mockup.svg'
+import PortfolioThumbnail from '../assets/Projects/portfolio_thumbnail.svg'
 
 const Projects = () => {
   return (
@@ -110,6 +112,12 @@ const Projects = () => {
         <ProjectCard
           name="Portfolio Website"
           title="My portfolio website – is 100% designed and built by myself."
+          thumbnail={
+            <PortfolioThumbnail></PortfolioThumbnail>
+          }
+          widePhoto={
+            <PortfolioMockup></PortfolioMockup>
+          }
           description="Here I present the best works and projects I contributed – showcasing my skills and experiences in the Tech industry. This portfolio was designed and developed by myself. I challenged myself to learn and adapt to new knowledge."
           extensionDesc="I started with learning the fundamentals of web development, relearning the UI & UX design, learning a new language, learning a new framework, and learning to copywriting. I designed this portfolio to attract both non-technical and technical audiences. There are rooms for expansion and improvements in the portfolio that I want to discover in the future."
           techStach={[
