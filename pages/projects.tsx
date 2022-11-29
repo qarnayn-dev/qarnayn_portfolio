@@ -76,7 +76,7 @@ const Projects = () => {
             <SvPartnerAppThumbnail></SvPartnerAppThumbnail>
           }
           widePhoto={
-            <SvPartnerAppMockExtnd></SvPartnerAppMockExtnd>
+            <SvPartnerAppMockExtnd className="w-[80%]"></SvPartnerAppMockExtnd>
           }
           description="This project is part of our core product's ecosystem integrated with the Sportivity Application and aims to provide robust management support for our partner's facility services needs."
           extensionDesc="The project started when the main application was at an 80% completion rate from its MVP development. Since it has a different target audience than the Sportivity Application – business owners and facility management, it was built from scratch and primarily focused on providing the solution to our partner."
