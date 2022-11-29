@@ -326,9 +326,11 @@ const ProjectCard = (props: iProjectCard) => {
 
   return (
     <div className='relative w-full max-w-7xl mb-16 px-6 pt-8 lg:pt-[5%] pb-16 lg:pb-[9%] rounded-2xl bg-themed-gray-base flex flex-col lg:flex-row items-center'>
-      <div className="h-[60vh] lg:h-full w-full lg:w-[40%] max-w-[300px] overflow-visible flex justify-center items-center">
-         {!isExpand && props.thumbnail}
-      </div>
+      {!isExpand &&
+        <div className="h-[60vh] lg:h-full w-full lg:w-[40%] max-w-[300px] overflow-visible flex justify-center items-center">
+         {props.thumbnail}
+        </div>
+      }
       <div className={`w-full ${!isExpand?'lg:max-w-[60%]':''} lg:pl-6`}>
         <ProjectName/>
         <ProjectTitle/>
