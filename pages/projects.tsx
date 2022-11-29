@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion'
-import React, { useState } from 'react'
+import React, { ReactNode, useState } from 'react'
 import { IconType } from 'react-icons'
 import { IoLockClosed, IoLogoGithub, IoLogoPython, IoChevronUpOutline } from 'react-icons/io5'
 import { ChainedPost } from '../components/ChainedPost'
@@ -15,6 +15,8 @@ import ReactLogo from '../assets/Logos/react_js_logo.svg'
 import ReduxLogo from '../assets/Logos/redux_logo.svg'
 import TailwindLogo from '../assets/Logos/tailwindcss_logo.svg'
 import TypeScriptLogo from '../assets/Logos/typescript_logo.svg'
+import SportivityAppMock1 from '../assets/Projects/sportivity_app_ip13.svg'
+import SportivityAppMockExtnd from '../assets/Projects/sportivity_app_mockup.svg'
 
 const Projects = () => {
   return (
@@ -24,6 +26,9 @@ const Projects = () => {
         <ProjectCard
           name='Sportivity Application'
           title='A sports facility booking platform with social and community features.'
+          thumbnail={
+            <SportivityAppMock1 className="absolute top-6 left-[22%] lg:left-0 z-0 my-16 ml-10 max-w-[450px]"></SportivityAppMock1>
+          }
           description="Mobile-first software applications – both IOS and Android users to search for a local sports facility service, reserve their facility slot and socially connect with their community or strangers with a common interest."
           extensionDesc="I started a startup company and made this project our core product. Our vision is to support diverse sports communities while providing multipurpose utilities to our target audience – sports enthusiast and casual players. This project has the potential to expand further such as the introduction of personal trainer features."
           techStach={[
@@ -140,6 +145,7 @@ interface iProjectCard{
   isLocked?: boolean,
   status: ProjectStatus,
   githubUrl?: string,
+  thumbnail?: ReactNode,
 }
 
 enum ProjectStatus{
@@ -319,7 +325,10 @@ const ProjectCard = (props: iProjectCard) => {
   )
 
   return (
-    <div className='relative w-full max-w-7xl mb-16 px-6 pt-8 lg:pt-[5%] pb-16 lg:pb-[9%] rounded-2xl bg-themed-gray-base flex flex-col lg:flex-row-reverse '>
+    <div className='relative w-full max-w-7xl mb-16 px-6 pt-8 lg:pt-[5%] pb-16 lg:pb-[9%] rounded-2xl bg-themed-gray-base flex flex-col lg:flex-row items-center'>
+      <div className="h-[60vh] lg:h-full w-full lg:w-[40%] max-w-[300px] overflow-visible flex justify-center items-center">
+         {!isExpand && props.thumbnail}
+      </div>
       <div className={`w-full ${!isExpand?'lg:max-w-[60%]':''} lg:pl-6`}>
         <ProjectName/>
         <ProjectTitle/>
