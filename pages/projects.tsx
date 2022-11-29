@@ -29,6 +29,9 @@ const Projects = () => {
           thumbnail={
             <SportivityAppMock1 className="absolute top-6 left-[22%] lg:left-0 z-0 my-16 ml-10 max-w-[450px]"></SportivityAppMock1>
           }
+          widePhoto={
+            <SportivityAppMockExtnd className="max-w-[600px]"></SportivityAppMockExtnd>
+          }
           description="Mobile-first software applications – both IOS and Android users to search for a local sports facility service, reserve their facility slot and socially connect with their community or strangers with a common interest."
           extensionDesc="I started a startup company and made this project our core product. Our vision is to support diverse sports communities while providing multipurpose utilities to our target audience – sports enthusiast and casual players. This project has the potential to expand further such as the introduction of personal trainer features."
           techStach={[
@@ -146,6 +149,7 @@ interface iProjectCard{
   status: ProjectStatus,
   githubUrl?: string,
   thumbnail?: ReactNode,
+  widePhoto?: ReactNode,
 }
 
 enum ProjectStatus{
@@ -258,7 +262,9 @@ const ProjectCard = (props: iProjectCard) => {
         initial={{opacity:0}}
         exit={{opacity:0}}
         animate={{opacity:1}}
-        className='w-full h-60 mb-5 bg-red-100'/>
+        className='w-full mt-4 mb-10 px-10 flex justify-center items-center '>
+        {props.widePhoto}
+      </motion.div>
     )
   }
 
