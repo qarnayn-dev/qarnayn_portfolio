@@ -17,6 +17,8 @@ import TailwindLogo from '../assets/Logos/tailwindcss_logo.svg'
 import TypeScriptLogo from '../assets/Logos/typescript_logo.svg'
 import SportivityAppMock1 from '../assets/Projects/sportivity_app_ip13.svg'
 import SportivityAppMockExtnd from '../assets/Projects/sportivity_app_mockup.svg'
+import SvPartnerAppMockExtnd from '../assets/Projects/sportivity_partner_mockup.svg'
+import SvPartnerAppThumbnail from '../assets/Projects/sportivity_partner_thumbnail.svg'
 
 const Projects = () => {
   return (
@@ -27,7 +29,7 @@ const Projects = () => {
           name='Sportivity Application'
           title='A sports facility booking platform with social and community features.'
           thumbnail={
-            <SportivityAppMock1 className="absolute top-6 left-[22%] lg:left-0 z-0 my-16 ml-10 max-w-[450px]"></SportivityAppMock1>
+            <SportivityAppMock1 className="absolute top-6 left-[22%] lg:left-[4%] z-0 my-16 ml-10 max-w-[450px]"></SportivityAppMock1>
           }
           widePhoto={
             <SportivityAppMockExtnd className="max-w-[600px]"></SportivityAppMockExtnd>
@@ -68,6 +70,12 @@ const Projects = () => {
         <ProjectCard
           name="Sportivity Partner Application"
           title="A facility management software application for businesses to manage, analyze metrics, and promote their facility services."
+          thumbnail={
+            <SvPartnerAppThumbnail></SvPartnerAppThumbnail>
+          }
+          widePhoto={
+            <SvPartnerAppMockExtnd></SvPartnerAppMockExtnd>
+          }
           description="This project is part of our core product's ecosystem integrated with the Sportivity Application and aims to provide robust management support for our partner's facility services needs."
           extensionDesc="The project started when the main application was at an 80% completion rate from its MVP development. Since it has a different target audience than the Sportivity Application – business owners and facility management, it was built from scratch and primarily focused on providing the solution to our partner."
           techStach={[
@@ -330,10 +338,11 @@ const ProjectCard = (props: iProjectCard) => {
     </>
   )
 
+  // MAIN BODY
   return (
     <div className='relative w-full max-w-7xl mb-16 px-6 pt-8 lg:pt-[5%] pb-16 lg:pb-[9%] rounded-2xl bg-themed-gray-base flex flex-col lg:flex-row items-center'>
       {!isExpand &&
-        <div className="h-[60vh] lg:h-full w-full lg:w-[40%] max-w-[300px] overflow-visible flex justify-center items-center">
+        <div className="h-[60vh] lg:h-full w-full lg:w-[40%] max-w-[400px] overflow-visible flex justify-center items-center">
          {props.thumbnail}
         </div>
       }
