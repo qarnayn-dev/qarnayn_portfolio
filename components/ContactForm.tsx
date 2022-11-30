@@ -1,9 +1,14 @@
-import React, { ChangeEvent, useReducer, useCallback} from 'react'
+import copy from 'copy-to-clipboard';
+import React, { ChangeEvent, useReducer, useCallback, useState, useEffect} from 'react'
+import { IoCheckmarkCircle, IoSad } from 'react-icons/io5';
 import { useDispatch, useSelector } from 'react-redux';
 import { sendContactForm } from '../lib/api';
 import { RootState } from '../redux/store';
 import { addNewTag, iInterestTag, toggleTag } from '../redux/tagSlice';
+import { useTrigger } from '../utilities/useTrigger';
 import { AddTag } from './AddTag';
+import { NotificationBanner } from './NotificationBanner';
+import PopupModal from './PopupModal';
 import { SelectableTag } from './SelectableTag';
 import { TextInputField } from './TextInputField';
 
@@ -18,6 +23,8 @@ const INITIAL_CONTACT: iContactForm = { name: "", email: "", message: "" };
 
 export const ContactForm = () => {
     const [formData, dispatch] = useReducer(contactFormReducer, INITIAL_CONTACT);
+    const [success, setSuccess] = useState(true);
+    const {active, fire} = useTrigger({duration: success? 2000 : 5000});
     const allTags: string[] = useSelector<RootState, iInterestTag[]>((state) => state.interestTags).filter((item) => item.selected).map((item) => item.title);
     const formHasData: boolean = formData.message !== '' || formData.name !== '' || formData.email !== '';
 
@@ -27,7 +34,11 @@ export const ContactForm = () => {
     async function onSubmit() {
         // console.log(allTags);
         if (formData.email !== '' && formData.message !== '' && formData.name !== '')
-            await sendContactForm({...formData,tags:allTags});
+            await sendContactForm({ ...formData, tags: allTags }).then((res) => {
+                if (res.status === 200) setSuccess(true)
+                else setSuccess(false);
+                fire();
+            });
     }
 
     function validateMessage(input: string):boolean {
@@ -57,7 +68,7 @@ export const ContactForm = () => {
 
     return (
         <div className='w-full py-8'>
-            <div className='w-full max-w-lg rounded-xl px-4 mobile-lg:px-6 sm:px-8 pt-8 pb-6 bg-themed-gray-base drop-shadow-md dark:bg-neutral-900 style-body flex flex-col justify-center items-start md:float-right'>
+            <div className='relative w-full max-w-lg rounded-xl px-4 mobile-lg:px-6 sm:px-8 pt-8 pb-6 bg-themed-gray-base drop-shadow-md dark:bg-neutral-900 style-body flex flex-col justify-center items-start md:float-right'>
                 <TextInputField
                     title='Message'
                     hintText="Write me anything. It's that easy to get in touch!"
@@ -82,11 +93,9 @@ export const ContactForm = () => {
                     errorMessage="Please provide a valid email."
                     onChange={onInputChange} />
                 <TagsSection/>
-                <button className='mt-16 mb-2 px-2 py-1 bg-primary-t2 text-themed-gray-base dark:text-themed-gray-inverse style-body shadow-sm dark:shadow-themed-gray-t3 font-normal rounded-md ' onClick={() => {
-                    // TODO: send message to me
-                    onSubmit();
-                }}>Send Message</button>
+                <button className='mt-16 mb-2 px-2 py-1 bg-primary-t2 text-themed-gray-base dark:text-themed-gray-inverse style-body shadow-sm dark:shadow-themed-gray-t3 font-normal rounded-md ' onClick={() => { onSubmit() }}>Send Message</button>
             </div>
+            <Receipt show={active} isSuccess={success} />
         </div>
     )
 }
@@ -151,3 +160,37 @@ enum ActionType{
             return state;
     }
  }
+
+interface iReceipt{
+    show: boolean,
+    isSuccess: boolean,
+}
+
+const Receipt = (props: iReceipt) => {
+    const {active, fire} = useTrigger();
+
+    const onClickEmailAddress = () => {
+        copy("qarnaynkhairuddin@gmail.com");
+        fire();
+    }
+
+    return (
+        <>
+            <PopupModal isOpen={props.show} className="w-[80vw] h-[60vh] max-w-[520px] max-h-[480px] p-10 bg-themed-gray-base rounded-xl flex flex-col items-center justify-center style-body text-center">
+                {props.isSuccess?
+                    <IoCheckmarkCircle size={100} className="text-semantic-success mb-8" /> :
+                    <IoSad size={100} className="text-semantic-error mb-8" />
+                }
+                {props.isSuccess?
+                    <div>Thank you for the message. I will reach you back via email. <br/><br/> Want to stay in touch? Let's connect on LinkedIn!</div> :
+                    <div>
+                        Something went wrong.  Your message was not sent.<br /><br /> You can manually send me an email to my&nbsp;
+                        <span className='underline cursor-pointer text-semantic-info' onClick={()=>onClickEmailAddress()}>email address</span>
+                        &nbsp;– click to copy.
+                    </div>
+                }
+            </PopupModal>
+            <NotificationBanner show={active} message={"Qarnayn's email address has been copied to your clipboard."} />
+        </>
+    )
+}

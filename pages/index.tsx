@@ -196,7 +196,7 @@ const ContactSection = () => {
   const {active, fire} = useTrigger();
 
   const onClickEmailIcon = () => {
-    copy("qarnayn.khddin@gmail.com");
+    copy("qarnaynkhairuddin@gmail.com");
     fire();
   }
 

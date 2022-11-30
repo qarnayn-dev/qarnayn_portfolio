@@ -27,8 +27,8 @@ export const NotificationBanner = (props: iNotificationBanner) => {
            initial={{y: -100}}
            exit={{y: -100}}
            animate={{y: 0}}
-           className='fixed w-screen h-fit inset-0 z-20 flex justify-center'>
-           <div className='relative top-3 w-72 py-3 px-4 inset-0 z-30 gray-dark-pallete dark:gray-light-pallete bg-themed-gray-t4 rounded-xl drop-shadow-xl text-center text-themed-gray-inverse style-small-text'>{props.message}</div>
+           className='fixed w-screen h-fit inset-0 z-50 flex justify-center'>
+           <div className='relative top-3 w-72 py-3 px-4 inset-0 z-50 gray-dark-pallete dark:gray-light-pallete bg-themed-gray-t4 rounded-xl drop-shadow-xl text-center text-themed-gray-inverse style-small-text'>{props.message}</div>
          </motion.div>}
     </AnimatePresence>
   )
