@@ -18,7 +18,8 @@ const INITIAL_CONTACT: iContactForm = { name: "", email: "", message: "" };
 
 export const ContactForm = () => {
     const [formData, dispatch] = useReducer(contactFormReducer, INITIAL_CONTACT);
-    const allTags: string[] = useSelector<RootState, iInterestTag[]>((state) => state.interestTags).filter((item)=>item.selected).map((item)=>item.title);
+    const allTags: string[] = useSelector<RootState, iInterestTag[]>((state) => state.interestTags).filter((item) => item.selected).map((item) => item.title);
+    const formHasData: boolean = formData.message !== '' || formData.name !== '' || formData.email !== '';
 
     const onInputChange = useCallback((e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {dispatch({ type: ActionType.valueUpdate, payload: { keyName: e.currentTarget.name, value: e.currentTarget.value } });
     }, []);
@@ -29,12 +30,57 @@ export const ContactForm = () => {
             await sendContactForm({...formData,tags:allTags});
     }
 
+    function validateMessage(input: string):boolean {
+        return (input === '' && !formHasData)? true: false;
+    }
+
+    function validateName(input: string):boolean {
+        return (input === '' && !formHasData)? true: false;
+    }
+
+    function validateEmail(input: string): boolean {
+        const lastDotIndex = input.lastIndexOf(".");
+        const lastAlternateIndex = input.lastIndexOf("@");
+
+        // handle when there's no data input at all
+        if (input === '' && !formHasData)
+            return true;
+        // validation for email address
+        else if ((lastDotIndex !== -1) &&
+            (lastDotIndex < input.length - 1) &&
+            (lastAlternateIndex !== -1) &&
+            (lastAlternateIndex < lastDotIndex))
+            return true;
+        else
+            return false;
+    }
+
     return (
         <div className='w-full py-8'>
             <div className='w-full max-w-lg rounded-xl px-4 mobile-lg:px-6 sm:px-8 pt-8 pb-6 bg-themed-gray-base drop-shadow-md dark:bg-neutral-900 style-body flex flex-col justify-center items-start md:float-right'>
-                <TextInputField title='Message' hintText="Write me anything. It's that easy to get in touch!" inputKeyName="message" value={formData.message} onChange={onInputChange} useTextArea />
-                <TextInputField title='Name' inputKeyName="name" value={formData.name} onChange={onInputChange} />
-                <TextInputField title='Email' inputKeyName="email" value={formData.email} onChange={onInputChange} />
+                <TextInputField
+                    title='Message'
+                    hintText="Write me anything. It's that easy to get in touch!"
+                    inputKeyName="message"
+                    value={formData.message}
+                    validationFn={validateMessage}
+                    errorMessage="Please write your message."
+                    onChange={onInputChange}
+                    useTextArea />
+                <TextInputField
+                    title='Name'
+                    inputKeyName="name"
+                    value={formData.name}
+                    validationFn={validateName}
+                    errorMessage="Please write your name."
+                    onChange={onInputChange} />
+                <TextInputField
+                    title='Email'
+                    inputKeyName="email"
+                    value={formData.email}
+                    validationFn={validateEmail}
+                    errorMessage="Please provide a valid email."
+                    onChange={onInputChange} />
                 <TagsSection/>
                 <button className='mt-16 mb-2 px-2 py-1 bg-primary-t2 text-themed-gray-base dark:text-themed-gray-inverse style-body shadow-sm dark:shadow-themed-gray-t3 font-normal rounded-md ' onClick={() => {
                     // TODO: send message to me
@@ -100,7 +146,7 @@ enum ActionType{
  const contactFormReducer = (state:iContactForm, action:iAction) => {
     switch (action.type) {
         case ActionType.valueUpdate:
-            return { ...state, [action.payload.keyName]: action.payload.value }
+            return { ...state, [action.payload.keyName]: (action.payload.keyName === "email")? action.payload.value.toLowerCase().replace(/\s/g, '') : action.payload.value }
         default:
             return state;
     }
