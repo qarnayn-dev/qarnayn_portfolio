@@ -1,5 +1,6 @@
 import React, { ChangeEvent, useReducer, useCallback} from 'react'
 import { useDispatch, useSelector } from 'react-redux';
+import { sendContactForm } from '../lib/api';
 import { RootState } from '../redux/store';
 import { addNewTag, iInterestTag, toggleTag } from '../redux/tagSlice';
 import { AddTag } from './AddTag';
@@ -17,9 +18,16 @@ const INITIAL_CONTACT: iContactForm = { name: "", email: "", message: "" };
 
 export const ContactForm = () => {
     const [formData, dispatch] = useReducer(contactFormReducer, INITIAL_CONTACT);
+    const allTags: string[] = useSelector<RootState, iInterestTag[]>((state) => state.interestTags).filter((item)=>item.selected).map((item)=>item.title);
 
     const onInputChange = useCallback((e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {dispatch({ type: ActionType.valueUpdate, payload: { keyName: e.currentTarget.name, value: e.currentTarget.value } });
     }, []);
+
+    async function onSubmit() {
+        // console.log(allTags);
+        if (formData.email !== '' && formData.message !== '' && formData.name !== '')
+            await sendContactForm({...formData,tags:allTags});
+    }
 
     return (
         <div className='w-full py-8'>
@@ -30,6 +38,7 @@ export const ContactForm = () => {
                 <TagsSection/>
                 <button className='mt-16 mb-2 px-2 py-1 bg-primary-t2 text-themed-gray-base dark:text-themed-gray-inverse style-body shadow-sm dark:shadow-themed-gray-t3 font-normal rounded-md ' onClick={() => {
                     // TODO: send message to me
+                    onSubmit();
                 }}>Send Message</button>
             </div>
         </div>
