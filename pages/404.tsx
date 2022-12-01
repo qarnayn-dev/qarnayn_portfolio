@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import Error404svg from '../assets/error404.svg';
@@ -32,14 +33,18 @@ const Error404 = () => {
     router.back();
   }
   return (
-    <div className='w-screen h-screen flex flex-col justify-center items-center'>
-        <Error404svg className="w-80" />
-          <div className='m-4 text-xl'>{errorText}</div>
-          <div className='mt-6 mb-8 text-themed-gray-t9'>Redirect to previous page in
-          <span className='text-primary-base'> {seconds}</span>
-          </div>
-
-    </div>
+    <>
+      <Head>
+        <title>Qarnayn Portfolio | 404</title>
+      </Head>
+      <div className='w-screen h-screen flex flex-col justify-center items-center'>
+          <Error404svg className="w-80" />
+            <div className='m-4 text-xl'>{errorText}</div>
+            <div className='mt-6 mb-8 text-themed-gray-t9'>Redirect to previous page in
+            <span className='text-primary-base'> {seconds}</span>
+            </div>
+      </div>
+    </>
   )
 }
 

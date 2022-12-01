@@ -1,5 +1,6 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
+import Head from 'next/head'
 import 'tailwindcss/tailwind.css'
 import {useEffect, useState } from 'react'
 import { ThemeContext, THEME_LKEY} from '../components/DarkThemeToggle';
@@ -43,13 +44,22 @@ function MyApp({ Component, pageProps }: AppProps) {
   },[theme])
 
   return (
-    <Provider store={store}>
-      <ThemeContext.Provider value={{ theme, setTheme }}>
-        <GreetingsLayout show={loading}></GreetingsLayout>
-        <Component {...pageProps} />
-        <Footer/>
-      </ThemeContext.Provider>
-    </Provider>
+    <>
+      <Head>
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/>
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"/>
+        <link rel="manifest" href="/site.webmanifest"></link>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
+      <Provider store={store}>
+        <ThemeContext.Provider value={{ theme, setTheme }}>
+          <GreetingsLayout show={loading}></GreetingsLayout>
+          <Component {...pageProps} />
+          <Footer/>
+        </ThemeContext.Provider>
+      </Provider>
+    </>
   )
 }
 

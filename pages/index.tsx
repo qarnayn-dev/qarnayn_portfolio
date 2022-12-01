@@ -46,8 +46,7 @@ const Home: NextPage = () => {
   return (
       <div className='flex flex-col'>
       <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>Qarnayn Portfolio | home</title>
       </Head>
       <TopFrame className="pt-[3vh] md:pt-[6vh]">
         <div className='relative pb-24 md:pb-28  flex flex-col'>

@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import React from 'react'
 import { IoLogoGithub, IoLogoLinkedin, IoMailOpen } from 'react-icons/io5'
 import { SectionTitle } from '.'
@@ -9,6 +10,9 @@ import TopFrame from '../components/TopFrame'
 const Contacts = () => {
   return (
     <>
+      <Head>
+        <title>Qarnayn Portfolio | contacts</title>
+      </Head>
       <TopFrame/>
       <ContactSection/>
     </>

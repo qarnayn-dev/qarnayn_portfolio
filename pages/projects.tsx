@@ -21,10 +21,14 @@ import SvPartnerAppMockExtnd from '../assets/Projects/sportivity_partner_mockup.
 import SvPartnerAppThumbnail from '../assets/Projects/sportivity_partner_thumbnail.svg'
 import PortfolioMockup from '../assets/Projects/portfolio_mockup.svg'
 import PortfolioThumbnail from '../assets/Projects/portfolio_thumbnail.svg'
+import Head from 'next/head'
 
 const Projects = () => {
   return (
     <>
+    <Head>
+        <title>Qarnayn Portfolio | projects</title>
+    </Head>
     <TopFrame/>
     <div className='frame-bounded-x pt-32 pb-28 bg-gradient-to-tr from-primary-t4'>
         <ProjectCard
