@@ -29,6 +29,7 @@ import RearBlock from '../assets/rear_bloc.svg'
 import Ecosystem from '../assets/schematic.svg'
 import MobileDev from '../assets/mobile_dev.svg'
 import Creative from '../assets/imagination.svg'
+import ClickToCopy from '../components/ClickToCopy';
 
 
 const Home: NextPage = () => {
@@ -193,12 +194,6 @@ const ExpertiseContainer = (props: iExpertiseContainer) => {
 }
 
 const ContactSection = () => {
-  const {active, fire} = useTrigger();
-
-  const onClickEmailIcon = () => {
-    copy("qarnaynkhairuddin@gmail.com");
-    fire();
-  }
 
   return (
     <div className='frame-bounded-x pt-32 pb-10 flex flex-col gap-5 md:flex-row bg-primary-base bg-opacity-10 dark:bg-opacity-5 relative'>
@@ -207,14 +202,15 @@ const ContactSection = () => {
         <div className='style-heading mb-8'>Love to hear from you, don’t hesitate to get in touch!</div>
         <div className='mb-8 style-body max-w-[90%]'>I’m open to any opportunity. Feel free to contact me via the message section or you can send me an email directly. Also, I am on LinkedIn! Come and connect with me in LiknedIn to keep in touch.</div>
         <div className='flex flex-row gap-4'>
-          <IconButton icon={IoMailOpen} title="email" tooltip="Copy email address" leftAligned onClickFn={()=>onClickEmailIcon()}/>
+          <ClickToCopy textToCopy="qarnaynkhairuddin@gmail.com" message="Qarnayn's email address has been copied to your clipboard.">
+            <IconButton icon={IoMailOpen} title="email" tooltip="Copy email address" leftAligned/>
+          </ClickToCopy>
           <a href='https://www.linkedin.com/in/qarnaynkhairuddin' target="_blank">
             <IconButton icon={IoLogoLinkedin} title="linkedin" tooltip="Go to LinkedIn profile"/>
           </a>
           <a href='https://github.com/qarnaynsv001' target="_blank">
             <IconButton icon={IoLogoGithub} title="github" tooltip="Go to Github profile"/>
           </a>
-          <NotificationBanner show={active} message={"Qarnayn's email address has been copied to your clipboard."} />
         </div>
       </div>
       <ContactForm/>

@@ -7,6 +7,7 @@ import { RootState } from '../redux/store';
 import { addNewTag, iInterestTag, toggleTag } from '../redux/tagSlice';
 import { useTrigger } from '../utilities/useTrigger';
 import { AddTag } from './AddTag';
+import ClickToCopy from './ClickToCopy';
 import { NotificationBanner } from './NotificationBanner';
 import PopupModal from './PopupModal';
 import { SelectableTag } from './SelectableTag';
@@ -167,12 +168,6 @@ interface iReceipt{
 }
 
 const Receipt = (props: iReceipt) => {
-    const {active, fire} = useTrigger();
-
-    const onClickEmailAddress = () => {
-        copy("qarnaynkhairuddin@gmail.com");
-        fire();
-    }
 
     return (
         <>
@@ -185,12 +180,17 @@ const Receipt = (props: iReceipt) => {
                     <div>Thank you for the message. I will reach you back via email. <br/><br/> Want to stay in touch? Let's connect on LinkedIn!</div> :
                     <div>
                         Something went wrong.  Your message was not sent.<br /><br /> You can manually send me an email to my&nbsp;
-                        <span className='underline cursor-pointer text-semantic-info' onClick={()=>onClickEmailAddress()}>email address</span>
+                        <ClickToCopy
+                            textToCopy='qarnaynkhairuddin@gmail.com'
+                            message="Email adrress has been copied to the clipboard."
+                            className='underline text-semantic-info inline-block'
+                        >
+                        email address
+                        </ClickToCopy>
                         &nbsp;– click to copy.
                     </div>
                 }
             </PopupModal>
-            <NotificationBanner show={active} message={"Qarnayn's email address has been copied to your clipboard."} />
         </>
     )
 }
