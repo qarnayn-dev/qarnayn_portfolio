@@ -16,7 +16,7 @@ import TableDark from '../assets/table_dark.svg'
 import { ThemeContext } from '../components/DarkThemeToggle';
 import { ParallaxWrapper } from '../components/ParallaxWrapper';
 import { ContactForm } from '../components/ContactForm';
-import { IoLogoGithub, IoLogoLinkedin, IoMailOpen } from 'react-icons/io5';
+import { IoChevronBack, IoChevronForward, IoLogoGithub, IoLogoLinkedin, IoMailOpen } from 'react-icons/io5';
 import { IconButton } from '../components/IconButton';
 import React from 'react';
 import Sheet from '../assets/sheet.svg'
@@ -27,6 +27,7 @@ import Ecosystem from '../assets/schematic.svg'
 import MobileDev from '../assets/mobile_dev.svg'
 import Creative from '../assets/imagination.svg'
 import ClickToCopy from '../components/ClickToCopy';
+import Link from 'next/link';
 
 
 const Home: NextPage = () => {
@@ -144,7 +145,21 @@ const Expertise = () => {
       <ExpertiseContainer
         graphic={<Creative className="translate-y-[20vw] mobile-xl:translate-y-[28vw] md:translate-y-[200px] lg:translate-y-[80px]"/>}
         title="Why I will never stop building things even at times where everyone else lose their passion"
-        content="When I first learned to write codes, it felt like my inner child curiosity had been revived –  I could let my imagination run wild. At the start, I had zero knowledge of coding, so I began learning by reading technical documents and starting to build projects. I have run into problems, so I learned to find solutions and started analysing the root causes. When I run out of ideas, I reach out to people and start understanding their needs. To me, the act of writing the code itself is just a small part – it is the process of learning and re-learning that I truly love as an engineer. Building any project requires brainpower and ideas from all fields of disciplines – and that is just what I desire; the growth from gaining knowledge. I will continue writing codes, solving problems and keep on building things even without anyone asking for it. It’s a passion."/>
+        content="When I first learned to write codes, it felt like my inner child curiosity had been revived –  I could let my imagination run wild. At the start, I had zero knowledge of coding, so I began learning by reading technical documents and starting to build projects. I have run into problems, so I learned to find solutions and started analysing the root causes. When I run out of ideas, I reach out to people and start understanding their needs. To me, the act of writing the code itself is just a small part – it is the process of learning and re-learning that I truly love as an engineer. Building any project requires brainpower and ideas from all fields of disciplines – and that is just what I desire; the growth from gaining knowledge. I will continue writing codes, solving problems and keep on building things even without anyone asking for it. It’s a passion." />
+      <div className='relative h-20 w-full mb-8 text-center flex justify-center
+      items-center'>
+        <Link href="/projects">
+          <button className='relative animate-pulse flex flex-row justify-center items-center text-primary-base style-subheading'>
+            <IoChevronBack/>
+            <IoChevronBack/>
+            <IoChevronBack/>
+            <span className='px-5'>Go to project</span>
+            <IoChevronForward/>
+            <IoChevronForward/>
+            <IoChevronForward/>
+          </button>
+        </Link>
+      </div>
     </ScrollSnapWrapper>
   )
 }
@@ -191,7 +206,6 @@ const ExpertiseContainer = (props: iExpertiseContainer) => {
 }
 
 const ContactSection = () => {
-
   return (
     <div className='frame-bounded-x pt-32 pb-10 flex flex-col gap-5 md:flex-row bg-primary-base bg-opacity-10 dark:bg-opacity-5 relative'>
       <div className='max-w-[85%] sm:w-full mb-6'>
