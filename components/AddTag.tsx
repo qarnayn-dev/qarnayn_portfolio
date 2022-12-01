@@ -58,7 +58,7 @@ export const AddTag = memo((props: iAddTag) => {
                         }}
                         onKeyDown={handleKeyDown}
                         className='outline-none text-center bg-transparent absolute'></input> :
-                    <IoAdd size={24}></IoAdd>
+                    <IoAdd className="tex-body scale-150"/>
                 }
             </motion.button>
         </OutsideAlerter>

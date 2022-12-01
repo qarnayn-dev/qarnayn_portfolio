@@ -50,6 +50,7 @@ const Home: NextPage = () => {
         </div>
         <RevealingPage>
           <Expertise></Expertise>
+          {/* <div className='w-screen h-screen bg-blue-100'></div> */}
         </RevealingPage>
         <ContactSection/>
       </TopFrame >
@@ -128,7 +129,7 @@ const Expertise = () => {
     <ScrollSnapWrapper className='frame-bounded-x pt-[16vw] flex flex-col items-start relative'>
       <div className='mt-[16vh] mb-[40vh] mx-[5%]  style-heading bg-gradient-to-bl from-primary-base to-secondary-t4 font-extrabold bg-clip-text text-transparent w-[60vw] max-w-[520px] drop-shadow-lg z-20'>Actions are louder than words, so I build things.</div>
       <div className='w-full h-fit xl:max-w-[1400px] xl:opacity-60 absolute top-72 right-0 z-0'>
-        <Sheet className=""></Sheet>
+        <Sheet/>
         <LeftBlock className="absolute right-0 top-0 translate-y-[6%] -translate-x-[30vw] w-[12%]"></LeftBlock>
         <FrontBlock className="absolute right-0 top-0 translate-y-[80%] -translate-x-[20vw] w-[18%]"></FrontBlock>
         <RearBlock className="absolute right-0 top-0 translate-y-[10%] -translate-x-[26%] w-[14%]"></RearBlock>
@@ -187,7 +188,7 @@ const ExpertiseContainer = (props: iExpertiseContainer) => {
 
 
   return (
-    <div className='w-full h-full mb-[20vh] overflow-x-visible items-center justify-end relative'>
+    <div className='w-full h-full mb-[20vh] overflow-x-clip items-center justify-end relative'>
       <div className='absolute w-[80vw] lg:w-[40vw] max-w-[480px] top-0 lg:left-[600px] z-0 pt-[5vw] pb-[8vw] flex justify-center items-center float-right overflow-x-visible'>
         {props.graphic && props.graphic}
       </div>
