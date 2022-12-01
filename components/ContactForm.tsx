@@ -41,11 +41,11 @@ export const ContactForm = () => {
     }
 
     function validateMessage(input: string):boolean {
-        return (input === '' && !formHasData)? true: false;
+        return ((input === '' && !formHasData) ||input !== '' )? true: false;
     }
 
-    function validateName(input: string):boolean {
-        return (input === '' && !formHasData)? true: false;
+    function validateName(input: string): boolean {
+        return ((input === '' && !formHasData )||input !== '')? true: false;
     }
 
     function validateEmail(input: string): boolean {

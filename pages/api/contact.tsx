@@ -1,4 +1,5 @@
 import type { NextApiHandler} from "next";
+import { ContactHtmlTemplate } from "../../components/ContactHtmlTemplate";
 import { mailOptions, transporter } from "../../utilities/nodemailer";
 
 const handler: NextApiHandler = async (req,res) => {
@@ -10,7 +11,7 @@ const handler: NextApiHandler = async (req,res) => {
                 ...mailOptions,
                 subject: `${data.name} – ${data.message.slice(0, 100)}...`,
                 text: `Message from ${data.name} (${data.email})`,
-                html: "<h1>Test Email</h1><p>Show some body text</p>"
+                html: ContactHtmlTemplate({senderName: data.name, senderEmail: data.email, message: data.message,tags: data.tags})
             }).then(() => {
                 return res.status(200).json({ "message": "Ok. Email has been sent." });
             });
