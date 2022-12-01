@@ -26,6 +26,18 @@ import MobileDev from '../assets/mobile_dev.svg'
 import Creative from '../assets/imagination.svg'
 import Link from 'next/link';
 import { ContactSection } from './contacts';
+import DartLogo from '../assets/Logos/dart_logo.svg'
+import FlutterLogo from '../assets/Logos/flutter_logo.svg'
+import FirebaseLogo from '../assets/Logos/firebase_logo.svg'
+import HTML5Logo from '../assets/Logos/html_logo.svg'
+import PythonLogo from '../assets/Logos/python_logo.svg'
+import ReactLogo from '../assets/Logos/react_js_logo.svg'
+import ReduxLogo from '../assets/Logos/redux_logo.svg'
+import TailwindLogo from '../assets/Logos/tailwindcss_logo.svg'
+import TypeScriptLogo from '../assets/Logos/typescript_logo.svg'
+import JavascriptLogo from '../assets/Logos/javascript_logo.svg'
+import CSSLogo from '../assets/Logos/css3_logo.svg'
+import { IconType } from 'react-icons';
 
 
 const Home: NextPage = () => {
@@ -43,6 +55,7 @@ const Home: NextPage = () => {
             {(theme==='light')?<TableLight/>:<TableDark/>}
           </ParallaxWrapper>
           <Intro />
+          <ProficiencySection/>
           <BestOfMe />
           <ShadowPage/>
         </div>
@@ -78,6 +91,36 @@ const Intro = () => {
           </p>
         </div>
       </div>
+  )
+}
+
+const ProficiencySection = () => {
+
+
+const TechIcon = (Icon: IconType, title: string) => {
+  return (
+    <div className='w-20 group flex flex-col items-center justify-center' >
+      <Icon className={`opacity-80 w-8 sm:w-10 h-8 sm:h-10 flex items-center justify-center`}/>
+      <div className={`opacity-60 mt-1 h-5 style-small-text apply-inverse-gray text-themed-gray-t8 scale-90 overflow-hidden text-center`}>{title}</div>
+    </div>
+  )
+}
+  return (
+    <>
+      <SectionTitle className="frame-bounded-x mt-20 mb-8">Proficiencies</SectionTitle>
+      <div className="mb-16 px-[5vw] off w-full flex flex-wrap gap-0 gap-y-4">
+        {TechIcon(DartLogo, "Dart Lang")}
+        {TechIcon(JavascriptLogo, "Javascript")}
+        {TechIcon(TypeScriptLogo, "Typescript")}
+        {TechIcon(FlutterLogo, "Flutter")}
+        {TechIcon(ReactLogo, "React JS")}
+        {TechIcon(HTML5Logo, "HTML5")}
+        {TechIcon(CSSLogo, "CSS3")}
+        {TechIcon(TailwindLogo, "Tailwind")}
+        {TechIcon(ReduxLogo, "Redux")}
+        {TechIcon(FirebaseLogo, "Firebase")}
+      </div>
+    </>
   )
 }
 
