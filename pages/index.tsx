@@ -17,11 +17,8 @@ import { ThemeContext } from '../components/DarkThemeToggle';
 import { ParallaxWrapper } from '../components/ParallaxWrapper';
 import { ContactForm } from '../components/ContactForm';
 import { IoLogoGithub, IoLogoLinkedin, IoMailOpen } from 'react-icons/io5';
-import copy from 'copy-to-clipboard';
 import { IconButton } from '../components/IconButton';
-import { useTrigger } from '../utilities/useTrigger';
 import React from 'react';
-import { NotificationBanner } from '../components/NotificationBanner';
 import Sheet from '../assets/sheet.svg'
 import LeftBlock from '../assets/left_bloc.svg'
 import FrontBlock from '../assets/front_bloc.svg'

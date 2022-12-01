@@ -1,5 +1,4 @@
-import copy from 'copy-to-clipboard';
-import React, { ChangeEvent, useReducer, useCallback, useState, useEffect} from 'react'
+import React, { ChangeEvent, useReducer, useCallback, useState} from 'react'
 import { IoCheckmarkCircle, IoSad } from 'react-icons/io5';
 import { useDispatch, useSelector } from 'react-redux';
 import { sendContactForm } from '../lib/api';
@@ -8,7 +7,6 @@ import { addNewTag, iInterestTag, toggleTag } from '../redux/tagSlice';
 import { useTrigger } from '../utilities/useTrigger';
 import { AddTag } from './AddTag';
 import ClickToCopy from './ClickToCopy';
-import { NotificationBanner } from './NotificationBanner';
 import PopupModal from './PopupModal';
 import { SelectableTag } from './SelectableTag';
 import { TextInputField } from './TextInputField';
