@@ -3,7 +3,7 @@ import { IoCheckmarkCircle, IoSad } from 'react-icons/io5';
 import { useDispatch, useSelector } from 'react-redux';
 import { sendContactForm } from '../lib/api';
 import { RootState } from '../redux/store';
-import { addNewTag, iInterestTag, toggleTag } from '../redux/tagSlice';
+import { addNewTag, iInterestTag, resetTags, toggleTag } from '../redux/tagSlice';
 import { useTrigger } from '../utilities/useTrigger';
 import { AddTag } from './AddTag';
 import ClickToCopy from './ClickToCopy';
@@ -22,6 +22,7 @@ const INITIAL_CONTACT: iContactForm = { name: "", email: "", message: "" };
 
 export const ContactForm = () => {
     const [formData, dispatch] = useReducer(contactFormReducer, INITIAL_CONTACT);
+    const dispatchTags = useDispatch();
     const [success, setSuccess] = useState(true);
     const {active, fire} = useTrigger({duration: success? 2000 : 5000});
     const allTags: string[] = useSelector<RootState, iInterestTag[]>((state) => state.interestTags).filter((item) => item.selected).map((item) => item.title);
@@ -34,7 +35,10 @@ export const ContactForm = () => {
         // console.log(allTags);
         if (formData.email !== '' && formData.message !== '' && formData.name !== '')
             await sendContactForm({ ...formData, tags: allTags }).then((res) => {
-                if (res.status === 200) setSuccess(true)
+                if (res.status === 200) {
+                    setSuccess(true);
+                    resetForms();
+                }
                 else setSuccess(false);
                 fire();
             });
@@ -63,6 +67,11 @@ export const ContactForm = () => {
             return true;
         else
             return false;
+    }
+
+    function resetForms() {
+        dispatch({ type: ActionType.resetForm });
+        dispatchTags(resetTags());
     }
 
     return (
@@ -140,21 +149,26 @@ const TagsSection = () => {
 
 interface iAction {
     type: ActionType,
-    payload: {keyName:string, value:any},
+    payload?: {keyName:string, value:any},
 }
 
 enum ActionType{
     // update based on key-value
     valueUpdate,
-    // add/ remove item to/ from an array
-    addRemoveTag,
+    // reset form
+    resetForm,
 }
 
 
  const contactFormReducer = (state:iContactForm, action:iAction) => {
     switch (action.type) {
         case ActionType.valueUpdate:
-            return { ...state, [action.payload.keyName]: (action.payload.keyName === "email")? action.payload.value.toLowerCase().replace(/\s/g, '') : action.payload.value }
+            if (action.payload) {
+                return { ...state, [action.payload.keyName]: (action.payload.keyName === "email") ? action.payload.value.toLowerCase().replace(/\s/g, '') : action.payload.value }
+            } else
+                return state;
+        case ActionType.resetForm:
+            return INITIAL_CONTACT;
         default:
             return state;
     }

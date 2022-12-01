@@ -8,10 +8,10 @@ export interface iInterestTag{
 }
 
 const INITIAL_STATE: iInterestTag[] = [
-    {id: '1',title: 'Front-end',selected: false},
-    {id: '2',title: 'Back-end',selected: false},
-    {id: '3',title: 'Mobile App',selected: false},
-    {id: '4',title: 'System Engineer',selected: false},
+    {id: '1',title: 'Front-end Dev',selected: false},
+    {id: '2',title: 'Back-end Dev',selected: false},
+    {id: '3',title: 'Mobile App Dev',selected: false},
+    {id: '4',title: 'Data Engineer',selected: false},
     {id: '5',title: 'Product Lead',selected: false},
 ]
 
@@ -32,11 +32,16 @@ export const tagSlice = createSlice({
         toggleTag: (state, action:{payload:string}) => {
             const index: number = state.findIndex((v)=> v.id === action.payload);
             state[index].selected = !state[index].selected;
+        },
+        resetTags: (state) => {
+            state.forEach((item) => {
+                if (item.selected) item.selected = false;
+            })
         }
     }
 });
 
 
-export const { addNewTag,  toggleTag} = tagSlice.actions;
+export const { addNewTag,  toggleTag, resetTags} = tagSlice.actions;
 export const interestTags = (state: RootState) => state.interestTags.values;
 export default tagSlice.reducer;
