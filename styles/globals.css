@@ -44,7 +44,7 @@
 
     /* Sub-heading scaled */
     .style-secondary{
-        @apply text-neutral-600 dark:text-neutral-400 font-extralight
+        @apply text-gray-600 dark:text-gray-400 font-extralight
     }
 
     /* glasmorphism */

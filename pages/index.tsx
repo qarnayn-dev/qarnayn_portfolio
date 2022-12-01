@@ -15,9 +15,7 @@ import TableLight from '../assets/table_light.svg'
 import TableDark from '../assets/table_dark.svg'
 import { ThemeContext } from '../components/DarkThemeToggle';
 import { ParallaxWrapper } from '../components/ParallaxWrapper';
-import { ContactForm } from '../components/ContactForm';
-import { IoChevronBack, IoChevronForward, IoLogoGithub, IoLogoLinkedin, IoMailOpen } from 'react-icons/io5';
-import { IconButton } from '../components/IconButton';
+import { IoChevronBack, IoChevronForward} from 'react-icons/io5';
 import React from 'react';
 import Sheet from '../assets/sheet.svg'
 import LeftBlock from '../assets/left_bloc.svg'
@@ -26,7 +24,6 @@ import RearBlock from '../assets/rear_bloc.svg'
 import Ecosystem from '../assets/schematic.svg'
 import MobileDev from '../assets/mobile_dev.svg'
 import Creative from '../assets/imagination.svg'
-import ClickToCopy from '../components/ClickToCopy';
 import Link from 'next/link';
 import { ContactSection } from './contacts';
 
@@ -75,8 +72,8 @@ const Intro = () => {
     <div className='flex flex-col frame-bounded-x mb-[10vw] mt-8 md:mt-14 w-full float-left relative  justify-start items-center gap-6 md:flex-row-reverse transition-all ease-out-circ duration-500'>
         <Lottie animationData={appDevIllustration} className='min-w-[40%] max-w-[60%] md:max-w-[46%] lg:max-w-[70%] float-right mx-6 mb-10'></Lottie>
         <div className='float-left w-full h-full flex flex-col justify-center'>
-          <h2 className='style-secondary mb-[2px] '>Hello World! I am Qarnayn</h2>
-          <h1 className='style-heading'>An engineer who codes designer's boundless imaginations</h1>
+          <h2 className='mb-[2px] style-secondary style-subheading'>Hello World! I am Qarnayn</h2>
+          <h1 className='mt-2 style-heading font-semibold bg-gradient-to-br from-primary-base to-secondary-base text-transparent bg-clip-text'>An engineer who codes designer's boundless imaginations</h1>
           <p className='mt-12 style-body'>Hi there 👋🏼.<br/> I am an engineer who loves to solve problems and is passionate about human behaviour. I’m working as a software developer, ideally in Front-end development. I have led a developers team, designed a full business software architecture ecosystem, engineered an efficient system architecture and more. Having an engineer's frame of mind, everything I see is just somewhat of a cog that fits in this complex world. It's the ‘how’ and ‘why’ that fascinates me every time. It’s hard and complex, but I love every single bit of it!
           </p>
         </div>
@@ -199,7 +196,7 @@ const ExpertiseContainer = (props: iExpertiseContainer) => {
           animate={{ opacity: isPresent ? 1 : 0, x: isPresent ? 0: 100}}
           className='w-[90%] mb-10 style-heading-h2 text-themed-gray-base font-medium'>{props.title}</motion.h2>
         <motion.p
-        transition={{ duration: 1.6, type: 'spring', delay: 1 }}
+        transition={{ duration: 1.6, type: 'spring', delay: 0.4 }}
         animate={{ opacity: isPresent ? 1 : 0, y: isPresent ? 0: 100}}
         className='w-[95%] mobile-xl:w-[90%] md:w-[86%] style-body text-themed-gray-t4 text-justify md:text-start'>{props.content}</motion.p>
       </div>
