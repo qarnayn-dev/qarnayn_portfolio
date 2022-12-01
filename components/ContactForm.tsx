@@ -25,6 +25,7 @@ export const ContactForm = () => {
     const dispatchTags = useDispatch();
     const [success, setSuccess] = useState(true);
     const {active, fire} = useTrigger({duration: success? 2000 : 5000});
+    const {active: cooldown, fire: initCD} = useTrigger({duration: 2000});
     const allTags: string[] = useSelector<RootState, iInterestTag[]>((state) => state.interestTags).filter((item) => item.selected).map((item) => item.title);
     const formHasData: boolean = formData.message !== '' || formData.name !== '' || formData.email !== '';
 
@@ -34,6 +35,8 @@ export const ContactForm = () => {
     async function onSubmit() {
         // console.log(allTags);
         if (formData.email !== '' && formData.message !== '' && formData.name !== '')
+        {
+            initCD(); // to initiate the CD
             await sendContactForm({ ...formData, tags: allTags }).then((res) => {
                 if (res.status === 200) {
                     setSuccess(true);
@@ -41,7 +44,7 @@ export const ContactForm = () => {
                 }
                 else setSuccess(false);
                 fire();
-            });
+            });}
     }
 
     function validateMessage(input: string):boolean {
@@ -101,7 +104,7 @@ export const ContactForm = () => {
                     errorMessage="Please provide a valid email."
                     onChange={onInputChange} />
                 <TagsSection/>
-                <button className='mt-16 mb-2 px-2 py-1 bg-primary-t2 text-themed-gray-base dark:text-themed-gray-inverse style-body shadow-sm dark:shadow-themed-gray-t3 font-normal rounded-md ' onClick={() => { onSubmit() }}>Send Message</button>
+                <button className='mt-16 mb-2 px-2 py-1 bg-primary-t2 text-themed-gray-base dark:text-themed-gray-inverse style-body shadow-sm dark:shadow-themed-gray-t3 font-normal rounded-md ' onClick={() => { onSubmit() }} disabled={cooldown}>Send Message</button>
             </div>
             <Receipt show={active} isSuccess={success} />
         </div>
