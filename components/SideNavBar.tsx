@@ -37,7 +37,7 @@ const [isExpanded, setIsExpanded] = useState(false)
         </button>
       </div>
       {transitionWrapper(
-        <div className='gap-2 flex flex-col justify-start items-start px-3 pt-4 border-t-[1px] border-themed-gray-t4'>
+        <div className='gap-2 flex flex-col justify-start items-start pl-5 pr-3 pt-4 border-t-[1px] border-themed-gray-t4'>
           <NavItems displayName='Home' pathName={'/'}/>
           <NavItems displayName='Projects' pathName={'/projects'}/>
           <NavItems displayName='Contact' pathName={'/contacts'}/>
