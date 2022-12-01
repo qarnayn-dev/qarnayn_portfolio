@@ -14,7 +14,6 @@ const HorizontalNav = () => {
   const routes: iRoute[] = [
     {name:"Home",pathName:"/"},
     {name:"Projects",pathName:"/projects"},
-    {name:"Blogs",pathName:"/blogs"},
     {name:"Contact",pathName:"/contacts"},
   ];
 
