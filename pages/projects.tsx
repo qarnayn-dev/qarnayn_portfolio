@@ -185,7 +185,7 @@ enum ProjectStatus{
 const ProjectCard = (props: iProjectCard) => {
   const [isExpand, setIsExpand] = useState(false);
   const twSub: string = "style-small-text text-themed-gray-t6";
-  const twTransition: string = "transition-all duration-500 ease-out-cubic";
+  const twTransition: string = "duration-500 ease-out-cubic";
   const isCodeAvailable: boolean = !props.isLocked && (props.githubUrl !== undefined);
 
   // console.count(`${props.name}`);
@@ -203,14 +203,14 @@ const ProjectCard = (props: iProjectCard) => {
         twBgColor = "";
         break;
     }
-    return <div className={`${isExpand ? 'scale-100' : 'scale-75'} ${twTransition} ${twBgColor} px-3 pb-[1px] style-small-text rounded-xl text-nwhite`}>{props.status}</div>
+    return <div className={`${isExpand ? 'scale-100' : 'scale-75'} ${twTransition} ${twBgColor} px-3 pb-[1px] style-small-text rounded-xl text-nwhite transition-transform`}>{props.status}</div>
   }
 
   const ProjectName = () => {
     return (
       <div className='flex flex-row gap-1 items-center'>
-        <div className={`${isExpand ? 'style-heading font-normal mb-1' : 'style-subheading font-light'} ${twTransition} font-light text-primary-base`}>{props.name}</div>
-        {props.isLocked && <IoLockClosed className={`${twTransition} text-themed-gray-t9`} size={isExpand? 20: 14} />}
+        <div className={`${isExpand ? 'style-heading font-normal mb-1' : 'style-subheading font-light'} ${twTransition} transition-transform font-light text-primary-base`}>{props.name}</div>
+        {props.isLocked && <IoLockClosed className={`${twTransition} transition-transform text-themed-gray-t9`} size={isExpand? 20: 14} />}
         <Tag/>
       </div>
     )
@@ -296,8 +296,8 @@ const ProjectCard = (props: iProjectCard) => {
   const ExpandCTA = () => {
     return (
       <button
-          onClick={() => { setIsExpand(true); }}
-        className='py-1 px-4 rounded-md bg-primary-t4 text-center text-nwhite hover:drop-shadow-sm transition-all ease-out-circ duration-300'>
+        onClick={() => { setIsExpand(true); }}
+        className='py-1 px-4 rounded-md bg-primary-t4 text-center text-nwhite hover:drop-shadow-sm'>
         Expand to see more
       </button>
     )
@@ -305,7 +305,7 @@ const ProjectCard = (props: iProjectCard) => {
 
   const ToGithubCTA = () => {
     return (
-      <a href={props.githubUrl} target="_blank" className='py-[2px] px-4 rounded-md border-2 border-themed-gray-t3 text-center text-themed-gray-t6 hover:drop-shadow-sm transition-all ease-out-circ duration-300 flex flex-row items-center hover:text-themed-gray-t7'>See codes
+      <a href={props.githubUrl} target="_blank" className='py-[2px] px-4 rounded-md border-2 border-themed-gray-t3 text-center text-themed-gray-t6 hover:text-themed-gray-t7 hover:drop-shadow-sm transition-shadow ease-out-circ duration-300 flex flex-row items-center'>See codes
         <IoLogoGithub className='pl-1' size={22}></IoLogoGithub>
       </a>
     )
@@ -378,11 +378,11 @@ interface iTechIcon{
 }
 
 const TechIcon = (data: iTechIcon) => {
-  const twHover = "opacity-50 group-hover:opacity-80 transition-all ease-out-circ duration-500";
+  const twHover = "opacity-50 group-hover:opacity-80 transition-opacity ease-out-circ duration-500";
   return (
     <div className='w-14 group flex flex-col items-center justify-center' >
       <data.icon className={`${twHover} w-6 h-6 flex items-center justify-center`}/>
-      <div className={`${twHover} t-1 h-5 style-small-text apply-inverse-gray text-themed-gray-t4 scale-75 overflow-hidden text-center`}>{data.displayTitle}</div>
+      <div className={`${twHover} t-1 h-5 text-sm apply-inverse-gray text-themed-gray-t4 scale-75 overflow-hidden text-center`}>{data.displayTitle}</div>
     </div>
   )
 }
