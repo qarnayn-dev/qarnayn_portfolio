@@ -11,8 +11,7 @@ import walletLottie from '../assets/wallet_ani.json';
 import smileyLottie from '../assets/smily_lottie.json';
 import compassLottie from '../assets/compass_lottie.json';
 import { MiniCard } from '../components/MiniCard';
-import TableLight from '../assets/table_light.svg'
-import TableDark from '../assets/table_dark.svg'
+import Table from '../assets/table.svg'
 import { ThemeContext } from '../components/DarkThemeToggle';
 import { ParallaxWrapper } from '../components/ParallaxWrapper';
 import { IoChevronBack, IoChevronForward} from 'react-icons/io5';
@@ -30,7 +29,6 @@ import DartLogo from '../assets/Logos/dart_logo.svg'
 import FlutterLogo from '../assets/Logos/flutter_logo.svg'
 import FirebaseLogo from '../assets/Logos/firebase_logo.svg'
 import HTML5Logo from '../assets/Logos/html_logo.svg'
-import PythonLogo from '../assets/Logos/python_logo.svg'
 import ReactLogo from '../assets/Logos/react_js_logo.svg'
 import ReduxLogo from '../assets/Logos/redux_logo.svg'
 import TailwindLogo from '../assets/Logos/tailwindcss_logo.svg'
@@ -44,27 +42,26 @@ const Home: NextPage = () => {
   const {theme} = useContext(ThemeContext);
 
   return (
-      <div className='flex flex-col'>
-      <Head>
-        <title>Qarnayn Portfolio | home</title>
-      </Head>
-      <TopFrame className="pt-[3vh] md:pt-[6vh]">
-        <div className='relative pb-24 md:pb-28  flex flex-col'>
-          <ParallaxWrapper yDisplacement={-150} className="absolute z-0 md:top-40 lg:top-32 right-0 overflow-clip w-[120vw] opacity-40 dark:opacity-100">
-            {(theme==='light')?<TableLight/>:<TableDark/>}
-          </ParallaxWrapper>
-          <Intro />
-          <ProficiencySection/>
-          <BestOfMe />
-          <ShadowPage/>
-        </div>
-        <RevealingPage>
-          <Expertise></Expertise>
-          {/* <div className='w-screen h-screen bg-blue-100'></div> */}
-        </RevealingPage>
-        <ContactSection/>
-      </TopFrame >
-    </div>
+      <>
+        <Head>
+          <title>Qarnayn Portfolio | home</title>
+        </Head>
+        <TopFrame className="pt-[3vh] md:pt-[6vh] flex flex-col">
+          <div className='relative pb-24 md:pb-28  flex flex-col'>
+            <ParallaxWrapper yDisplacement={-150} className="absolute z-0 md:top-40 lg:top-32 right-0 overflow-clip w-[120vw] opacity-40 dark:opacity-100">
+              <Table/>
+            </ParallaxWrapper>
+            <Intro />
+            <ProficiencySection/>
+            <BestOfMe />
+            <ShadowPage/>
+          </div>
+          <RevealingPage>
+            <Expertise/>
+          </RevealingPage>
+          <ContactSection/>
+        </TopFrame >
+    </>
   )
 }
 
@@ -82,7 +79,7 @@ export const SectionTitle = (props:any) => {
 const Intro = () => {
   return (
     <div className='flex flex-col frame-bounded-x mb-[10vw] mt-8 md:mt-14 w-full float-left relative  justify-start items-center gap-6 md:flex-row-reverse transition-all ease-out-circ duration-500'>
-        <Lottie animationData={appDevIllustration} className='min-w-[40%] max-w-[60%] md:max-w-[46%] lg:max-w-[70%] float-right mx-6 mb-10'></Lottie>
+        <Lottie animationData={appDevIllustration} className='min-w-[40%] max-w-[60%] md:max-w-[46%] lg:max-w-[70%] float-right mx-6 mb-10'/>
         <div className='float-left w-full h-full flex flex-col justify-center'>
           <h2 className='mb-[2px] style-secondary style-subheading'>Hello World! I am Qarnayn</h2>
           <h1 className='mt-2 style-heading font-semibold bg-gradient-to-br from-primary-base to-secondary-base text-transparent bg-clip-text'>An engineer who codes a designer’s boundless imagination.</h1>
@@ -127,7 +124,7 @@ const BestOfMe = () => {
   return (
     <>
       <SectionTitle className="frame-bounded-x mt-20 mb-8">The best of me</SectionTitle>
-      <div className='absolute w-full h-full opacity-20 -z-30 bottom-0 bg-gradient-to-t from-primary-base dark:from-primary-t4 '></div>
+      <div className='absolute w-full h-full opacity-20 -z-30 bottom-0 bg-gradient-to-t from-primary-base dark:from-primary-t4'></div>
       <div className='frame-bounded-x flex flex-col lg:flex-row justify-evenly w-full gap-4 '>
         <MiniCard
           animationData={walletLottie}

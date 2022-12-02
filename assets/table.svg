@@ -27,12 +27,12 @@
 <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_20_21" result="shape"/>
 </filter>
 <linearGradient id="paint0_linear_20_21" x1="1360.5" y1="159.5" x2="207" y2="293.5" gradientUnits="userSpaceOnUse">
-<stop stop-color="#1A8EB8"/>
-<stop offset="1" stop-color="#1A8EB8" stop-opacity="0"/>
+<stop stop-color="rgb(var(--primary))"/>
+<stop offset="1" stop-color="rgb(var(--primary))" stop-opacity="0"/>
 </linearGradient>
 <linearGradient id="paint1_linear_20_21" x1="547" y1="767.5" x2="609" y2="338.5" gradientUnits="userSpaceOnUse">
 <stop stop-color="#083343"/>
-<stop offset="1" stop-color="#1A8EB8" stop-opacity="0"/>
+<stop offset="1" stop-color="rgb(var(--primary))" stop-opacity="0"/>
 </linearGradient>
 </defs>
 </svg>
