@@ -1,5 +1,5 @@
 import { Transition } from "@headlessui/react";
-import { useState, useRef, useEffect, useMemo, ReactNode } from "react";
+import { useState, useRef, useEffect, useMemo, ReactNode, useCallback } from "react";
 import useWindowDimensions from "../utilities/useWindowDimensions";
 
 interface iMatrixEffectOptions{
@@ -12,15 +12,18 @@ interface iMatrixEffectOptions{
     fps?: number,
 }
 
-export const MatrixEffect = ({children, showScreen,characterSize,opacityPerDraw,fps}: iMatrixEffectOptions) => {
-    const [isPaused, setIsPaused] = useState(false);
+export const MatrixEffect = ({ children, showScreen, characterSize, opacityPerDraw, fps }: iMatrixEffectOptions) => {
+    const [binaryMode, setBinaryMode] = useState(true);
     const { width, height } = useWindowDimensions();
     const canvasRef = useRef<HTMLCanvasElement | null >(null);
-    const [canvasContext, setCanvasContext] = useState<CanvasRenderingContext2D | null | undefined>(null);
     const tileSize: number = characterSize ?? 22; // px
     const frequency: number = Math.floor(1000 / (fps ?? 17));
     const totalOpacPerFrame: number = opacityPerDraw ?? 0.08;
     let interval: NodeJS.Timer | undefined;
+
+    const canvasContext = useMemo<CanvasRenderingContext2D | null | undefined>(() => {
+        if (canvasRef.current) return canvasRef.current?.getContext("2d");
+    }, [canvasRef.current])
 
     const maxColumnLength =  useMemo<number |null>(()=>{
         return (width) ? Math.floor(width/tileSize) : null;
@@ -44,10 +47,15 @@ export const MatrixEffect = ({children, showScreen,characterSize,opacityPerDraw,
         return newEntries;
     }, [maxColumnLength, maxStackLength]);
 
-    // Initial setup, for assigning the canvas
     useEffect(() => {
-        if (canvasRef) setCanvasContext(canvasRef.current?.getContext("2d"));
-    }, []);
+        if (binaryMode) {
+            const timeout = setTimeout(() => {
+                setBinaryMode(false);
+            }, 2200);
+            return () => clearTimeout(timeout);
+        }
+    }, [showScreen && canvasContext && binaryMode])
+
 
     // listening to any change in the windows dimension
     useEffect(() => {
@@ -57,53 +65,43 @@ export const MatrixEffect = ({children, showScreen,characterSize,opacityPerDraw,
             canvas.width = width;
             canvas.height = height;
         }
-    }, [width, height]);
+    }, [width, height, canvasRef.current]);
 
     // Main triggering useEffect
     useEffect(() => {
-        if (!isPaused) {
+        if (showScreen && canvasContext) {
             startDrawing();
             return () => clearInterval(interval);
         }
-    }, [memoizedColumns, isPaused]);
-
-    // Whenever screen is being removed
-    useEffect(() => {
-        if (!showScreen) {
-            setIsPaused(true);
+        // once the showScreen === false -> stop
+        else {
             clearInterval(interval);
         }
-    }, [showScreen]);
+    }, [memoizedColumns, showScreen, canvasContext, binaryMode]);
 
     function startDrawing() {
         if (interval) clearInterval(interval);
         interval = setInterval(() => { drawFrame(); }, frequency);
     }
 
-    function toogleEffect() {
-        if (!isPaused) clearInterval(interval);
-        setIsPaused((state)=> !state);
-    }
+    const drawFrame = useCallback(() => {
+            if (canvasContext) {
+                // draw a layer for the whole dimension with some opacity -> gives fading effect
+                canvasContext.fillStyle = `rgba( 0 , 0 , 0 , ${totalOpacPerFrame} )`;
+                canvasContext.fillRect(0, 0, width, height);
 
-    function drawFrame() {
-        // console.count("drawing");
-        if (canvasContext) {
-            // draw a layer for the whole dimension with some opacity -> gives fading effect
-            canvasContext.fillStyle = `rgba( 0 , 0 , 0 , ${totalOpacPerFrame} )`;
-            canvasContext.fillRect(0, 0, width, height);
+                // draw characters for each column
+                canvasContext.font = (tileSize - 4) + "px monospace";
+                canvasContext.fillStyle = "rgb(77,200,171)";
 
-            // draw characters for each column
-            canvasContext.font = (tileSize - 4) + "px monospace";
-            canvasContext.fillStyle = "rgb(77,200,171)";
-
-            for (let i = 0; i < memoizedColumns.length; i++) {
-                const element = memoizedColumns[i];
-                canvasContext.fillText(RandomCharacter(), (element.x + xAdjust), element.getCurrentY(tileSize));
-                // add counter
-                if (maxStackLength) element.stackCounter(maxStackLength);
+                for (let i = 0; i < memoizedColumns.length; i++) {
+                    const element = memoizedColumns[i];
+                    canvasContext.fillText(binaryMode? RandomBinary() : RandomCharacter(), (element.x + xAdjust), element.getCurrentY(tileSize));
+                    // add counter
+                    if (maxStackLength) element.stackCounter(maxStackLength);
+                }
             }
-        }
-    }
+        },[canvasContext, binaryMode]);
 
     return (
         <Transition
@@ -113,7 +111,7 @@ export const MatrixEffect = ({children, showScreen,characterSize,opacityPerDraw,
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
             className={`fixed z-50 inset-0 bg-black`}>
-            <canvas ref={canvasRef} className={`flex overscroll-none object-contain transition-all duration-500 ${showScreen?'opacity-100':'opacity-0'}`}></canvas>
+            <canvas ref={canvasRef} className={`flex overscroll-none object-contain bg-black transition-all duration-500 ${showScreen?'opacity-100':'opacity-0'}`}></canvas>
             {children}
         </Transition>
     )
@@ -154,4 +152,9 @@ const RandomCharacter = (): string => {
     const allChars: string = normalChars + japaneseChars + greekChars;
 
     return allChars.charAt(Math.ceil(Math.random() * allChars.length));
+}
+
+
+const RandomBinary = (): string => {
+    return (Math.random() > 0.6) ? '1' : '0';
 }

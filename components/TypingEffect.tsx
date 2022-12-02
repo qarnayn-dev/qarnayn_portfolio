@@ -40,7 +40,6 @@ export const TypingEffect = ({children, restTime = 700, showAnimation,callback, 
     useEffect(() => {
         // if there's any callback after all has fnished
         if (current === undefined && !isForward && callback) {
-            console.log("Fininshed all! ");
             const timeout = setTimeout(callback, delayOnCallback);
             return () => clearTimeout(timeout);
         }

@@ -8,6 +8,7 @@ import { GreetingsLayout } from '../components/GreetingsLayout';
 import { Provider } from 'react-redux';
 import {store} from '../redux/store';
 import { Footer } from '../components/Footer';
+import { MatrixEffect } from '../components/MatrixEffect'
 
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -52,9 +53,10 @@ function MyApp({ Component, pageProps }: AppProps) {
         <link rel="manifest" href="/site.webmanifest"></link>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
+      <GreetingsLayout show={loading} onDisposeFn={() => setLoading(false)} />
+      {/* <MatrixEffect showScreen></MatrixEffect> */}
       <Provider store={store}>
         <ThemeContext.Provider value={{ theme, setTheme }}>
-          <GreetingsLayout show={loading}></GreetingsLayout>
           <Component {...pageProps} />
           <Footer/>
         </ThemeContext.Provider>

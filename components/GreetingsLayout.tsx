@@ -5,33 +5,35 @@ import { TypingEffect } from './TypingEffect';
 
 
 interface iGreetingsLayout{
-    show?: boolean,
+    show: boolean,
+    onDisposeFn: ()=> void,
 }
 
-export const GreetingsLayout = ({show = true}:iGreetingsLayout) => {
-    const [showLayout, setShowLayout] = useState<boolean>(show);
+export const GreetingsLayout = ({show,onDisposeFn}:iGreetingsLayout) => {
     const [startBlackHole, setStartBlackHole] = useState(false);
     const [startGreetings, setStartGreetings] = useState(false);
 
     useEffect(() => {
-        const timeOut1 = setTimeout(() => { setStartBlackHole(true) }, 800);
-        const timeOut2 = setTimeout(() => { setStartGreetings(true) }, 1400);
-    return () => {
-      clearTimeout(timeOut1);
-      clearTimeout(timeOut2);
-    }
-    }, []);
+        if (show) {
+            const timeOut1 = setTimeout(() => { setStartBlackHole(true) }, 800);
+            const timeOut2 = setTimeout(() => { setStartGreetings(true) }, 1400);
+            return () => {
+            clearTimeout(timeOut1);
+            clearTimeout(timeOut2);
+            }
+        }
+    }, [show]);
 
     function onDispose() {
         setStartBlackHole(false);
         const timeout = setTimeout(() => {
-            setShowLayout(false);
+            onDisposeFn();
         }, 600);
         return () => clearTimeout(timeout);
     }
 
     return (
-        <MatrixEffect showScreen={showLayout} >
+        <MatrixEffect showScreen={show} >
                 <BlackHole isShow={startBlackHole}>
                     <TypingEffect
                         showAnimation={startGreetings}
