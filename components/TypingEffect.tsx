@@ -11,7 +11,7 @@ interface iTypingEffect{
     delayOnCallback?:number,
 }
 
-export const TypingEffect = ({children, restTime = 1000, showAnimation,callback, delayOnCallback = 600}: iTypingEffect) => {
+export const TypingEffect = ({children, restTime = 700, showAnimation,callback, delayOnCallback = 600}: iTypingEffect) => {
     // const [isAnimate, setIsAnimate] = useState(false);
     const [isForward, setIsForward] = useState(true);
     const sentenceList: string[] = (children instanceof Array) ? children : stringToArray(children);
@@ -48,21 +48,21 @@ export const TypingEffect = ({children, restTime = 1000, showAnimation,callback,
 
 
     const cursorSpring = useSpring({
-        config: { duration: 700, easing: easings.easeInBack},
+        config: { duration: 500, easing: easings.easeInBack},
         loop: {reset: true},
         from: { opacity: 0 },
         to: { opacity: 1 },
-        delay: 150,
+        delay: 110,
     });
 
     const letterTransition = useTransition(memoizedArray, {
-        config: { duration: 150, easing: easings.easeInBack},
+        config: { duration: 100, easing: easings.easeInBack},
         keys: memoizedArray.map((v, i) => `${v}-${i}`),
         from: { opacity: 0, width: '4px', height: '16px', background: 'white'},
         enter: { opacity: 1, background: 'transparent',life: "100%"},
         leave: { opacity: 0, life: "0%" },
-        delay: 200,
-        trail: isForward? 200 : -20,
+        delay: 120,
+        trail: isForward? 120 : -15,
         expires: true,
         reverse: true,
         onRest: () => { debouncer.rebound(); },

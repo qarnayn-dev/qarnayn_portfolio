@@ -14,8 +14,8 @@ export const GreetingsLayout = ({show = true}:iGreetingsLayout) => {
     const [startGreetings, setStartGreetings] = useState(false);
 
     useEffect(() => {
-        const timeOut1 = setTimeout(() => { setStartBlackHole(true) }, 1600);
-        const timeOut2 = setTimeout(() => { setStartGreetings(true) }, 2800);
+        const timeOut1 = setTimeout(() => { setStartBlackHole(true) }, 800);
+        const timeOut2 = setTimeout(() => { setStartGreetings(true) }, 1400);
     return () => {
       clearTimeout(timeOut1);
       clearTimeout(timeOut2);
@@ -26,7 +26,7 @@ export const GreetingsLayout = ({show = true}:iGreetingsLayout) => {
         setStartBlackHole(false);
         const timeout = setTimeout(() => {
             setShowLayout(false);
-        }, 800);
+        }, 600);
         return () => clearTimeout(timeout);
     }
 

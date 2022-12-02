@@ -16,7 +16,7 @@ export const BlackHole = ({ children, className, duration, isShow, delay }: iBla
 
     const sphereSpring = useSpring({
         config: { duration: duration?? 900,easing: easings.easeInOutBack},
-        to: { scale: isShow ? 1 : 0.2 },
+        to: { scale: isShow ? 1 : 0.2, opacity: isShow ? 1 : 0,  },
         delay: delay?? 200,
     });
 
