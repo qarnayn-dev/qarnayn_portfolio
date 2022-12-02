@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion'
-import React, { ReactNode, useState } from 'react'
+import React, { ElementType, ReactNode, useState } from 'react'
 import { IconType } from 'react-icons'
-import { IoLockClosed, IoLogoGithub, IoLogoPython, IoChevronUpOutline } from 'react-icons/io5'
+import { IoLockClosed, IoLogoGithub, IoChevronUpOutline } from 'react-icons/io5'
 import { ChainedPost } from '../components/ChainedPost'
 import TopFrame from '../components/TopFrame'
 import DartLogo from '../assets/Logos/dart_logo.svg'
@@ -15,13 +15,15 @@ import ReactLogo from '../assets/Logos/react_js_logo.svg'
 import ReduxLogo from '../assets/Logos/redux_logo.svg'
 import TailwindLogo from '../assets/Logos/tailwindcss_logo.svg'
 import TypeScriptLogo from '../assets/Logos/typescript_logo.svg'
-import SportivityAppMock1 from '../assets/Projects/sportivity_app_ip13.svg'
-import SportivityAppMockExtnd from '../assets/Projects/sportivity_app_mockup.svg'
-import SvPartnerAppMockExtnd from '../assets/Projects/sportivity_partner_mockup.svg'
-import SvPartnerAppThumbnail from '../assets/Projects/sportivity_partner_thumbnail.svg'
-import PortfolioMockup from '../assets/Projects/portfolio_mockup.svg'
-import PortfolioThumbnail from '../assets/Projects/portfolio_thumbnail.svg'
 import Head from 'next/head'
+import dynamic from 'next/dynamic'
+
+const SportivityAppThumbnail: ElementType = dynamic(()=>import('../assets/Projects/sportivity_app_ip13.svg'));
+const SportivityAppMockExtnd: ElementType = dynamic(()=>import('../assets/Projects/sportivity_app_mockup.svg'));
+const SvPartnerAppThumbnail = dynamic(()=>import('../assets/Projects/sportivity_partner_thumbnail.svg'));
+const SvPartnerAppMockExtnd: ElementType = dynamic(()=>import('../assets/Projects/sportivity_partner_mockup.svg'));
+const PortfolioMockup = dynamic(()=>import('../assets/Projects/portfolio_mockup.svg'));
+const PortfolioThumbnail = dynamic(()=>import('../assets/Projects/portfolio_thumbnail.svg'));
 
 const Projects = () => {
   return (
@@ -30,15 +32,15 @@ const Projects = () => {
         <title>Qarnayn Portfolio | projects</title>
     </Head>
     <TopFrame/>
-    <div className='frame-bounded-x pt-32 pb-28 bg-gradient-to-tr from-primary-t4'>
+      <div className='frame-bounded-x pt-32 pb-28 bg-gradient-to-tr from-primary-t4'>
         <ProjectCard
           name='Sportivity Application'
           title='A sports facility booking platform with social and community features.'
           thumbnail={
-            <SportivityAppMock1 className="absolute top-6 left-[22%] lg:left-[4%] z-0 my-16 ml-10 max-w-[450px]"></SportivityAppMock1>
+            <SportivityAppThumbnail className="absolute top-6 left-[22%] lg:left-[4%] z-0 my-16 ml-10 max-w-[450px]"/>
           }
           widePhoto={
-            <SportivityAppMockExtnd className="max-w-[600px]"></SportivityAppMockExtnd>
+            <SportivityAppMockExtnd className="max-w-[600px]"/>
           }
           description="Mobile-first software applications – both IOS and Android users to search for a local sports facility service, reserve their facility slot and socially connect with their community or strangers with a common interest."
           extensionDesc="I started a startup company and made this project our core product. Our vision is to support diverse sports communities while providing multipurpose utilities to our target audience – sports enthusiast and casual players. This project has the potential to expand further such as the introduction of personal trainer features."
@@ -73,14 +75,15 @@ const Projects = () => {
           isLocked={true}
           status={ProjectStatus.active}
         />
+
         <ProjectCard
           name="Sportivity Partner Application"
           title="A facility management software application for businesses to manage, analyze metrics, and promote their facility services."
           thumbnail={
-            <SvPartnerAppThumbnail></SvPartnerAppThumbnail>
+            <SvPartnerAppThumbnail/>
           }
           widePhoto={
-            <SvPartnerAppMockExtnd className="w-[80%]"></SvPartnerAppMockExtnd>
+            <SvPartnerAppMockExtnd className="w-[80%]"/>
           }
           description="This project is part of our core product's ecosystem integrated with the Sportivity Application and aims to provide robust management support for our partner's facility services needs."
           extensionDesc="The project started when the main application was at an 80% completion rate from its MVP development. Since it has a different target audience than the Sportivity Application – business owners and facility management, it was built from scratch and primarily focused on providing the solution to our partner."
@@ -117,10 +120,10 @@ const Projects = () => {
           name="Portfolio Website"
           title="My portfolio website – is 100% designed and built by myself."
           thumbnail={
-            <PortfolioThumbnail></PortfolioThumbnail>
+            <PortfolioThumbnail/>
           }
           widePhoto={
-            <PortfolioMockup></PortfolioMockup>
+            <PortfolioMockup/>
           }
           description="Here I present the best works and projects I contributed – showcasing my skills and experiences in the Tech industry. This portfolio was designed and developed by myself. I challenged myself to learn and adapt to new knowledge."
           extensionDesc="I started with learning the fundamentals of web development, relearning the UI & UX design, learning a new language, learning a new framework, and learning to copywriting. I designed this portfolio to attract both non-technical and technical audiences. There are rooms for expansion and improvements in the portfolio that I want to discover in the future."
@@ -183,7 +186,9 @@ const ProjectCard = (props: iProjectCard) => {
   const [isExpand, setIsExpand] = useState(false);
   const twSub: string = "style-small-text text-themed-gray-t6";
   const twTransition: string = "transition-all duration-500 ease-out-cubic";
-  const isCodeAvailable: boolean = !props.isLocked && (props.githubUrl!==undefined);
+  const isCodeAvailable: boolean = !props.isLocked && (props.githubUrl !== undefined);
+
+  // console.count(`${props.name}`);
 
   const Tag = () => {
     let twBgColor: string;

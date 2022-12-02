@@ -53,8 +53,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <link rel="manifest" href="/site.webmanifest"></link>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <GreetingsLayout show={loading} onDisposeFn={() => setLoading(false)} />
-      {/* <MatrixEffect showScreen></MatrixEffect> */}
+      {/* <GreetingsLayout show={loading} onDisposeFn={() => setLoading(false)} /> */}
       <Provider store={store}>
         <ThemeContext.Provider value={{ theme, setTheme }}>
           <Component {...pageProps} />
