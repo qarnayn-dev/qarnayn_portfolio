@@ -1,9 +1,7 @@
 import { motion } from "framer-motion";
 import { memo, useState } from "react";
 import { IoAdd } from "react-icons/io5";
-import { useDispatch } from "react-redux";
-import { addNewTag } from "../redux/tagSlice";
-import OutsideAlerter from "./useOutsideAlerter";
+import OutsideAlerter from "../utilities/useOutsideAlerter";
 
 interface iAddTag{
     onSubmitFn: (value: string) => void;

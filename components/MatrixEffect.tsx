@@ -1,6 +1,6 @@
 import { Transition } from "@headlessui/react";
 import { useState, useRef, useEffect, useMemo, ReactNode } from "react";
-import useWindowDimensions from "./useWindowDimensions";
+import useWindowDimensions from "../utilities/useWindowDimensions";
 
 interface iMatrixEffectOptions{
     showScreen: boolean,

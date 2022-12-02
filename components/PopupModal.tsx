@@ -1,9 +1,7 @@
 import { Transition } from "@headlessui/react";
-import { useScroll } from "framer-motion";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { IoClose } from "react-icons/io5";
-import OutsideAlerter from "./useOutsideAlerter";
-import useWindowDimensions from "./useWindowDimensions";
+import OutsideAlerter from "../utilities/useOutsideAlerter";
 
 interface iPopupModal{
     children?:any,

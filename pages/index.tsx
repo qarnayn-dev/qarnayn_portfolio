@@ -4,7 +4,6 @@ import { ReactNode, useContext, useEffect, useRef, useState} from 'react';
 import TopFrame from '../components/TopFrame';
 import { RevealingPage, ShadowPage } from '../components/RevealingPage';
 import { motion, useScroll} from 'framer-motion';
-import { ScrollSnapWrapper} from '../components/useScrollSnap';
 import Lottie from 'lottie-react';
 import appDevIllustration from '../assets/app_dev_lottie.json';
 import walletLottie from '../assets/wallet_ani.json';
@@ -36,6 +35,7 @@ import TypeScriptLogo from '../assets/Logos/typescript_logo.svg'
 import JavascriptLogo from '../assets/Logos/javascript_logo.svg'
 import CSSLogo from '../assets/Logos/css3_logo.svg'
 import { IconType } from 'react-icons';
+import { ScrollSnapWrapper } from '../utilities/useScrollSnap';
 
 
 const Home: NextPage = () => {
