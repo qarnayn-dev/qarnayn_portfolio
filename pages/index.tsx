@@ -1,7 +1,7 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import { ReactNode, useContext, useEffect, useRef, useState} from 'react';
-import TopFrame from '../components/TopFrame';
+import HeaderFrame from '../components/TopFrame';
 import { RevealingPage, ShadowPage } from '../components/RevealingPage';
 import { motion, useScroll} from 'framer-motion';
 import Lottie from 'lottie-react';
@@ -46,21 +46,19 @@ const Home: NextPage = () => {
         <Head>
           <title>Qarnayn Portfolio | home</title>
         </Head>
-        <TopFrame className="pt-[3vh] md:pt-[6vh] flex flex-col">
-          <div className='relative pb-24 md:pb-28  flex flex-col'>
-            <ParallaxWrapper yDisplacement={-150} className="absolute z-0 md:top-40 lg:top-32 right-0 overflow-clip w-[120vw] opacity-40 dark:opacity-100">
-              <Table/>
-            </ParallaxWrapper>
-            <Intro />
-            <ProficiencySection/>
-            <BestOfMe />
-            <ShadowPage/>
-          </div>
-          <RevealingPage>
-            <Expertise/>
-          </RevealingPage>
-          <ContactSection/>
-        </TopFrame >
+        <div className='relative pt-[3vh] md:pt-[6vh] pb-24 md:pb-28  flex flex-col'>
+          <ParallaxWrapper yDisplacement={-150} className="absolute z-0 md:top-40 lg:top-32 right-0 overflow-clip w-[120vw] opacity-40 dark:opacity-100">
+            <Table/>
+          </ParallaxWrapper>
+          <Intro />
+          <ProficiencySection/>
+          <BestOfMe />
+          <ShadowPage/>
+        </div>
+        <RevealingPage>
+          <Expertise/>
+        </RevealingPage>
+        <ContactSection/>
     </>
   )
 }

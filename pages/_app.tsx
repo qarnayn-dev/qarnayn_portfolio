@@ -9,6 +9,7 @@ import { Provider } from 'react-redux';
 import {store} from '../redux/store';
 import { Footer } from '../components/Footer';
 import { MatrixEffect } from '../components/MatrixEffect'
+import HeaderFrame from '../components/TopFrame'
 
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -53,9 +54,10 @@ function MyApp({ Component, pageProps }: AppProps) {
         <link rel="manifest" href="/site.webmanifest"></link>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      {/* <GreetingsLayout show={loading} onDisposeFn={() => setLoading(false)} /> */}
+      <GreetingsLayout show={loading} onDisposeFn={() => setLoading(false)} />
       <Provider store={store}>
         <ThemeContext.Provider value={{ theme, setTheme }}>
+          <HeaderFrame/>
           <Component {...pageProps} />
           <Footer/>
         </ThemeContext.Provider>

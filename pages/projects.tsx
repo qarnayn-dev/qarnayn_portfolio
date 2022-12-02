@@ -3,7 +3,6 @@ import React, { ElementType, ReactNode, useState } from 'react'
 import { IconType } from 'react-icons'
 import { IoLockClosed, IoLogoGithub, IoChevronUpOutline } from 'react-icons/io5'
 import { ChainedPost } from '../components/ChainedPost'
-import TopFrame from '../components/TopFrame'
 import DartLogo from '../assets/Logos/dart_logo.svg'
 import FlutterLogo from '../assets/Logos/flutter_logo.svg'
 import FirebaseLogo from '../assets/Logos/firebase_logo.svg'
@@ -31,8 +30,7 @@ const Projects = () => {
     <Head>
         <title>Qarnayn Portfolio | projects</title>
     </Head>
-    <TopFrame/>
-      <div className='frame-bounded-x pt-32 pb-28 bg-gradient-to-tr from-primary-t4'>
+    <div className='frame-bounded-x pt-32 pb-28 bg-gradient-to-tr from-primary-t4'>
         <ProjectCard
           name='Sportivity Application'
           title='A sports facility booking platform with social and community features.'
@@ -75,7 +73,6 @@ const Projects = () => {
           isLocked={true}
           status={ProjectStatus.active}
         />
-
         <ProjectCard
           name="Sportivity Partner Application"
           title="A facility management software application for businesses to manage, analyze metrics, and promote their facility services."

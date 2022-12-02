@@ -5,7 +5,6 @@ import { SectionTitle } from '.'
 import ClickToCopy from '../components/ClickToCopy'
 import { ContactForm } from '../components/ContactForm'
 import { IconButton } from '../components/IconButton'
-import TopFrame from '../components/TopFrame'
 
 const Contacts = () => {
   return (
@@ -13,7 +12,6 @@ const Contacts = () => {
       <Head>
         <title>Qarnayn Portfolio | contacts</title>
       </Head>
-      <TopFrame/>
       <ContactSection/>
     </>
   )
