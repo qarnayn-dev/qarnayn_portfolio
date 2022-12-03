@@ -69,12 +69,11 @@ const Projects = () => {
           title="A facility management software application for businesses to manage, analyze metrics, and promote their facility services."
           thumbnail="/sportivity_partner_thumbnail.png"
           widePhoto="/sportivity_partner_mockup.png"
-          widePhotoConfig="w-[80%]"
           description="This project is part of our core product's ecosystem integrated with the Sportivity Application and aims to provide robust management support for our partner's facility services needs."
           extensionDesc="The project started when the main application was at an 80% completion rate from its MVP development. Since it has a different target audience than the Sportivity Application – business owners and facility management, it was built from scratch and primarily focused on providing the solution to our partner."
           techStach={[
-            {icon: DartLogo,displayTitle:"Dart"},
             {icon: FlutterLogo,displayTitle:"Flutter"},
+            {icon: DartLogo,displayTitle:"Dart"},
             {icon: FirebaseLogo,displayTitle:"Firebase"},
             {icon: AWSLogo,displayTitle:"AWS"},
             {icon: PythonLogo,displayTitle:"Phyton"},
@@ -186,22 +185,24 @@ const ProjectCard = (props: iProjectCard) => {
         twBgColor = "";
         break;
     }
-    return <div className={`${isExpand ? 'scale-100' : 'scale-75'} ${twTransition} ${twBgColor} px-3 pb-[1px] style-small-text rounded-xl text-nwhite transition-transform`}>{props.status}</div>
+    return <div className={`${twTransition} ${twBgColor} px-2 py-[2px] style-small-text rounded-xl text-nwhite scale-75 transition-transform`}>{props.status}</div>
   }
 
   const ProjectName = () => {
     return (
       <div className='flex flex-row gap-1 items-center'>
-        <div className={`${isExpand ? 'style-heading font-normal mb-1' : 'style-subheading font-light'} ${twTransition} transition-transform font-light text-primary-base`}>{props.name}</div>
-        {props.isLocked && <IoLockClosed className={`${twTransition} transition-transform text-themed-gray-t9`} size={isExpand? 20: 14} />}
-        <Tag/>
+        <div className={`${isExpand ? 'style-heading font-normal mb-2' : 'style-subheading font-light'} ${twTransition} transition-transform font-light text-primary-base`}>{props.name}</div>
+        {!isExpand && <>
+          {props.isLocked && <IoLockClosed className={`text-themed-gray-t9`} size={14} />}
+          <Tag/>
+        </>}
       </div>
     )
   }
 
   const ProjectTitle = () => {
     return (
-      <h2 className={`${isExpand ? 'style-body w-[70%] mb-4' : 'style-heading-h2 w-full mb-8'} ${twTransition} font-light`}>{props.title}</h2>
+      <h2 className={`${isExpand ? 'style-body max-w-md mb-4' : 'style-heading-h2 mb-8'} ${twTransition} w-full font-light`}>{props.title}</h2>
     )
   }
 
@@ -212,7 +213,7 @@ const ProjectCard = (props: iProjectCard) => {
         initial={{opacity:0, x: 50}}
         exit={{opacity:0, x: 50}}
         animate={{ opacity: 1,  x:0}}
-        className={`w-[90%] ${isExpand? 'md:w-[60%]':'md:w-[90%]'} mt-2 mb-5 style-body apply-inverse-gray text-themed-gray-t4`}
+        className={`w-full max-w-xl mt-2 mb-5 style-body apply-inverse-gray text-themed-gray-t4 text-justify`}
         >
         {props.description}
         {isExpand && props.extensionDesc}
@@ -256,7 +257,7 @@ const ProjectCard = (props: iProjectCard) => {
           transition={{ duration: 2.6, type: 'spring' }}
           initial={{ opacity:0}}
           animate={{ opacity:1 }}
-          className="w-full mt-2 mb-12 flex flex-row flex-wrap">
+          className="-translate-x-[6px] w-full mt-2 mb-12 flex flex-row flex-wrap gap-y-2">
           {props.techStach.map((v,i)=> <TechIcon key={i} icon={v.icon} displayTitle={v.displayTitle}></TechIcon>)}
         </motion.div>
       </>
@@ -270,7 +271,7 @@ const ProjectCard = (props: iProjectCard) => {
         initial={{opacity:0}}
         exit={{opacity:0}}
         animate={{opacity:1}}
-        className={`relative w-full h-[60vh] mt-4 mb-10 px-10 flex justify-center items-center ${props.widePhotoConfig}`}>
+        className={`relative w-full h-[60vw] max-h-[580px] max-w-[800px] mt-4 mb-10 px-10 flex justify-center items-center ${props.widePhotoConfig}`}>
         {props.widePhoto && <Image src={props.widePhoto} layout="fill" objectFit='contain'/>}
       </motion.div>
     )
@@ -280,22 +281,22 @@ const ProjectCard = (props: iProjectCard) => {
     return (
       <button
         onClick={() => { setIsExpand(true); }}
-        className='py-1 px-4 rounded-md bg-primary-t4 text-center text-nwhite hover:drop-shadow-sm'>
-        Expand to see more
+        className='w-28 h-9 py-1 px-4 rounded-md bg-primary-t4 text-center text-base text-nwhite hover:drop-shadow-sm'>
+        See more
       </button>
     )
   }
 
   const ToGithubCTA = () => {
     return (
-      <a href={props.githubUrl} target="_blank" className='py-[2px] px-4 rounded-md border-2 border-themed-gray-t3 text-center text-themed-gray-t6 hover:text-themed-gray-t7 hover:drop-shadow-sm transition-shadow ease-out-circ duration-300 flex flex-row items-center'>See codes
+      <a href={props.githubUrl} target="_blank" className='w-28 h-9 py-[2px] px-4 rounded-md border-2 border-themed-gray-t3 text-center text-themed-gray-t6 hover:text-themed-gray-t7 hover:drop-shadow-sm transition-shadow ease-out-circ duration-300 flex flex-row items-center'>Codes
         <IoLogoGithub className='pl-1' size={22}></IoLogoGithub>
       </a>
     )
   }
 
   const DividerForCTAs = () => {
-    return (<div className='w-[2px] h-6 rounded-2xl mx-2 bg-themed-gray-t3'></div>)
+    return (<div className='w-[1px] h-8 rounded-2xl mx-2 bg-themed-gray-t3'></div>)
   }
 
   const MinimizedUiLayout = (
@@ -320,17 +321,17 @@ const ProjectCard = (props: iProjectCard) => {
       <TechStack/>
       <ScreenWidePhoto/>
       <Description />
-      <SectionTitle className="mt-12 mb-2">Roles</SectionTitle>
+      <SectionTitle className="mt-16 mb-2">Roles</SectionTitle>
       <ChainedPost
-        className={`w-[90%] max-w-lg`}
+        className={`max-w-xl text-justify`}
         header={props.roleOverview}>
         {props.roles}
       </ChainedPost>
       {isCodeAvailable &&
-        <div className='ml-6 w-fit'><ToGithubCTA/></div>
+        <div className='ml-6 mt-2 mb-8 w-fit'><ToGithubCTA/></div>
       }
-      <div className='absolute bottom-0 left-0 w-full h-6 mb-[2%] flex items-center justify-center'>
-        <button onClick={()=> setIsExpand(false)} className='style-body text-themed-gray-t6 felx flex-row justify-center items-center hover:text-primary-t4 '>
+      <div className='absolute bottom-0 left-0 w-full h-6 mb-4 flex items-center justify-center'>
+        <button onClick={()=> setIsExpand(false)} className='style-body text-themed-gray-t6 flex flex-row justify-center items-center hover:text-primary-t4 '>
           <IoChevronUpOutline size={18} className='mx-1 float-left'/>
           minimize
         </button>
@@ -340,9 +341,9 @@ const ProjectCard = (props: iProjectCard) => {
 
   // MAIN BODY
   return (
-    <div className='relative w-full h-full max-w-7xl mb-16 px-6 pt-8 lg:pt-[5%] pb-16 lg:pb-[9%] rounded-2xl bg-themed-gray-base flex flex-col lg:flex-row items-center'>
+    <div className='relative w-full h-full max-w-7xl mb-16 px-[6%] pt-8 lg:py-20 pb-10 rounded-2xl bg-themed-gray-base flex flex-col lg:flex-row items-center'>
       {!isExpand &&
-        <div className="relative h-[60vh] w-full lg:w-[70%] max-w-[460px] overflow-visible flex justify-center items-center">
+        <div className="relative h-[70vw] max-h-[400px] w-full lg:w-[70%] max-w-[460px] overflow-visible flex justify-center items-center">
           {props.thumbnail &&
             <div className={`relative ${props.thumbnailConfig ??'w-full h-full'}`}>
               <Image src={props.thumbnail} layout="fill" objectFit='contain'/>
