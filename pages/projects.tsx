@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion'
-import React, { ElementType, ReactNode, useState } from 'react'
+import React, { useState } from 'react'
 import { IconType } from 'react-icons'
 import { IoLockClosed, IoLogoGithub, IoChevronUpOutline } from 'react-icons/io5'
 import { ChainedPost } from '../components/ChainedPost'
@@ -15,14 +15,7 @@ import ReduxLogo from '../assets/Logos/redux_logo.svg'
 import TailwindLogo from '../assets/Logos/tailwindcss_logo.svg'
 import TypeScriptLogo from '../assets/Logos/typescript_logo.svg'
 import Head from 'next/head'
-import dynamic from 'next/dynamic'
-
-const SportivityAppThumbnail: ElementType = dynamic(()=>import('../assets/Projects/sportivity_app_ip13.svg'));
-const SportivityAppMockExtnd: ElementType = dynamic(()=>import('../assets/Projects/sportivity_app_mockup.svg'));
-const SvPartnerAppThumbnail = dynamic(()=>import('../assets/Projects/sportivity_partner_thumbnail.svg'));
-const SvPartnerAppMockExtnd: ElementType = dynamic(()=>import('../assets/Projects/sportivity_partner_mockup.svg'));
-const PortfolioMockup = dynamic(()=>import('../assets/Projects/portfolio_mockup.svg'));
-const PortfolioThumbnail = dynamic(()=>import('../assets/Projects/portfolio_thumbnail.svg'));
+import Image from 'next/image'
 
 const Projects = () => {
   return (
@@ -34,12 +27,10 @@ const Projects = () => {
         <ProjectCard
           name='Sportivity Application'
           title='A sports facility booking platform with social and community features.'
-          thumbnail={
-            <SportivityAppThumbnail className="absolute top-6 left-[22%] lg:left-[4%] z-0 my-16 ml-10 max-w-[450px]"/>
-          }
-          widePhoto={
-            <SportivityAppMockExtnd className="max-w-[600px]"/>
-          }
+          thumbnail="/sportivity_thumbnail.png"
+          thumbnailConfig='absolute top-6 z-0 w-full lg:scale-125 h-full max-w-[450px] my-16 ml-10 '
+          widePhotoConfig="max-h-[400px]"
+          widePhoto="/sportivity_app_mockup.png"
           description="Mobile-first software applications – both IOS and Android users to search for a local sports facility service, reserve their facility slot and socially connect with their community or strangers with a common interest."
           extensionDesc="I started a startup company and made this project our core product. Our vision is to support diverse sports communities while providing multipurpose utilities to our target audience – sports enthusiast and casual players. This project has the potential to expand further such as the introduction of personal trainer features."
           techStach={[
@@ -76,12 +67,9 @@ const Projects = () => {
         <ProjectCard
           name="Sportivity Partner Application"
           title="A facility management software application for businesses to manage, analyze metrics, and promote their facility services."
-          thumbnail={
-            <SvPartnerAppThumbnail/>
-          }
-          widePhoto={
-            <SvPartnerAppMockExtnd className="w-[80%]"/>
-          }
+          thumbnail="/sportivity_partner_thumbnail.png"
+          widePhoto="/sportivity_partner_mockup.png"
+          widePhotoConfig="w-[80%]"
           description="This project is part of our core product's ecosystem integrated with the Sportivity Application and aims to provide robust management support for our partner's facility services needs."
           extensionDesc="The project started when the main application was at an 80% completion rate from its MVP development. Since it has a different target audience than the Sportivity Application – business owners and facility management, it was built from scratch and primarily focused on providing the solution to our partner."
           techStach={[
@@ -116,12 +104,8 @@ const Projects = () => {
         <ProjectCard
           name="Portfolio Website"
           title="My portfolio website – is 100% designed and built by myself."
-          thumbnail={
-            <PortfolioThumbnail/>
-          }
-          widePhoto={
-            <PortfolioMockup/>
-          }
+          thumbnail="/portfolio_thumbnail.png"
+          widePhoto="/portfolio_mockup.png"
           description="Here I present the best works and projects I contributed – showcasing my skills and experiences in the Tech industry. This portfolio was designed and developed by myself. I challenged myself to learn and adapt to new knowledge."
           extensionDesc="I started with learning the fundamentals of web development, relearning the UI & UX design, learning a new language, learning a new framework, and learning to copywriting. I designed this portfolio to attract both non-technical and technical audiences. There are rooms for expansion and improvements in the portfolio that I want to discover in the future."
           techStach={[
@@ -168,8 +152,10 @@ interface iProjectCard{
   isLocked?: boolean,
   status: ProjectStatus,
   githubUrl?: string,
-  thumbnail?: ReactNode,
-  widePhoto?: ReactNode,
+  thumbnail?: string,
+  thumbnailConfig?: string,
+  widePhoto?: string,
+  widePhotoConfig?: string,
 }
 
 enum ProjectStatus{
@@ -284,8 +270,8 @@ const ProjectCard = (props: iProjectCard) => {
         initial={{opacity:0}}
         exit={{opacity:0}}
         animate={{opacity:1}}
-        className='w-full mt-4 mb-10 px-10 flex justify-center items-center '>
-        {props.widePhoto}
+        className={`relative w-full h-[60vh] mt-4 mb-10 px-10 flex justify-center items-center ${props.widePhotoConfig}`}>
+        {props.widePhoto && <Image src={props.widePhoto} layout="fill" objectFit='contain'/>}
       </motion.div>
     )
   }
@@ -336,7 +322,7 @@ const ProjectCard = (props: iProjectCard) => {
       <Description />
       <SectionTitle className="mt-12 mb-2">Roles</SectionTitle>
       <ChainedPost
-        className={`w-[90%] ${isExpand? 'md:w-[45%]':'md:w-[90%]'}`}
+        className={`w-[90%] max-w-lg`}
         header={props.roleOverview}>
         {props.roles}
       </ChainedPost>
@@ -354,13 +340,17 @@ const ProjectCard = (props: iProjectCard) => {
 
   // MAIN BODY
   return (
-    <div className='relative w-full max-w-7xl mb-16 px-6 pt-8 lg:pt-[5%] pb-16 lg:pb-[9%] rounded-2xl bg-themed-gray-base flex flex-col lg:flex-row items-center'>
+    <div className='relative w-full h-full max-w-7xl mb-16 px-6 pt-8 lg:pt-[5%] pb-16 lg:pb-[9%] rounded-2xl bg-themed-gray-base flex flex-col lg:flex-row items-center'>
       {!isExpand &&
-        <div className="h-[60vh] lg:h-full w-full lg:w-[40%] max-w-[400px] overflow-visible flex justify-center items-center">
-         {props.thumbnail}
+        <div className="relative h-[60vh] w-full lg:w-[70%] max-w-[460px] overflow-visible flex justify-center items-center">
+          {props.thumbnail &&
+            <div className={`relative ${props.thumbnailConfig ??'w-full h-full'}`}>
+              <Image src={props.thumbnail} layout="fill" objectFit='contain'/>
+            </div>
+          }
         </div>
       }
-      <div className={`w-full ${!isExpand?'lg:max-w-[60%]':''} lg:pl-6`}>
+      <div className={`w-full h-full lg:pl-6`}>
         <ProjectName/>
         <ProjectTitle/>
         {isExpand ? ExpandedUiLayout : MinimizedUiLayout}
