@@ -8,16 +8,18 @@ import { GreetingsLayout } from '../components/GreetingsLayout';
 import { Provider } from 'react-redux';
 import {store} from '../redux/store';
 import { Footer } from '../components/Footer';
-import { MatrixEffect } from '../components/MatrixEffect'
 import HeaderFrame from '../components/TopFrame'
+import { AnimatePresence } from 'framer-motion'
 
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [theme, setTheme] = useState('light');
   const [loading, setLoading] = useState(false);
+  const [firstLoad, setFirstLoad] = useState(true);
 
   useEffect(() => {
     setLoading(true);
+    setFirstLoad(false);
   }, []);
 
   // set the theme on first start
@@ -54,6 +56,9 @@ function MyApp({ Component, pageProps }: AppProps) {
         <link rel="manifest" href="/site.webmanifest"></link>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
+      <AnimatePresence>
+        {firstLoad && <div className='fixed w-full h-full bg-black top-0 inset-0 z-50'></div>}
+      </AnimatePresence>
       <GreetingsLayout show={loading} onDisposeFn={() => setLoading(false)} />
       <Provider store={store}>
         <ThemeContext.Provider value={{ theme, setTheme }}>
