@@ -130,7 +130,7 @@ const Projects = () => {
           ]}
           isLocked={false}
           status={ProjectStatus.completed}
-          githubUrl="https://github.com/qarnaynsv001/qarnayn_portfolio"
+          githubUrl="https://github.com/qarnayn-dev/qarnayn_portfolio"
         />
       </div>
     </>

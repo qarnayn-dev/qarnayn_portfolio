@@ -30,10 +30,10 @@ export const ContactSection = () => {
           <ClickToCopy textToCopy="qarnaynkhairuddin@gmail.com" message="Qarnayn's email address has been copied to your clipboard.">
             <IconButton icon={IoMailOpen} title="email" tooltip="Copy email address" leftAligned/>
           </ClickToCopy>
-          <a href='https://www.linkedin.com/in/qarnaynkhairuddin' target="_blank">
+          <a href='https://www.linkedin.com/in/qarnayn' target="_blank">
             <IconButton icon={IoLogoLinkedin} title="linkedin" tooltip="Go to LinkedIn profile"/>
           </a>
-          <a href='https://github.com/qarnaynsv001' target="_blank">
+          <a href='https://github.com/qarnayn-dev' target="_blank">
             <IconButton icon={IoLogoGithub} title="github" tooltip="Go to Github profile"/>
           </a>
         </div>
