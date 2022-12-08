@@ -21,8 +21,8 @@ export const Footer = () => {
             }} />
         </div>
         <div className={`${twComp} hidden sm:flex flex-row gap-5 items-center text-neutral-600 style-small-text`}>
-            <LinkedMedia icon={IoLogoLinkedin} href="https://www.linkedin.com/in/qarnaynkhairuddin"/>
-            <LinkedMedia icon={IoLogoGithub} href="https://github.com/qarnaynsv001"/>
+            <LinkedMedia icon={IoLogoLinkedin} href="https://www.linkedin.com/in/qarnayn"/>
+            <LinkedMedia icon={IoLogoGithub} href="https://github.com/qarnayn-dev"/>
         </div>
       </div>
       <div className='w-full mt-8 style-small-text text-neutral-500'>© 2022 Qarnayn Khairuddin – all rights reserved.</div>
