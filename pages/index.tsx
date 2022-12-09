@@ -170,15 +170,34 @@ const Expertise = () => {
       <ExpertiseContainer
         graphicSrc="/schematic.png"
         title="I engineered a system architecture and ecosystem for a sports facilities booking software from zero."
-        content="Despite having zero prior experience, I found myself working in an early-stage startup where I had the chance to create the underlying system’s architecture for the product ecosystem including databases, data structures, server-side services, event handlers, system applications as well as integrations. Having limited resources forced me to always make a system design with high reliability. The biggest challenge that I faced was to design a robust ecosystem that is effective, yet maintainable and scalable. As an engineer-minded person, I am naturally curious and accustomed to viewing things from a broader perspective which I then apply to my work. Now, I am apt to engineer an efficient ecosystem with a minimal tradeoff in which the initial unique problem can be solved effectively."/>
+        content={<>
+          Despite having zero prior experience, I found myself working in an early-stage startup where I had the chance to
+          <HighlightedText>create the underlying system’s architecture for the product ecosystem including databases, data structures, server-side services, event handlers, system applications as well as integrations.</HighlightedText>
+          Having limited resources forced me to always make a system design with high reliability. The biggest challenge that I faced was to design a robust ecosystem that is effective, yet maintainable and scalable. As an engineer-minded person, I am naturally curious and accustomed to viewing things from a broader perspective which I then apply to my work. Now,
+          <HighlightedText>I am apt to engineer an efficient ecosystem with a minimal tradeoff in which the initial unique problem can be solved effectively.</HighlightedText>
+        </>} />
       <ExpertiseContainer
         graphicSrc="/mobile_dev.png"
         title="Over 7 billion people own a smartphone, so I built a mobile-first software application with my team using the Flutter framework."
-        content="Through my understanding of the statistics and trajectory of the future of technology, I decided to develop a product that focuses on smartphone usage. Since resources for an early-stage startup are scarce, my team and I adopted and learned new knowledge such as the Dart language and the Flutter framework for our company’s sports facility booking system in order to capitalise on a fast production environment. Having good critical thinking skills, it helped me to steer the project to adapt to challenges efficiently by eliminating overly risky and unreliable decisions. With this, I am ideal to aid your company to make an effective decision in such a way that it serves and solves your unique problem."/>
+        content={<>
+          Through my understanding of the statistics and trajectory of the future of technology, I decided to develop a product that focuses on smartphone usage. Since
+          <HighlightedText>resources for an early-stage startup are scarce, my team and I adopted and learned new knowledge</HighlightedText> such as the Dart language and the Flutter framework for our company’s sports facility booking system
+          <HighlightedText>in order to capitalise on a fast production environment.</HighlightedText>
+          Having good critical thinking skills, it helped me to steer the project to adapt to challenges efficiently by eliminating overly risky and unreliable decisions. With this, <HighlightedText>I am ideal to aid your company to make an effective decision in such a way that it serves and solves your unique problem.</HighlightedText>
+        </>} />
       <ExpertiseContainer
         graphicSrc="/imagination.png"
         title="Why I will never stop building things even at times when everyone else loses their passion."
-        content="When I first learned to write codes, it felt like my inner child curiosity had been revived –  I could let my imagination run wild. At the start, I had zero knowledge of coding, so I began learning by reading technical documents and starting to build projects. I have run into problems, so I learned to find solutions and started analysing the root causes. When I run out of ideas, I reach out to people and start understanding their needs. To me, the act of writing the code itself is just a small part – it is the process of learning and re-learning that I truly love as an engineer. Building any project requires brainpower and ideas from all fields of disciplines – and that is just what I desire; the growth from gaining knowledge. I will continue writing codes, solving problems, and keep on building things even without anyone asking for it. It’s a passion." />
+        content={<>
+          When I first learned to write codes,
+          <HighlightedText>it felt like my inner child curiosity had been revived –  I could let my imagination run wild.</HighlightedText>
+          At the start, I had zero knowledge of coding, so I began
+          <HighlightedText>learning by reading technical documents and starting to build projects.</HighlightedText>
+          I have run into problems, so I learned to find solutions and started analysing the root causes. When I run out of ideas, I reach out to people and start understanding their needs. To me, the act of writing the code itself is just a small part – it is the process of learning and re-learning that I truly love as an engineer.
+          <HighlightedText>Building any project requires brainpower and ideas from all fields of disciplines – and that is just what I desire; the growth from gaining knowledge.</HighlightedText>
+          I will continue writing codes, solving problems, and keep on building things even without anyone asking for it.
+          <HighlightedText>It’s a passion.</HighlightedText>
+        </>} />
       <div className='relative h-20 w-full mb-8 text-center flex justify-center
       items-center'>
         <Link href="/projects">
@@ -199,7 +218,7 @@ const Expertise = () => {
 
 interface iExpertiseContainer{
   title: string,
-  content: string,
+  content: any,
   graphicSrc?: string,
 }
 
@@ -237,5 +256,15 @@ const ExpertiseContainer = (props: iExpertiseContainer) => {
         className='w-[95%] mobile-xl:w-[90%] md:w-[86%] style-body text-themed-gray-t4 text-justify md:text-start'>{props.content}</motion.p>
       </div>
     </div>
+  )
+}
+
+const HighlightedText = (props: any) => {
+  return (
+    <>
+      &nbsp;
+      <span className='bg-primary-t5 bg-opacity-20 dark:bg-opacity-100'>{props.children}</span>
+      &nbsp;
+    </>
   )
 }
