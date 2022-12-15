@@ -1,4 +1,5 @@
-import React, { ChangeEvent, useReducer, useCallback, useState} from 'react'
+import Lottie from 'lottie-react';
+import React, { ChangeEvent, useReducer, useCallback, useState, useEffect} from 'react'
 import { IoCheckmarkCircle, IoSad } from 'react-icons/io5';
 import { useDispatch, useSelector } from 'react-redux';
 import { sendContactForm } from '../lib/api';
@@ -10,6 +11,9 @@ import ClickToCopy from './ClickToCopy';
 import PopupModal from './PopupModal';
 import { SelectableTag } from './SelectableTag';
 import { TextInputField } from './TextInputField';
+import loadingAnimation from '../assets/loading.json';
+import { AnimatePresence } from 'framer-motion';
+
 
 
 interface iContactForm{
@@ -23,8 +27,8 @@ const INITIAL_CONTACT: iContactForm = { name: "", email: "", message: "" };
 export const ContactForm = () => {
     const [formData, dispatch] = useReducer(contactFormReducer, INITIAL_CONTACT);
     const dispatchTags = useDispatch();
-    const [success, setSuccess] = useState(true);
-    const {active, fire} = useTrigger({duration: success? 2000 : 5000});
+    const [success, setSuccess] = useState<null | boolean>(null);
+    const {active, fire} = useTrigger({duration: 4000, alwaysAlive: success === null});
     const {active: cooldown, fire: initCD} = useTrigger({duration: 2000});
     const allTags: string[] = useSelector<RootState, iInterestTag[]>((state) => state.interestTags).filter((item) => item.selected).map((item) => item.title);
     const formHasData: boolean = formData.message !== '' || formData.name !== '' || formData.email !== '';
@@ -33,19 +37,30 @@ export const ContactForm = () => {
     }, []);
 
     async function onSubmit() {
-        // console.log(allTags);
         if (formData.email !== '' && formData.message !== '' && formData.name !== '')
         {
             initCD(); // to initiate the CD
+            fire(); // open the modal
             await sendContactForm({ ...formData, tags: allTags }).then((res) => {
                 if (res.status === 200) {
                     setSuccess(true);
                     resetForms();
                 }
                 else setSuccess(false);
-                fire();
-            });}
+            });
+        }
     }
+
+    // reset the result once everything has been completed
+    useEffect(() => {
+        if (success !== null) {
+            const timeout = setTimeout(() => {
+                setSuccess(null);
+            }, 4000);
+            return () => {clearTimeout(timeout);}
+        }
+    }, [success !== null])
+
 
     function validateMessage(input: string):boolean {
         return ((input === '' && !formHasData) ||input !== '' )? true: false;
@@ -179,22 +194,49 @@ enum ActionType{
 
 interface iReceipt{
     show: boolean,
-    isSuccess: boolean,
+    isSuccess: boolean | null,
 }
 
-const Receipt = (props: iReceipt) => {
 
-    return (
-        <>
-            <PopupModal isOpen={props.show} className="w-[80vw] h-[60vh] max-w-[520px] max-h-[480px] p-10 bg-themed-gray-base rounded-xl flex flex-col items-center justify-center style-body text-center">
-                {props.isSuccess?
-                    <IoCheckmarkCircle size={100} className="text-semantic-success mb-8" /> :
-                    <IoSad size={100} className="text-semantic-error mb-8" />
-                }
-                {props.isSuccess?
-                    <div>Thank you for the message. I will reach you back via email. <br/><br/> Want to stay in touch? Let's connect on LinkedIn!</div> :
-                    <div>
-                        Something went wrong.  Your message was not sent.<br /><br /> You can manually send me an email to my&nbsp;
+const Receipt = (props: iReceipt) => {
+    interface iMessage {
+        title: string, followUp: any
+    }
+
+    const Message = (msg:iMessage) => {
+        return (
+            <>
+                <div className='style-subheading'>{msg.title}</div><br/><br/>
+                <div className='style-body style-secondary w-[80%]'>{msg.followUp}</div>
+            </>
+        )
+    }
+
+    const Loading = () => {
+        return (
+            <>
+                <Lottie animationData={loadingAnimation} className='mb-8 max-w-[180px]'/>
+                <div className='style-subheading'>We're sending your message.</div>
+            </>
+        )
+    }
+
+    const SuccessWidget = () => {
+        return (
+            <>
+                <IoCheckmarkCircle size={100} className="text-semantic-success mb-8" />
+                <Message title="Thank you for the message. I will reach you back via email." followUp="Want to stay in touch? Let's connect on LinkedIn!"/>
+            </>
+        )
+    }
+
+    const FailWidget = () => {
+        return (
+            <>
+                <IoSad size={100} className="text-semantic-error mb-8" />
+                <Message title="Something went wrong.  Your message was not sent." followUp={
+                    <>
+                        You can manually send me an email to my&nbsp;
                         <ClickToCopy
                             textToCopy='qarnaynkhairuddin@gmail.com'
                             message="Email adrress has been copied to the clipboard."
@@ -203,9 +245,23 @@ const Receipt = (props: iReceipt) => {
                         email address
                         </ClickToCopy>
                         &nbsp;– click to copy.
-                    </div>
+                    </>
+                } />
+            </>
+        )
+    }
+
+    return (
+        <AnimatePresence>
+            {props.show &&
+                <PopupModal isOpen={props.show} className="w-[80vw] h-[60vh] max-w-[520px] max-h-[480px] p-10 bg-themed-gray-base rounded-xl flex flex-col items-center justify-center style-body text-center">
+                {(props.isSuccess === null) ?
+                    <Loading /> :
+                        props.isSuccess ?
+                            <SuccessWidget /> : <FailWidget />
                 }
             </PopupModal>
-        </>
+            }
+        </AnimatePresence>
     )
 }
