@@ -10,15 +10,15 @@ export const Footer = () => {
       <div className='w-full mr-4 pt-12 flex flex-row items-center'>
         <div className='w-[60vw] sm:w-[40vw] max-w-md flex flex-col'>
           <div className='mb-3 style-heading-h2 font-bold bg-gradient-to-br from-primary-base to-secondary-base text-transparent bg-clip-text drop-shadow-2xl'>Qarnayn<br />Khairuddin</div>
-          <div className='w-40 style-small-text text-neutral-300'>An Engineer who engraves ambitious visions into the design.</div>
+          <div className='w-40 style-small-text text-neutral-300'>An Engineer who engraves ambitious visions into design.</div>
         </div>
         <div className={`${twComp} flex flex-col justify-center list-none `}>
             <FooterNavItem displayName={"Home"} pathName={"/"}/>
             <FooterNavItem displayName={"Projects"} pathName={"/projects"}/>
             <FooterNavItem displayName={"Contact"} pathName={"/contacts"}/>
-            <FooterNavItem displayName={"Resume"} action={() => {
+            {/* <FooterNavItem displayName={"Resume"} action={() => {
                 // TODO: download resume
-            }} />
+            }} /> */}
         </div>
         <div className={`${twComp} hidden sm:flex flex-row gap-5 items-center text-neutral-600 style-small-text`}>
             <LinkedMedia icon={IoLogoLinkedin} href="https://www.linkedin.com/in/qarnayn"/>

@@ -77,7 +77,7 @@ const Intro = () => {
         <Lottie animationData={appDevIllustration} className='min-w-[40%] max-w-[60%] md:max-w-[46%] lg:max-w-[70%] float-right mx-6 mb-10'/>
         <div className='float-left w-full h-full flex flex-col justify-center'>
           <h2 className='mb-[2px] style-secondary style-subheading'>Hello World! I am Qarnayn</h2>
-          <h1 className='mt-2 style-heading font-semibold bg-gradient-to-br from-primary-base to-secondary-base text-transparent bg-clip-text'>An engineer who codes a designer’s boundless imagination.</h1>
+          <h1 className='mt-2 style-heading font-semibold bg-gradient-to-br from-primary-base to-secondary-base text-transparent bg-clip-text'>An engineer who codes designers' boundless imagination.</h1>
           <p className='mt-12 style-body'>Hi there 👋🏼.<br/> I am an engineer who loves to solve problems and is passionate about human behaviour. I’m working as a software developer, ideally in Front-end development. I have led a developers team, designed a full business software architecture ecosystem, engineered an efficient system architecture and more. Having an engineer's frame of mind, everything I see is somewhat a cog in the machine we call this complex world. It's the ‘how’ and ‘why’ that fascinate me every time. They are difficult and complex, but I love every single bit of it!
           </p>
         </div>
@@ -263,7 +263,7 @@ const HighlightedText = (props: any) => {
   return (
     <>
       &nbsp;
-      <span className='bg-primary-t5 bg-opacity-20 dark:bg-opacity-100'>{props.children}</span>
+      <span className='bg-primary-t5 bg-opacity-20 dark:bg-opacity-80'>{props.children}</span>
       &nbsp;
     </>
   )
