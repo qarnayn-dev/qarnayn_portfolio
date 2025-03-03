@@ -1,7 +1,9 @@
 # Portfolio Website
 
 
-**Note:** This repository is outdated since February 2023. Whenever I have free time, I will work on it.
+> **Note:** 
+> This repository is outdated since February 2023. 
+> I have plans for keep updating all the projects that I have involved in – really busy these days ~ phew
 
 Welcome to my portfolio website! This project is a _100% original design_ created using Figma. I coded it from scratch using React, TypeScript and Tailwind. I made minimal use of UI libraries to showcase my coding skills.
 
