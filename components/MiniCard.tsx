@@ -1,5 +1,5 @@
+import dynamic from 'next/dynamic';
 import {useInView} from "framer-motion";
-import Lottie from "lottie-react"
 import { useRef, useState} from "react"
 import { animated, config, easings, useSpring } from "react-spring";
 import PopupModal from "./PopupModal";
@@ -15,6 +15,9 @@ type tMiniCardExtension = {
     description: string,
     showcaseList: iShowcaseItem[],
 }
+
+const Lottie = dynamic(() => import('lottie-react'), { ssr: false });
+
 
 export const MiniCard = ({ animationData, title, extensionData }: iMiniCard) => {
     const titleRef = useRef(null);

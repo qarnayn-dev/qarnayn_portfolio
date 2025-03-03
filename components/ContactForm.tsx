@@ -1,4 +1,4 @@
-import Lottie from 'lottie-react';
+import dynamic from 'next/dynamic';
 import React, { ChangeEvent, useReducer, useCallback, useState, useEffect} from 'react'
 import { IoCheckmarkCircle, IoSad } from 'react-icons/io5';
 import { useDispatch, useSelector } from 'react-redux';
@@ -23,6 +23,8 @@ interface iContactForm{
 }
 
 const INITIAL_CONTACT: iContactForm = { name: "", email: "", message: "" };
+
+const Lottie = dynamic(() => import('lottie-react'), { ssr: false });
 
 export const ContactForm = () => {
     const [formData, dispatch] = useReducer(contactFormReducer, INITIAL_CONTACT);
