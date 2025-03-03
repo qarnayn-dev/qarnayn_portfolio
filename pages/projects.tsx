@@ -16,6 +16,8 @@ import TailwindLogo from '../assets/Logos/tailwindcss_logo.svg'
 import TypeScriptLogo from '../assets/Logos/typescript_logo.svg'
 import Head from 'next/head'
 import Image from 'next/image'
+import NoteBanner from '../components/NoteBanner'
+import Product from '../components/Product'
 
 const Projects = () => {
   return (
@@ -24,6 +26,20 @@ const Projects = () => {
         <title>Qarnayn Portfolio | projects</title>
     </Head>
     <div className='frame-bounded-x pt-32 pb-28 bg-gradient-to-tr from-primary-t4'>
+        <NoteBanner className='mb-10' title='Notes'>
+          <div >This portfolio is due for an update! In the meantime, here are two impactful projects I successfully delivered as the main developer at my current company.</div>
+          <div className='mt-1 mb-2'>As the lead developer, I successfully delivered two cross-platform mobile applications that drive efficiency and enhance user experience:</div>
+          <Product 
+            name={'Halo Telco App'} 
+            source={'/logo/halotelco_app_logo.jpg'} 
+            description='A feature-rich mobile app supporting Telco utilities, improving user engagement and service management.'>
+          </Product>
+          <Product 
+            name={'NMooMoo Merchant App'} 
+            source={'/logo/nmm_merchant_app_logo.jpg'} 
+            description='Designed for food delivery merchants, streamlining operations and enhancing customer experience.'>
+          </Product>
+        </NoteBanner>
         <ProjectCard
           name='Sportivity Application'
           title='A sports facility booking platform with social and community features.'

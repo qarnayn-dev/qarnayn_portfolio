@@ -1,9 +1,9 @@
+import dynamic from 'next/dynamic';
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import {useContext, useEffect, useRef, useState} from 'react';
 import { RevealingPage, ShadowPage } from '../components/RevealingPage';
 import { motion, useScroll} from 'framer-motion';
-import Lottie from 'lottie-react';
 import appDevIllustration from '../assets/app_dev_lottie.json';
 import walletLottie from '../assets/wallet_ani.json';
 import smileyLottie from '../assets/smily_lottie.json';
@@ -34,6 +34,7 @@ import { IconType } from 'react-icons';
 import { ScrollSnapWrapper } from '../utilities/useScrollSnap';
 import Image from 'next/image'
 
+const Lottie = dynamic(() => import('lottie-react'), { ssr: false });
 
 const Home: NextPage = () => {
   const {theme} = useContext(ThemeContext);
